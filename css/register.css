@@ -47,13 +47,13 @@ body{
 	width: 100%;
 	height: auto;
 	overflow: hidden;
-	margin-top: 45px;
+	margin-top: 20px;
 }
 .tuigu_shuru input {
 	display: block;
 	width: 100%;
 	font-size: 20px;
-	letter-spacing: 51px;
+	letter-spacing: 2.55em;
 	border: 0;
 	padding: 0 4%;
 }

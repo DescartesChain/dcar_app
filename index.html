@@ -9,32 +9,64 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
-		<!--<link rel="stylesheet" type="text/css" href="css/home.css" />-->
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>
+		<link rel="stylesheet" type="text/css" href="css/home.css" />
 	</head>
 
 	<body>
 		<nav class="mui-bar mui-bar-tab" id="footer">
 			<a id="defaultTab" class="mui-tab-item mui-active" href="pages/home.html">
-				<div><span class="iconfont icon-home"></span></div>
+				<div class="img_box">
+					<img src="img/home/icon_homepage0.png" alt="" />
+					<!--<img src="img/home/icon_homepage1.png" alt="" />-->
+				</div>
 				<span class="mui-tab-label">首页</span>
 			</a>
 			<a id="shangxueyuan" class="mui-tab-item" href="pages/cate.html">
-				<div><span class="iconfont icon-cascades"></span></div>
+				<div class="img_box">
+					<img src="img/home/icon_quotation0.png" alt="" />
+					<!--<img src="img/home/icon_quotation1.png" alt="" />-->
+				</div>
 				<span class="mui-tab-label">行情</span>
 			</a>
 			<a id="gongqiu" class="mui-tab-item" href="pages/cart.html">
-				<div> <span class="iconfont icon-cart" style="position:relative ;"><span class="gwcnum" style="color: #FFFFFF;">0</span></span></div> 
+				<div class="img_box">
+					<img src="img/home/icon_transaction0.png" alt="" />
+					<!--<img src="img/home/icon_transaction1.png" alt="" />-->
+				</div>
 				<span class="mui-tab-label">资产</span>
 			</a>
 
 			<a class="mui-tab-item" href="pages/my.html">
-				<div> <span class="iconfont icon-people"></span></div>
+				<div class="img_box">
+					<img src="img/home/icon_mine0.png" alt="" />
+					<!--<img src="img/home/icon_mine1.png" alt="" />-->
+				</div>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
 	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/jquery-2.1.1.min.js"></script>
+	<script src="js/benben.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="UTF-8">
+		mui.init();
+		ca.init();
+		// 创建子页面
+		var pathArray = ['pages/home.html'];
+		ca.tabBar(pathArray)
+//		$(document).ready(function() {　　
+//			console.log($('.mui-tab-item').is('.mui-active'))
+//			if ($('.mui-tab-item').is('.mui-active')){
+//				$('.mui-active>div>img:nth-child(1)').css('display','none')
+//				$('.mui-active>div>img:nth-child(2)').css('display','inline-block')
+//			} 
+//			if ($('.mui-tab-item').is('.mui-active')== false){
+//				$('.mui-tab-item>div>img:nth-child(1)').css('display','inline-block')
+//				$('.mui-tab-item>div>img:nth-child(2)').css('display','none')
+//			}
+//
+//		});
+	</script>
 
 </html>

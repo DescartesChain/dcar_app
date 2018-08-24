@@ -1,0 +1,17 @@
+.mui-bar-tab .mui-tab-item{
+	height:52px;
+}
+.mui-bar-tab .mui-tab-item.mui-active{
+	color:#4384c5;
+}
+.mui-bar{
+	box-shadow: none;
+	border-top:1px solid #e5e5e5;
+}
+.img_box>img{
+	height:20px;
+	margin-bottom:2px;
+}
+.mui-slider .mui-slider-group .mui-slider-item{
+	height:225px;
+}

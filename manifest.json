@@ -125,5 +125,46 @@
 				}
 			}
 		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"pages/home.html"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"js/jquery-2.1.1.min.js",
+				"img/img_DCAR1@2x.png",
+				"img/home/icon_mine0.png",
+				"img/home/icon_quotation1.png",
+				"js/common.js",
+				"js/mui.min.js",
+				"css/iconfont.css",
+				"js/mui.js",
+				"README.md",
+				"img/img_DCAR1@3x.png",
+				"img/home/icon_mine1.png",
+				"img/home/icon_transaction1.png",
+				"fonts/mui.ttf",
+				"css/style.css",
+				"img/img_DCAR1.png",
+				"img/home/icon_homepage1.png",
+				"css/mui.css",
+				"css/home.css",
+				"pages/test.html",
+				"img/home/icon_quotation0.png",
+				"img/home/icon_transaction0.png",
+				"css/mui.min.css",
+				"users/test.html",
+				"public/test.html",
+				"js/benben.js",
+				"img/home/icon_homepage0.png"
+			]
+		}
 	}
 }

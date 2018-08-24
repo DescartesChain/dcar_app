@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>注册</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/register.css"/>
@@ -29,11 +29,28 @@
 				<span></span>
 				<span></span>
 		    </div>
-			<button type="button" class="mui-btn mui-btn-primary" >下一步</button>
+		    <p class="send_code">发送验证码</p>
+			<button type="button" class="mui-btn mui-btn-primary cannot" id="next">下一步</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			$("#title").keyup(function() {
+			    if ($("#title").val().length >= 6) {
+			        $("#title").val($("#title").val().substring(0, 6));
+			        $("#title").blur();
+			        $("#next").removeClass("cannot");
+			        $("#next").addClass("can");
+			    } else {
+			    	$("#next").removeClass("can");
+			        $("#next").addClass("cannot");
+			    }
+			});
+			$("#next").on("click", function () {
+				if ($("#next").is(".cannot")){
+					return false
+				}
+			})
 		</script>
 	</body>
 

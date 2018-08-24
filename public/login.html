@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>登录</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
@@ -20,21 +20,32 @@
 			</div>
 			<form class="login_info">
 				<div class="mui-input-row">
-					<input type="text" class="mui-input-clear" placeholder="请输入邮箱">
+					<input type="text" class="mui-input-clear" placeholder="请输入邮箱" id="email">
 				</div>
 				<div class="mui-input-row">
-					<input type="password" class="mui-input-password" placeholder="请输入密码">
+					<input type="password" class="mui-input-password" placeholder="请输入密码" id="pass">
 				</div>
 				<div class="other_operations">
 					<p>忘记密码？</p>
-					<p>没有账号，去注册</p>
+					<p url="/public/register.html">没有账号，去注册</p>
 				</div>
-				<button type="button" class="mui-btn mui-btn-primary" >登录</button>
+				<button type="button" class="mui-btn mui-btn-primary cannot" id="sign">登录</button>
 			</form>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
+			$("#email, #pass").keyup(function() {
+				if ($("#email").val() != '' &&  $("#pass").val() != ''){
+					$("#sign").removeClass("cannot");
+			        $("#sign").addClass("can");
+				} else {
+					$("#sign").removeClass("can");
+			        $("#sign").addClass("cannot");
+				}
+			})
+			
 		</script>
 	</body>
 

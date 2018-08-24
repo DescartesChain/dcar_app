@@ -42,10 +42,10 @@ body{
 .login_info button{
 	width: 100%;
 	height: 40px;
-	background: 4384c5;
 	font-size: 18px;
 	color: #fff;
 	margin-top: 45px;
+	border: 0;
 }
 .other_operations{
 	width: 100%;
@@ -60,4 +60,10 @@ body{
 }
 .other_operations p:last-child{
 	float: right;
+}
+.can{
+	background: #4384c5;
+}
+.cannot{
+	background: #bfd7ee;
 }

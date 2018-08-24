@@ -1,0 +1,63 @@
+body{
+	background: #fff;
+}
+.mui-title{
+	color: #333;
+}
+.mui-bar-nav{
+	box-shadow: 0 0 0 #000;
+	border-bottom: 1px solid #ECECEC;
+	color: #333;
+	background: #fff;
+}
+.mui-bar .mui_cliclk{
+	font-size: 14px;
+	color: #333;
+	line-height: 44px;
+}
+.login_page{
+	background: #fff;
+}
+.logo_box{
+	padding: 29px 128px;
+}
+.logo{
+	display: block;
+	width: 100%;
+	margin: 0 auto;
+}
+.login_info{
+	padding: 10px 30px;;
+	border: 0;
+	background: rgba(0,0,0,0);
+}
+.login_info input{
+	height: 40px;
+	line-height: 40px;
+	border: 0;
+	border-bottom: 1px solid #bcbcbc;
+	font-size: 14px;
+	color: #999;
+}
+.login_info button{
+	width: 100%;
+	height: 40px;
+	background: 4384c5;
+	font-size: 18px;
+	color: #fff;
+	margin-top: 45px;
+}
+.other_operations{
+	width: 100%;
+	overflow: hidden;
+}
+.other_operations p{
+	font-size: 12px;
+	color: #4384c5;
+}
+.other_operations p:first-child{
+	float: left;
+}
+.other_operations p:last-child{
+	float: right;
+}

@@ -132,7 +132,26 @@
 				"resources": [
 					"pages/home.html"
 				],
-				"refer": [],
+				"refer": [
+					"pages/property.html",
+					"pages/mine.html",
+					"pages/market.html"
+				],
+				"priority": 0
+			},
+			"pages/home.html": {
+				"resources": [],
+				"refer": [
+					"public/notice.html",
+					"public/login.html"
+				],
+				"priority": 0
+			},
+			"public/login.html": {
+				"resources": [],
+				"refer": [
+					"public/register.html"
+				],
 				"priority": 0
 			}
 		},

@@ -28,21 +28,21 @@
 		</div>
 		<div class="operation_list">
 			<ul class="list">
-				<li>
+				<li class="newact" url="/users/invite.html">
 					<img src="../img/mine/icon_invitation.png"/>
 					<p>邀请有礼</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
-				<li>
+				<li class="newact" url="/public/about.html">
 					<img src="../img/mine/icon_about.png"/>
 					<p>关于我们</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
-				<li>
+				<li id="cleanCach">
 					<img src="../img/mine/icon_clear.png"/>
 					<p>清理缓存</p>
 				</li>
-				<li>
+				<li class="newact" url="/users/opinion.html">
 					<img src="../img/mine/icon_opinion.png"/>
 					<p>意见反馈</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
@@ -54,6 +54,16 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			var state = 1;
+			function detection() {
+				if (state == 1) {
+					mui.toast('您还未登录，请先登录',{ duration: 4000, type:'div' })
+				}
+			}
+			$("#cleanCach").on("click", function() {
+				mui.toast('缓存清理完成',{ duration: 2000, type:'div' })
+			})
+			detection()
 			mui.init()
 		</script>
 	</body>

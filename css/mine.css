@@ -1,0 +1,80 @@
+body{
+	background: #fff;
+}
+.header{
+	background: #4384c5;
+	width: 100%;
+	overflow: hidden;
+}
+.portrait{
+	width: 75px;
+	height: 75px;
+	margin: 40px auto 0 auto;
+}
+.portrait img{
+	width: 100%;
+}
+.header p{
+	color: #333;
+	font-size: 16px;
+	text-align: center;
+	padding: 9px 0;
+}
+.content{
+	padding: 20px 85px 0 85px;
+	overflow: hidden;
+	border-bottom: 5px solid #e5e5e5;
+}
+.content .means{
+	float: left;
+}
+.content .means img{
+	height: 65px;
+}
+.content .means p{
+	color: #333;
+	font-size: 16px;
+	padding: 18px 0;
+}
+.content .manage{
+	float: right;
+}
+.content .manage img{
+	height: 65px;
+}
+.content .manage p{
+	color: #333;
+	font-size: 16px;
+	padding: 18px 0;
+}
+.operation_list{
+	padding: 0 30px;
+}
+.list{
+	width: 100%;
+	padding: 0;
+}
+.list li{
+	list-style: none;
+	border-bottom: 1px solid #bcbcbc;
+	padding: 0 5px;
+	height: 46px;
+	line-height: 46px;
+	overflow: hidden;
+}
+.list li img{
+	float: left;
+	height: 22px;
+	margin: 12px 5px;
+}
+.list li p{
+	float: left;
+	font-size: 16px;
+	color: #666;
+	padding-left: 10px;
+}
+.list li span{
+	float: right;
+	margin-top: 10px;
+	color: #666;
+}

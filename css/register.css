@@ -18,7 +18,7 @@ body{
 	background: #fff;
 }
 .between h4{
-	font-size: 24px;
+	font-size: 26px;
 	color: #333;
 	font-weight: 500;
 	margin-top: 45px;
@@ -31,14 +31,14 @@ body{
 	line-height: 40px;
 	border: 0;
 	border-bottom: 1px solid #bcbcbc;
-	font-size: 14px;
+	font-size: 16px;
 	color: #999;
 	padding: 10px;
 }
 .between button{
 	width: 100%;
 	height: 40px;
-	font-size: 18px;
+	font-size: 20px;
 	color: #fff;
 	margin-top: 45px;
 	border: 0;
@@ -63,7 +63,7 @@ body{
 .tuigu_shuru input {
 	display: block;
 	width: 100%;
-	font-size: 20px;
+	font-size: 22px;
 	letter-spacing: 3.2rem;
 	border: 0;
 	padding: 0 4%;
@@ -82,6 +82,7 @@ body{
 	text-align: right;
 	color: #4384c5;
 	margin-top: 15px;
+	font-size: 14px;
 }
 .can{
 	background: #4384c5;

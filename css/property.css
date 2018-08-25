@@ -1,6 +1,91 @@
-.mui-bar{
+.mui-bar {
 	background: #fff;
 }
-.property_main{
+
+.property_main {
 	background: #fff;
+	padding: 15px;
+	min-height: 100vh;
+}
+
+.property_card>span {
+	padding: 12px 30px;
+	border-radius: 6px;
+	color: #fff;
+	border: 1px solid #fff;
+	font-size: 17px;
+}
+
+.property_card {
+	text-align: center;
+	margin: 15px 0;
+	border-radius: 8px;
+	height: 150px;
+	line-height: 150px;
+}
+
+.card_one {
+	margin: 15px 0;
+	border-radius: 8px;
+	height: 150px;
+	padding:15px 0;
+}
+.card_one>div:nth-child(1){
+	text-align: center;
+}
+.card_one>div:nth-child(1)>img{
+	margin-top:20px;
+	width:75%;
+}
+.card_one>div:nth-child(2)>div{
+	line-height: 30px;
+	height:30px;
+	color:#fff;
+	overflow: hidden;
+}
+.card_one>div:nth-child(2)>div:nth-child(2){
+	font-size:25px;
+}
+.card_one>div:nth-child(3)>p{
+	color:#fff;
+	text-align: center;
+	line-height: 50px;
+	height:50px;
+}
+.card_one>div:nth-child(3)>p>span{
+	border:1px solid #fff;
+	padding:5px 13px;
+	border-radius: 5px;
+}
+.blue_bg {
+	background: -webkit-linear-gradient(left top, #4586C6, #609EDB);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(bottom right, #4586C6, #609EDB);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(bottom right, #4586C6, #609EDB);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to bottom right, #4586C6, #609EDB);
+	/* 标准的语法 */
+}
+
+.yellow_bg {
+	background: -webkit-linear-gradient(left top, #FFAA07, #FDBE44);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(bottom right, #FFAA07, #FDBE44);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(bottom right, #FFAA07, #FDBE44);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to bottom right, #FFAA07, #FDBE44);
+	/* 标准的语法 */
+}
+
+.black_bg {
+	background: -webkit-linear-gradient(left top, #464647, #828282);
+	/* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(bottom right, #464647, #828282);
+	/* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(bottom right, #464647, #828282);
+	/* Firefox 3.6 - 15 */
+	background: linear-gradient(to bottom right, #464647, #828282);
+	/* 标准的语法 */
 }

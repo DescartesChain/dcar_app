@@ -73,7 +73,31 @@
 					</div>
 				</a>
 			</li>
-			<li class="mui-table-view-cell mui-media newact" id="login">
+			<li class="mui-table-view-cell mui-media newact" url="/public/notice.html">
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-left" src="../img/home/list_icon.png">
+					<div class="mui-media-body">
+						<p class="list_title">
+							<span>Bithumb</span>
+							<span>2018-03-09 15:00</span>
+						</p>
+						<p class='mui-ellipsis'>比特币黄金（BTG）网络升级指南比特币黄金（BTG）网络升级指南比特币黄金（BTG）网络升级指南</p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media newact" url="/public/notice.html">
+				<a href="javascript:;">
+					<img class="mui-media-object mui-pull-left" src="../img/home/list_icon.png">
+					<div class="mui-media-body">
+						<p class="list_title">
+							<span>Bithumb</span>
+							<span>2018-03-09 15:00</span>
+						</p>
+						<p class='mui-ellipsis'>比特币黄金（BTG）网络升级指南比特币黄金（BTG）网络升级指南比特币黄金（BTG）网络升级指南</p>
+					</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media" id="login">
 				<a href="javascript:;">
 					<img class="mui-media-object mui-pull-left" src="../img/home/list_icon.png">
 					<div class="mui-media-body">
@@ -117,25 +141,17 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
-			mui.plusReady(function(){
-				var slider = mui("#slider");
-				document.getElementById("switch").addEventListener('toggle', function(e) {
-					if(e.detail.isActive) {
-						slider.slider({
-							interval: 5000
-						});
-					} else {
-						slider.slider({
-							interval: 0
-						});
-					}
+			mui.plusReady(function() {
+				var gallery = mui('.mui-slider');
+				gallery.slider({
+					interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
 				});
-				$("#login").on("click", function(){
+				$("#login").on("click", function() {
 					mui.openWindow({
-						url : '/public/login.html',
-						id : '/public/login.html',
-						waiting : {
-							autoShow : false,
+						url: '/public/login.html',
+						id: '/public/login.html',
+						waiting: {
+							autoShow: false,
 						}
 					})
 				})

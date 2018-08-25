@@ -1,24 +1,24 @@
 {
-	"index.html": {
-		"resources": [
-			"pages/home.html"
-		],
-		"refer": [
-			"pages/home.html",
-			"pages/property.html",
-			"pages/mine.html",
-			"pages/market.html"
-		]
-	},
-	"pages/home.html": {
-		"refer": [
-			"public/notice.html",
-			"public/login.html"
-		]
-	},
-	"public/login.html": {
-		"refer": [
-			"public/register.html"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "pages/home.html"
+    ],
+    "refer": [
+      "pages/home.html",
+      "pages/property.html",
+      "pages/mine.html",
+      "pages/market.html"
+    ]
+  },
+  "pages/home.html": {
+    "refer": [
+      "public/notice.html",
+      "public/login.html"
+    ]
+  },
+  "public/login.html": {
+    "refer": [
+      "public/register.html"
+    ]
+  }
 }

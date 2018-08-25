@@ -164,7 +164,8 @@
 			"property/account-main.html": {
 				"resources": [],
 				"refer": [
-					"property/account-info.html"
+					"property/account-info.html",
+					"property/wallet-address.html"
 				],
 				"priority": 0
 			},

@@ -33,7 +33,7 @@
 				当前余额：<span class="orange_text">2566.00</span> DCAR
 			</div>
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" onclick="wallet_address()">
 					<a class="mui-navigate-right">
 						钱包地址
 					</a>
@@ -82,6 +82,16 @@
 				mui.openWindow({
 					id: "../property/account-info.html",
 					url: "../property/account-info.html",
+					extras: {
+						targetId: '1',
+					},
+				})
+			}
+			// 跳转到钱包地址
+			function wallet_address() {
+				mui.openWindow({
+					id: "../property/wallet-address.html",
+					url: "../property/wallet-address.html",
 					extras: {
 						targetId: '1',
 					},

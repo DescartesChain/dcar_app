@@ -18,7 +18,7 @@
 	height: 40px;
 	line-height:40px;
 	font-size: 16px;
-	color: #fff;
+	color: #fff;	
 	margin-top: 10px;
 	border: 0;
 	background: #4384c5;
@@ -27,4 +27,16 @@
 	width:93%;
 	margin: 0 auto;
 	border-radius: 5px;
+}
+.address_box{
+	border:1px solid #F0F0F0;
+	border-radius: 5px;
+	width:93%;
+	margin: 0 auto;
+	padding:8px 40px;
+	text-align: center;
+	font-size: 14px;
+	overflow: hidden;
+	margin-bottom:50px;
+	margin-top:10px;
 }

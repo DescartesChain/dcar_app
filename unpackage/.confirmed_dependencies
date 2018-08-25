@@ -28,7 +28,8 @@
 	},
 	"property/account-main.html": {
 		"refer": [
-			"property/account-info.html"
+			"property/account-info.html",
+			"property/wallet-address.html"
 		]
 	},
 	"pages/mine.html": {

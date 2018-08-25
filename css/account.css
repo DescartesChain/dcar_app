@@ -1,7 +1,158 @@
-.mui-table-view-cell{
-	padding:13px 15px;
+.mui-table-view-cell {
+	padding: 13px 15px;
 }
-.mui-table-view-cell>a:not(.mui-btn){
+
+.mui-table-view-cell>a:not(.mui-btn) {
+	font-size: 15px;
+	color: #333;
+}
+
+.img_box {
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 15px;
+}
+
+.img_box>img {
+	border: 1px solid #eaeaea;
+	border-radius: 50%;
+	box-shadow: 0 0 3px 3px #eaeaea;
+	height: 70px;
+}
+
+.wallet_title {
+	font-size: 16px;
+	color: #4384C5;
+	text-align: center;
+	font-weight: bold;
+}
+
+.wallet_address {
 	font-size: 13px;
-	color:#333;
+	color: #737373;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 25px;
+}
+
+.dcar_money {
+	font-size: 14px;
+	text-align: center;
+	padding-bottom: 20px;
+	overflow: hidden;
+}
+
+.orange_text {
+	color: #E66D42;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.green_text {
+	color: #19C28C;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.mui-badge {
+	background: #fff;
+	font-size: 14px;
+}
+
+.account_head>img {
+	height: 35px;
+}
+
+.mui-content>.mui-card:first-child {
+	margin: 0 15px;
+}
+
+.mui-card {
+	margin: 0 15px;
+	box-shadow: none;
+	border-bottom: 1px solid #DADADD;
+}
+
+.complete_btn {
+	position: absolute;
+	top: 13px;
+	right: 15px;
+	font-size: 15px;
+}
+
+.search_box {
+	margin: 15px;
+}
+
+.mui-input-clear {
+	font-size: 15px;
+}
+
+.mui-plus .plus {
+	display: inline;
+}
+
+.plus {
+	display: none;
+}
+
+#topPopover {
+	position: fixed;
+	top: 16px;
+	right: 6px;
+}
+
+#topPopover .mui-popover-arrow {
+	left: auto;
+	right: 6px;
+}
+
+p {
+	text-indent: 22px;
+}
+
+span.mui-icon {
+	font-size: 14px;
+	color: #007aff;
+	margin-left: -15px;
+	padding-right: 10px;
+}
+
+.mui-popover {
+	width: 85%;
+	min-height: 380px;
+	background: #F0F0F0;
+}
+
+.modal_title {
+	text-align: center;
+	color: #333;
+	font-size: 15px;
+	padding: 15px 0;
+}
+
+.all_head>div {
+	text-align: center;
+	margin: 12px 0;
+}
+
+.all_head>div>img {
+	width: 50%;
+}
+
+.mui-popover-arrow {
+	display: none;
+}
+
+.modal_footer {
+	text-align: center;
+	color: #333;
+	font-size: 15px;
+	padding: 15px 0;
+	margin-top: 20px;
+}
+.modal_footer>span{
+	border:1px solid #DEDEDE;
+	padding:7px 50px;
+	border-radius: 3px;
 }

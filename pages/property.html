@@ -6,6 +6,7 @@
 		<title>资产</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../css/property.css" />
 	</head>
 
@@ -25,7 +26,7 @@
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
-			<div class="blue_bg card_one mui-row">
+			<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -44,7 +45,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="yellow_bg card_one mui-row">
+			<div class="yellow_bg card_one mui-row" onclick="go_detail('ETH')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -55,7 +56,7 @@
 					<div>0xbsdakdhkdsidusidshhskkh</div>
 				</div>
 			</div>
-			<div class="black_bg card_one mui-row">
+			<div class="black_bg card_one mui-row" onclick="go_detail('BTC')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -68,10 +69,24 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<!--<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>-->
 		<script type="text/javascript">
 			mui.init()
+			//打开详情页
+			function go_detail(state) {
+				mui.openWindow({
+					id: "account-main.html",
+					url: "../property/account-main.html",
+					extras: {
+						targetId: state,
+					},
+					show: {
+						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+					},
+				})
+			}
 		</script>
 	</body>
 

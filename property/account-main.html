@@ -13,11 +13,24 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">DCAR-Wallet</h1>
+			<h1 class="mui-title account_title"></h1>
 		</header>
 		<div class="mui-content">
-			<div class="">
+			<div class="img_box" onclick="account_info()">
 				<img src="../img/property/wallet.png" alt="" />
+			</div>
+			<div class="wallet_title account_title"></div>
+			<div class="wallet_address">nshsaidyia...akhasduaydsy</div>
+			<div class="mui-row dcar_money" id="showAll">
+				<div class="mui-col-sm-6 mui-col-xs-6">
+					当前余额：<span class="orange_text">2566.00</span> DCAR
+				</div>
+				<div class="mui-col-sm-6 mui-col-xs-6">
+					矿收：<span class="green_text">2866.00</span> DCAR
+				</div>
+			</div>
+			<div class="dcar_money" id="showHalf">
+				当前余额：<span class="orange_text">2566.00</span> DCAR
 			</div>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell">
@@ -43,8 +56,37 @@
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				targetId = self.targetId;
+				// 判断钱包类型
+				if(targetId == 'dcar') {
+					$('.account_title').html('DCAR-Wallet');
+					$('#showAll').show();
+					$('#showHalf').hide();
+				} else if(targetId == 'ETH') {
+					$('.account_title').html('ETH-Wallet');
+					$('#showAll').hide();
+					$('#showHalf').show();
+				} else if(targetId == 'BTC') {
+					$('.account_title').html('BTC-Wallet');
+					$('#showAll').hide();
+					$('#showHalf').show();
+				}
+			})
+			// 点击头像跳转到账户信息
+			function account_info() {
+				mui.openWindow({
+					id: "../property/account-info.html",
+					url: "../property/account-info.html",
+					extras: {
+						targetId: '1',
+					},
+				})
+			}
 		</script>
 	</body>
 

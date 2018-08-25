@@ -153,6 +153,34 @@
 					"public/register.html"
 				],
 				"priority": 0
+			},
+			"pages/property.html": {
+				"resources": [],
+				"refer": [
+					"property/account-main.html"
+				],
+				"priority": 0
+			},
+			"property/account-main.html": {
+				"resources": [],
+				"refer": [
+					"property/account-info.html"
+				],
+				"priority": 0
+			},
+			"pages/mine.html": {
+				"resources": [],
+				"refer": [
+					"users/invite.html"
+				],
+				"priority": 0
+			},
+			"property/account-info.html": {
+				"resources": [],
+				"refer": [
+					"property/account-title.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

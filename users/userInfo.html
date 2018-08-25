@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/userInfo.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">个人信息</h1>
+		</header>
+		<div class="mui-content between">
+			<ul>
+				<li>
+					<h6>头像</h6>
+					<span class="mui-icon mui-icon-arrowright"></span>
+					<div class="portrait"></div>
+				</li>
+				<li class="newact" url="/users/alterUserName.html">
+					<h6>用户名</h6>
+					<span class="mui-icon mui-icon-arrowright"></span>
+					<p>ID9527</p>
+				</li>
+				<li>
+					<h6>邮箱</h6>
+					<p>132***@163.com</p>
+				</li>
+				<li class="newact" url="/users/alterPassword.html">
+					<h6>修改密码</h6>
+					<span class="mui-icon mui-icon-arrowright"></span>
+				</li>
+			</ul>
+			<button type="button" class="mui-btn mui-btn-primary cannot" id="signOut">退出登录</button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

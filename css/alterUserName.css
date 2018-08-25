@@ -1,0 +1,9 @@
+.search_box {
+	margin: 15px;
+}
+.complete_btn {
+	position: absolute;
+	top: 13px;
+	right: 15px;
+	font-size: 15px;
+}

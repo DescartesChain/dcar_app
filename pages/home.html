@@ -73,7 +73,7 @@
 					</div>
 				</a>
 			</li>
-			<li class="mui-table-view-cell mui-media newact" url="/public/login.html">
+			<li class="mui-table-view-cell mui-media newact" id="login">
 				<a href="javascript:;">
 					<img class="mui-media-object mui-pull-left" src="../img/home/list_icon.png">
 					<div class="mui-media-body">
@@ -117,18 +117,29 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
-			var slider = mui("#slider");
-			document.getElementById("switch").addEventListener('toggle', function(e) {
-				if(e.detail.isActive) {
-					slider.slider({
-						interval: 5000
-					});
-				} else {
-					slider.slider({
-						interval: 0
-					});
-				}
-			});
+			mui.plusReady(function(){
+				var slider = mui("#slider");
+				document.getElementById("switch").addEventListener('toggle', function(e) {
+					if(e.detail.isActive) {
+						slider.slider({
+							interval: 5000
+						});
+					} else {
+						slider.slider({
+							interval: 0
+						});
+					}
+				});
+				$("#login").on("click", function(){
+					mui.openWindow({
+						url : '/public/login.html',
+						id : '/public/login.html',
+						waiting : {
+							autoShow : false,
+						}
+					})
+				})
+			})
 		</script>
 	</body>
 

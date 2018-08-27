@@ -6,6 +6,8 @@
 		<title>我的</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
 		<link rel="stylesheet" type="text/css" href="../css/mine.css"/>
 	</head>
 
@@ -16,34 +18,46 @@
 			</div>
 			<p class="newact" url="/public/login.html">登录与注册</p>
 		</div>
-		<div class="content">
-			<div class="means">
+		<div class="content operation_list">
+			<ul class="list">
+				<li class="newact" url="/users/invite.html">
+					<i class="iconfont icon-zichan"></i>
+					<p>我的资产</p>
+					<span class="mui-icon mui-icon-arrowright"></span>
+				</li>
+				<li class="newact" url="/public/about.html">
+					<i class="iconfont icon-shebeiguanli" style="font-size: 18px;"></i>
+					<p>矿机管理</p>
+					<span class="mui-icon mui-icon-arrowright"></span>
+				</li>
+			</ul>
+			<!--<div class="means">
 				<img src="../img/mine/icon_assets.png"/>
 				<p>我的资产</p>
 			</div>
 			<div class="manage">
 				<img src="../img/mine/icon_miner.png"/>
 				<p>矿机管理</p>
-			</div>
+			</div>-->
 		</div>
 		<div class="operation_list">
 			<ul class="list">
 				<li class="newact" url="/users/invite.html">
-					<img src="../img/mine/icon_invitation.png"/>
+					<i class="iconfont icon-yaoqing"></i>
 					<p>邀请有礼</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
 				<li class="newact" url="/public/about.html">
-					<img src="../img/mine/icon_about.png"/>
+					<i class="iconfont icon-guanyuwomen"></i>
 					<p>关于我们</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
 				<li id="cleanCach">
-					<img src="../img/mine/icon_clear.png"/>
+					<i class="iconfont icon-delete_rubbish"></i>
 					<p>清理缓存</p>
 				</li>
 				<li class="newact" url="/users/opinion.html">
-					<img src="../img/mine/icon_opinion.png"/>
+					<i class="iconfont icon-yijianfankui"></i>
 					<p>意见反馈</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>

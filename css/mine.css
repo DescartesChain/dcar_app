@@ -1,5 +1,5 @@
 body{
-	background: #fff;
+	background: #f7f7f7;
 }
 .header{
 	background: #4384c5;
@@ -21,9 +21,9 @@ body{
 	padding: 9px 0;
 }
 .content{
-	padding: 20px 85px 0 85px;
-	overflow: hidden;
-	border-bottom: 5px solid #e5e5e5;
+	background: #fff;
+	margin-top: 20px;
+	/*border-bottom: 5px solid #e5e5e5;*/
 }
 .content .means{
 	float: left;
@@ -48,7 +48,9 @@ body{
 	padding: 18px 0;
 }
 .operation_list{
-	padding: 0 30px;
+	padding: 0 0 0 10px;
+	background: #fff;
+	margin-bottom: 20px;
 }
 .list{
 	width: 100%;
@@ -62,10 +64,13 @@ body{
 	line-height: 46px;
 	overflow: hidden;
 }
-.list li img{
+.list li:last-child{
+	border-bottom: 0;
+}
+.list li i{
 	float: left;
-	height: 22px;
-	margin: 12px 5px;
+	color: #666;
+	font-size: 22px;
 }
 .list li p{
 	float: left;

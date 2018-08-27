@@ -16,9 +16,8 @@
 	color:#333;
 	font-weight: bold;
 }
-.img_box>img {
-	height: 20px;
-	margin-bottom: 2px;
+.img_box>i {
+	font-size: 24px;
 }
 
 .mui-slider .mui-slider-group .mui-slider-item {

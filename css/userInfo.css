@@ -1,5 +1,5 @@
 .between{
-	padding: 0 35px;
+	padding: 0 0 0 10px;
 }
 .between{
 	margin: 10px 0;
@@ -35,12 +35,18 @@
 	margin-left: 4px;
 	margin-top: 12px;
 }
-.between button{
+.btn{
+	/*padding: 0 35px;
+	margin-top: 85px;*/
 	width: 100%;
-	height: 40px;
+	position: fixed;
+	bottom: 0;
+}
+.btn button{
+	width: 100%;
+	height: 50px;
 	font-size: 18px;
 	color: #fff;
-	margin-top: 85px;
 	background: #E66D42;
 	border: 0;
 }

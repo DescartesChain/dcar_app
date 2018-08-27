@@ -34,6 +34,7 @@ body{
 	font-size: 16px;
 	color: #999;
 	padding: 10px;
+	border-radius: 0;
 }
 .between button{
 	width: 100%;

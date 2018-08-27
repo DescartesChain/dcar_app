@@ -38,6 +38,7 @@ body{
 	border-bottom: 1px solid #bcbcbc;
 	font-size: 14px;
 	color: #999;
+	border-radius: 0;
 }
 .login_info button{
 	width: 100%;

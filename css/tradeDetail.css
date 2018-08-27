@@ -1,0 +1,70 @@
+.title{
+	overflow: hidden;
+	padding: 0 10px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.title p:first-child{
+	font-size: 15px;
+	color: #999;
+	float: left;
+	line-height: 60px;
+}
+.title p:last-child{
+	float: right;
+	font-size: 24px;
+	color: #333;
+	line-height: 60px;
+}
+.title p span{
+	font-size: 15px;
+	float: left;
+	margin-right: 15px;
+}
+.main{
+	padding: 15px 10px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.main ul{
+	overflow: hidden;
+}
+.main ul li{
+	font-size: 15px;
+	overflow: hidden;
+	padding: 15px 0;
+}
+.main ul li:first-child{
+	float: left;
+	color: #999;
+}
+.main ul li:first-child p{
+	text-align: left;
+}
+.main ul li p span{
+	margin-right: 10px;
+}
+.main ul li:last-child{
+	float: right;
+}
+.main ul li:last-child p{
+	text-align: right;
+	color: #333;
+}
+.main ul:first-child{
+	position: relative;
+}
+.main ul li:last-child p:last-child{
+	position: absolute;
+	right: 0;
+}
+/*买入*/
+.purchase{
+	color: #08c087 !important;
+}
+/*卖出*/
+.sellout{
+	color: #e66d42 !important;
+}
+/*矿收*/
+.ore{
+	color: #4384c5 !important;
+}

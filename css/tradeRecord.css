@@ -1,0 +1,48 @@
+.record{
+	padding: 0 15px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.record .time{
+	font-size: 15px;
+	color: #999;
+	padding: 10px 0;
+}
+.detail{
+	overflow: hidden;
+}
+.detail p{
+	font-size: 15px;
+	color: #333;
+}
+.detail p:first-child{
+	float: left;
+}
+.detail p:last-child{
+	float: right;
+}
+.deal{
+	overflow: hidden;
+	padding: 10px 0;
+}
+.deal p{
+	font-size: 15px;
+	color: #999;
+}
+.deal p:first-child{
+	float: left;
+}
+.deal p:last-child{
+	float: right;
+}
+/*买入*/
+.purchase{
+	color: #08c087 !important;
+}
+/*卖出*/
+.sellout{
+	color: #e66d42 !important;
+}
+/*矿收*/
+.ore{
+	color: #4384c5 !important;
+}

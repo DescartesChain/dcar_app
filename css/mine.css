@@ -58,7 +58,7 @@ body{
 }
 .list li{
 	list-style: none;
-	border-bottom: 1px solid #bcbcbc;
+	border-bottom: 1px solid #e5e5e5;
 	padding: 0 5px;
 	height: 46px;
 	line-height: 46px;

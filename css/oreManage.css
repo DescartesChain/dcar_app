@@ -1,3 +1,6 @@
+body, .mui-content{
+	background: #f7f7f7;
+}
 .complete_btn {
 	position: absolute;
 	top: 13px;
@@ -9,4 +12,57 @@
 	top: 13px;
 	right: 60px;
 	font-size: 20px;
+}
+.between{
+	padding: 0 15px;
+}
+.miner{
+	width: 100%;
+	height: auto;
+	border-radius: 6px;
+	margin: 10px 0;
+}
+.online{
+	background: #fff;
+}
+.offline{
+	background: #e5e5e5;
+}
+.title{
+	padding: 10px 15px;
+	overflow: hidden;
+}
+.title .name{
+	color: #222;
+	font-size: 17px;
+	float: left;
+}
+.title .state{
+	float: right;
+	font-size: 17px;
+	color: #4384c5;
+}
+.state_box{
+	padding: 12px 22px 22px 22px;
+	float: left;
+}
+.detail{
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.state_box img{
+	width: 30px;
+}
+.miner_word{
+	float: left;
+}
+.miner_word p{
+	line-height: 26px;
+	font-size: 15px;
+	color: #666;
+}
+.miner_word p span{
+	color: #333;
+	font-size: 19px;
+	margin-right: 5px;
 }

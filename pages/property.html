@@ -16,13 +16,13 @@
 		</header>
 		<div class="mui-content property_main">
 			<!--无-->
-			<div class="property_card blue_bg">
+			<div class="property_card blue_bg" onclick="import_wallet('dcar')">
 				<span>新建DCAR钱包</span>
 			</div>
-			<div class="property_card yellow_bg">
+			<div class="property_card yellow_bg" onclick="import_wallet('ETH')">
 				<span>导入ETH钱包</span>
 			</div>
-			<div class="property_card black_bg">
+			<div class="property_card black_bg" onclick="import_wallet('BTC')">
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
@@ -70,8 +70,8 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
-		<!--<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 			//打开详情页
@@ -79,6 +79,20 @@
 				mui.openWindow({
 					id: "account-main.html",
 					url: "../property/account-main.html",
+					extras: {
+						targetId: state,
+					},
+					show: {
+						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+					},
+				})
+			}
+
+			// 导入钱包
+			function import_wallet(state) {
+				mui.openWindow({
+					id: "../property/import-wallet.html",
+					url: "../property/import-wallet.html",
 					extras: {
 						targetId: state,
 					},

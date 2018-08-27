@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>导出私钥</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/key.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">导出私钥</h1>
+		</header>
+		<div class="mui-content">
+			<div class="key_content">
+				<div class="key_box">
+					<input type="text" value="FDNMHmxlsjdljdldididuissncmclskjcljdddddddsuytwuetueweutswwqw" readonly="readonly" style="display: none;" /> FDNMHmxlsjdljdldididuissncmclskjcljdddddddsuytwuetueweutswwqw
+				</div>
+				<div class="backup_button" id="copyKey">点击复制私钥</div>
+				<div class="backup_button" id="showCode">显示二维码</div>
+				<div class="grey_box">
+					<div>温馨提示：</div>
+					<div>1.切勿保存至邮箱、记事本、网盘、聊天工具等；</div>
+					<div>2.请勿通过网络工具传输，一旦被黑客获取将造成不可挽回的资产损失。建议离线通过扫描二维码方式传输；</div>
+					<div>3.请在确保四周无人及无摄像头的情况下使用；</div>
+					<div>4.二维码禁止保存、截图、以及拍照。仅供用户在安全环境下直接扫描来方便的导入钱包。</div>
+				</div>
+			</div>
+		</div>
+		<!--请勿截图弹框-->
+		<div class="mui-popover alert_box">
+			<p class="alert_title">请勿截图</p>
+			<div class="alert_body">请抄写下私钥并存放在安全的地方。</div>
+			<div class="alert_body">如果有人获取你的私钥，</div>
+			<div class="alert_body">将直接获取你的资产！</div>
+			<div class="alert_button">我知道了</div>
+		</div>
+		<!--显示二维码-->
+		<div class="mui-popover code_box">
+			<div class="out_box">
+				<img src="../img/property/code.jpg" alt="" class="code_img" />
+				<img src="../img/property/code_border.png" alt="" class="code_border" />
+			</div>
+			<div class="code_text">二维码禁止保存、截图、以及拍照。仅供用户在安全环境下直接扫描来方便的导入钱包。</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				// 弹出请勿截图 提示
+				mui('.alert_box').popover('show');
+				$(".alert_button").on("click", function() {
+					mui('.alert_box').popover('toggle');
+				});
+				$("#showCode").on("click", function() {
+					mui('.code_box').popover('toggle');
+				})
+			})
+			$("#copyKey").on("click", function() {
+				mui.toast('复制私钥成功', {
+					duration: 2000,
+					type: 'div'
+				})
+			})
+		</script>
+	</body>
+
+</html>

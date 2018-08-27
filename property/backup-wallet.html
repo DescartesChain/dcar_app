@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>导出助记词--备份钱包</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/export.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">导出助记词</h1>
+		</header>
+		<div class="mui-content">
+			<div class="backup_content">
+				<p class="backup_title">备份钱包</p>
+				<div class="backup_body">没有妥善备份，就无法保障资产安全。</div>
+				<div class="backup_body">删除程序或钱包后，您需要备份文件来恢复钱包。</div>
+				<p class="mini_content">请在四周无人、没有摄像头的安全环境进行备份。</p>
+				<div class="backup_button" id="showAlert">备份助记词</div>
+			</div>
+		</div>
+		<div class="mui-popover alert_box">
+			<p class="alert_title">请勿截图</p>
+			<div class="alert_body">请抄写下助记词并存放在安全的地方。</div>
+			<div class="alert_body">如果有人获取你的助记词，</div>
+			<div class="alert_body">将直接获取你的资产！</div>
+			<div class="alert_button newact" url="/property/backup-mnemonic-word.html">我知道了</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.plusReady(function() {
+				// 弹出请勿截图 提示
+				$("#showAlert").on("click", function() {
+					mui('.alert_box').popover('toggle');
+				})
+			})
+		</script>
+	</body>
+
+</html>

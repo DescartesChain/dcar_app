@@ -157,7 +157,8 @@
 			"pages/property.html": {
 				"resources": [],
 				"refer": [
-					"property/account-main.html"
+					"property/account-main.html",
+					"property/import-wallet.html"
 				],
 				"priority": 0
 			},
@@ -165,14 +166,21 @@
 				"resources": [],
 				"refer": [
 					"property/account-info.html",
-					"property/wallet-address.html"
+					"property/wallet-address.html",
+					"property/backup-wallet.html",
+					"property/export-private-key.html",
+					"users/tradeRecord.html"
 				],
 				"priority": 0
 			},
 			"pages/mine.html": {
 				"resources": [],
 				"refer": [
-					"users/invite.html"
+					"users/invite.html",
+					"public/login.html",
+					"users/userInfo.html",
+					"users/opinion.html",
+					"public/about.html"
 				],
 				"priority": 0
 			},
@@ -180,6 +188,48 @@
 				"resources": [],
 				"refer": [
 					"property/account-title.html"
+				],
+				"priority": 0
+			},
+			"users/userInfo.html": {
+				"resources": [],
+				"refer": [
+					"users/alterPassword.html"
+				],
+				"priority": 0
+			},
+			"property/backup-wallet.html": {
+				"resources": [],
+				"refer": [
+					"property/backup-mnemonic-word.html"
+				],
+				"priority": 0
+			},
+			"property/backup-mnemonic-word.html": {
+				"resources": [],
+				"refer": [
+					"property/sure-mnemonic-word.html"
+				],
+				"priority": 0
+			},
+			"property/sure-mnemonic-word.html": {
+				"resources": [],
+				"refer": [
+					"property/account-main.html"
+				],
+				"priority": 0
+			},
+			"users/tradeRecord.html": {
+				"resources": [],
+				"refer": [
+					"users/tradeDetail.html"
+				],
+				"priority": 0
+			},
+			"users/alterPassword.html": {
+				"resources": [],
+				"refer": [
+					"users/resetPassword.html"
 				],
 				"priority": 0
 			}

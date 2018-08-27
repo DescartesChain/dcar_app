@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>导入钱包</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/import.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title"></h1>
+			<i class="iconfont icon-saoma saoma_btn newact"></i>
+		</header>
+		<div class="mui-content">
+			<ul class="import_nav">
+				<li class="active_state choose">助记词</li>
+				<li class="grey_state choose">私钥</li>
+			</ul>
+			<div class="import_main">
+				<textarea rows="3" placeholder="输入助记词，用空格分隔" class="import_input"></textarea>
+				<p class="import_alert">使用助记词导入的同时可以修改密码</p>
+				<div class="between">
+					<h4>重置密码</h4>
+					<p class="limit">8-20位字符，不可以是纯数字</p>
+					<div class="mui-input-row info">
+						<input type="password" class="mui-input-password" placeholder="钱包密码">
+					</div>
+					<div class="mui-input-row info">
+						<input type="password" class="mui-input-password" placeholder="再次输入钱包密码">
+					</div>
+					<div class="backup_button">开始导入</div>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			$('.choose').click(function() {
+				$(this).addClass('active_state').removeClass("grey_state").siblings().addClass('grey_state').removeClass('active_state');
+				if($(this).html() == '助记词') {
+					$('.import_alert').html('使用助记词导入的同时可以修改密码');
+					$('.import_input').attr('placeholder', '输入助记词，用空格分隔');
+				};
+				if($(this).html() == '私钥') {
+					$('.import_alert').html('输入 Private Key 文件内容至输入框。或通过扫描 Private Key内容生成二维码录入');
+					$('.import_input').attr('placeholder', '输入明文私钥');
+				}
+			})
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				targetId = self.targetId;
+				if(targetId == 'dcar') {
+					$(".mui-title").html('新建DCAR钱包');
+				} else if(targetId == 'ETH') {
+					$(".mui-title").html('导入ETH钱包');
+				} else {
+					$(".mui-title").html('导入BTC钱包');
+				}
+			})
+		</script>
+	</body>
+
+</html>

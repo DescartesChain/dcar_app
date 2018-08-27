@@ -38,24 +38,42 @@
 						钱包地址
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="export">
 					<a class="mui-navigate-right">
 						导出助记词
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell" id="key">
 					<a class="mui-navigate-right">
 						导出私钥
 					</a>
 				</li>
-				<li class="mui-table-view-cell">
+				<li class="mui-table-view-cell newact" url="/users/tradeRecord.html">
 					<a class="mui-navigate-right">
 						交易记录
 					</a>
 				</li>
 			</ul>
 		</div>
+		<div class="mui-popover email_code_box">
+			<div class="popover_header">
+				<p>安全验证</p>
+				<span id="cancel">取消</span>
+			</div>
+			<div class="popover_content">
+				<p>请输入登录密码</p>
+				<div class="mui-input-row">
+					<input type="password" class="mui-input-password" placeholder="请输入账户登录密码" id="pass">
+				</div>
+				<div class="sure_box">
+					<button type="button" class="mui-btn mui-btn-primary cannot newact showWord" id="ensure" url="/property/backup-wallet.html">确定</button>
+					<button type="button" class="mui-btn mui-btn-primary cannot newact showKey" id="ensure" url="/property/export-private-key.html">确定</button>
+				</div>
+			</div>
+		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
@@ -76,6 +94,31 @@
 					$('#showAll').hide();
 					$('#showHalf').show();
 				}
+				// 判断密码是否为空
+				$("#pass").keyup(function() {
+					if($("#pass").val() == '') {
+						$("#ensure").removeClass("can");
+						$("#ensure").addClass("cannot");
+					} else {
+						$("#ensure").removeClass("cannot");
+						$("#ensure").addClass("can");
+					}
+				})
+				// 导出助记词
+				$("#export").on("click", function() {
+					mui('.email_code_box').popover('toggle');
+					$('.showWord').show();
+					$('.showKey').hide();
+				})
+				$("#cancel").on("click", function() {
+					mui('.email_code_box').popover('hide');
+				})
+				// 导出私钥
+				$("#key").on("click", function() {
+					mui('.email_code_box').popover('toggle');
+					$('.showWord').hide();
+					$('.showKey').show();
+				})
 			})
 			// 点击头像跳转到账户信息
 			function account_info() {

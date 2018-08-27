@@ -1,0 +1,87 @@
+.import_nav {
+	overflow: hidden;
+}
+
+.import_nav>li {
+	float: left;
+	width: 50%;
+	text-align: center;
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+}
+
+.active_state {
+	color: #4384c5;
+	border-bottom: 2px solid #4384c5;
+}
+
+.grey_state {
+	color: #666;
+	border-bottom: 1px solid #EBEBEB;
+}
+
+.import_main {
+	padding: 15px;
+}
+
+.import_input {
+	font-size: 13px;
+	color: #999;
+	padding: 15px;
+}
+
+.import_alert {
+	padding-top: 15px;
+	padding-bottom: 50px;
+	color: #333;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+.between {
+	padding-bottom:20px;
+	background: #fff;
+}
+
+.between h4 {
+	font-size: 15px;
+	color: #333;
+	font-weight: bold;
+}
+
+.limit {
+	font-size: 12px;
+	color: #999;
+	padding: 10px 0;
+	margin-bottom: 20px;
+}
+
+.between .info input {
+	height: 40px;
+	line-height: 40px;
+	border: 0;
+	border-bottom: 1px solid #bcbcbc;
+	font-size: 14px;
+	color: #999;
+	border-radius: 0;
+	padding: 10px;
+}
+
+.backup_button {
+	background: #4384C5;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 18px;
+	margin-top:60px;
+}
+.saoma_btn{
+	position: absolute;
+	top: 13px;
+	right: 20px;
+	font-size: 20px !important;
+}
+

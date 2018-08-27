@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>行情--交易</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/trade.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">买入</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="trade_nav">
+				<li>
+					<span class="active_state choose">BTC</span>
+				</li>
+				<li>
+					<span class="grey_state choose">ETH</span>
+				</li>
+			</ul>
+			<div class="mui-row trade_main">
+				<div class="mui-col-sm-7 mui-col-xs-7">
+				55
+				</div>
+				<div class="mui-col-sm-5 mui-col-xs-5">
+					55
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			$('.choose').click(function() {
+				$(this).addClass('active_state').removeClass("grey_state").siblings().addClass('grey_state').removeClass('active_state');
+			})
+		</script>
+	</body>
+
+</html>

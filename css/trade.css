@@ -1,0 +1,29 @@
+.trade_nav {
+	height: 46px;
+	line-height: 46px;
+	overflow: hidden;
+	border-bottom: 6px solid #E5E5E5;
+	padding: 0 15px;
+}
+
+.trade_nav>li {
+	float: left;
+	font-size: 14px;
+}
+.trade_nav>li:nth-child(1){
+	padding-right:45px;
+}
+.trade_nav>li>span{
+	height:40px;
+	display: inline-block;
+}
+.active_state{
+	color:#4384c5;
+	border-bottom: 3px solid #4384c5;
+}
+.grey_state{
+	color:#999;
+}
+.trade_main{
+	padding:15px;
+}

@@ -6,10 +6,49 @@
 		<title>行情</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/market.css" />
 	</head>
 
 	<body>
-		行情
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">行情</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="title_line">
+				<li>资产名称</li>
+				<li>最新价</li>
+				<li>涨跌幅</li>
+			</ul>
+			<!--内容-->
+			<ul class="market_body">
+				<li>
+					<div class="grey_text">DCAR</div>
+					<div class="public_text">ETH</div>
+				</li>
+				<li>
+					<div class="grey_text">&yen;29.55</div>
+					<div class="public_text">0.000112000</div>
+				</li>
+				<li>
+					<span class="green_block">+ 39.47%</span>
+				</li>
+			</ul>
+			<ul class="market_body">
+				<li>
+					<div class="grey_text">DCAR</div>
+					<div class="public_text">ETH</div>
+				</li>
+				<li>
+					<div class="grey_text">&yen;29.55</div>
+					<div class="public_text">0.000112000</div>
+				</li>
+				<li>
+					<span class="orange_block">- 39.47%</span>
+				</li>
+			</ul>
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>

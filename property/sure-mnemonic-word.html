@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>导出助记词--助记词确认</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/export.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">导出助记词</h1>
+		</header>
+		<div class="mui-content">
+			<div class="backup_content">
+				<p class="backup_title">助记词确认</p>
+				<div class="backup_body">请按顺序点击助记词，以确认您正确备份。</div>
+				<div class="result_box">
+
+				</div>
+				<div class="choose_box">
+					<span class="word">twelve</span>
+					<span class="word">one</span>
+					<span class="word">two</span>
+					<span class="word">twelve</span>
+					<span class="word">four</span>
+					<span class="word">three</span>
+					<span class="word">twelve</span>
+					<span class="word">one</span>
+					<span class="word">twelve</span>
+				</div>
+				<div class="backup_button newact" url="/property/account-main.html">完成</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			$('.word').click(function() {
+				$(this).remove();
+				$('.result_box').append($(this));
+			})
+		</script>
+	</body>
+
+</html>

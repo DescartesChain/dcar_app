@@ -7,7 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
-		<link rel="stylesheet" type="text/css" href="../css/echarts.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/echarts.css" />
 	</head>
 
 	<body>
@@ -17,11 +17,36 @@
 		</header>
 		<div class="mui-content">
 			<div class="batten">
-				
+				<div class="title">
+					<h5>0.00022000</h5>
+					<p>&yen;9.757</p>
+					<span>高</span>
+				</div>
+				<div class="price">
+					<h5>≈9.73 CNY</h5>
+					<p>&yen;9.757</p>
+					<span>低</span>
+				</div>
 			</div>
-			<div id="main" style="width: 100%;height: 400px;"></div>
+			<div class="nav">
+				<ul>
+					<li>分时</li>
+					<li>15分</li>
+					<li>1小时</li>
+					<li>4小时</li>
+					<li>日线</li>
+					<li>指标</li>
+				</ul>
+			</div>
+			<div id="main" style="width: 100%; min-height: 220px;"></div>
+			<div class="summary">
+				<h5>简介</h5>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var myChart = echarts.init(document.getElementById('main'));
@@ -178,13 +203,15 @@
 			var dataMA20 = calculateMA(20, data);
 
 			option = {
-				animation: false,
+				animation: true,
 				color: colorList,
 				title: {
+					show: false,
 					left: 'center',
-					text: ''
+					text: '移动端 K线图'
 				},
 				legend: {
+					show: false,
 					top: 30,
 					data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
 				},
@@ -214,16 +241,18 @@
 					}]
 				},
 				dataZoom: [{
+					show: false,
 					type: 'slider',
 					xAxisIndex: [0, 1],
 					realtime: false,
-					start: 20,
+					start: 30,
 					end: 70,
 					top: 65,
 					height: 20,
 					handleIcon: 'M10.7,11.9H9.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4h1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z',
 					handleSize: '120%'
 				}, {
+					show: false,
 					type: 'inside',
 					xAxisIndex: [0, 1],
 					start: 40,
@@ -251,6 +280,7 @@
 						show: true
 					}
 				}, {
+					show: false,
 					type: 'category',
 					gridIndex: 1,
 					data: dates,
@@ -287,6 +317,7 @@
 					}
 				}],
 				yAxis: [{
+					show: false,
 					scale: true,
 					splitNumber: 2,
 					axisLine: {
@@ -305,6 +336,7 @@
 						formatter: '{value}\n'
 					}
 				}, {
+					show: true,
 					scale: true,
 					gridIndex: 1,
 					splitNumber: 2,
@@ -324,13 +356,13 @@
 				grid: [{
 					left: 20,
 					right: 20,
-					top: 110,
+					top: 10,
 					height: 120
 				}, {
 					left: 20,
 					right: 20,
 					height: 40,
-					top: 260
+					top: 160
 				}],
 				graphic: [{
 					type: 'group',
@@ -396,41 +428,20 @@
 							borderColor0: '#444'
 						}
 					}
-				}, {
-					name: 'MA5',
-					type: 'line',
-					data: dataMA5,
-					smooth: true,
-					showSymbol: false,
-					lineStyle: {
-						normal: {
-							width: 1
-						}
-					}
-				}, {
-					name: 'MA10',
-					type: 'line',
-					data: dataMA10,
-					smooth: true,
-					showSymbol: false,
-					lineStyle: {
-						normal: {
-							width: 1
-						}
-					}
-				}, {
-					name: 'MA20',
-					type: 'line',
-					data: dataMA20,
-					smooth: true,
-					showSymbol: false,
-					lineStyle: {
-						normal: {
-							width: 1
-						}
-					}
 				}]
 			};
+			option.series.push({
+				name: 'MA5',
+				type: 'line',
+				data: dataMA5,
+				smooth: true,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				}
+			});
 
 			myChart.setOption(option);
 		</script>

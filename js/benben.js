@@ -213,7 +213,7 @@ window.dongyi = window.dj = window.castapp = window.ca =  {
 	tabBar:function(arrayData){
 		var subpage_style = {
 		    top: '0px',
-		    bottom: '58px',
+		    bottom: '51px',
 		    scrollIndicator: "none" ,
 		};
 		gM.plusReady(function(){
@@ -935,10 +935,15 @@ window.dongyi = window.dj = window.castapp = window.ca =  {
 	 * @param {Object} succFn 	   成功回调
 	 * @param {Object} errFn     失败回调
 	 */
-		uploadFiles:function(uploadUrl,filePath,succFn,errFn){
+		uploadFiles:function(uploadUrl,filePath,userId,type,li,iszip,succFn,errFn){
+		console.log(uploadUrl);
 		var files=[];
+		if(userId){
+			userId = userId.toString();
+		}
 		var n=filePath.substr(filePath.lastIndexOf('/')+1);
-		files.push({name:"uploadkey",path:filePath});       
+		
+		files.push({name:"uploadkey",path:filePath});
 		if(files.length<=0){
 		    this.prompt("没有添加上传文件");
 		    return;
@@ -947,20 +952,28 @@ window.dongyi = window.dj = window.castapp = window.ca =  {
 		var task = gP.uploader.createUpload(uploadUrl,
 		    {method:"POST"},
 	        function(t,status){ 
-	  
 	            if(status==200){
 	                var responseText = t.responseText;
 	                var json = eval('(' + responseText + ')');
 	                var files = json.files;
-	                var img_url = files.uploadkey.url;   
-	                succFn(img_url);
-	                dongyi.closeWaiting();
+	                var img_url = files.uploadkey;   
+	              setTimeout(function(){
+	              	
+	              	 succFn(img_url);
+//	              	 succFn(img_url.img.replace('txt','jpg'));
+	              	  dongyi.closeWaiting();
+	              })
+	               
+	               
 	            }else{
 	            	errFn && errFn(status);
 	                dongyi.closeWaiting();
 	            }
 	        });       
 	    task.addData("client","");
+	    task.addData("userId",userId);
+	    task.addData("type",type);
+	    task.addData("n",li);
 	    task.addData("uid",Math.floor(Math.random()*100000000+10000000).toString());
 	    for(var i=0;i<files.length;i++){
 	        var f=files[i];

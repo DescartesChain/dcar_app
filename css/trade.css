@@ -372,11 +372,6 @@ input::-ms-input-placeholder {
 	border-bottom: 1px solid #E5E5E5;
 }
 
-.trade_main {
-	padding-bottom: 0;
-}
-
-
 /*去除系统默认的样式*/
 
 input[type=range] {

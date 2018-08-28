@@ -43,18 +43,22 @@ body, .mui-content{
 	color: #4384c5;
 }
 .state_box{
-	padding: 12px 22px 22px 22px;
+	text-align: center;
 	float: left;
+	width:20%;
+	padding-top:16px;
 }
 .detail{
 	overflow: hidden;
 	margin-bottom: 10px;
+	padding-bottom:10px;
 }
 .state_box img{
 	width: 30px;
 }
 .miner_word{
 	float: left;
+	width:80%;
 }
 .miner_word p{
 	line-height: 26px;
@@ -87,7 +91,7 @@ body, .mui-content{
 .miner_chunk ul li p{
 	text-align: center;
 	line-height: 28px;
-	font-size: 17px;
+	font-size: 15px;
 }
 .miner_chunk ul li p:first-child{
 	color: #333;

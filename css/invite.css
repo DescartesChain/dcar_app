@@ -2,7 +2,7 @@ body{
 	width: 100%;
 	height: 100vh;
 	background: url(../img/invite/img_bg.png) no-repeat;
-	background-size: 100% 100%;
+	background-size: 100% 100vh;
 }
 .header a{
 	color: #fff;
@@ -37,13 +37,13 @@ body{
 }
 .request{
 	width: 100%;
-	height: 376px;
+	/*height: 376px;*/
 	margin-top: 36px;
 	background: url(../img/invite/img_bg1.png) no-repeat;
 	background-size: 100% 100%;
 }
 .request_top{
-	padding: 0 101px;
+	/*padding: 0 101px;*/
 }
 .request_top p{
 	font-size: 20px;
@@ -59,7 +59,7 @@ body{
 .request_top button{
 	display: block;
 	margin: 33px auto;
-	width: 100%;
+	padding:0 20px;
 	height: 34px;
 	background: #4384c5;
 	color: #fff;
@@ -68,6 +68,7 @@ body{
 }
 .request_bottom{
 	margin-top: 60px;
+	padding-bottom: 30px;
 }
 .request_bottom h5{
 	text-align: center;

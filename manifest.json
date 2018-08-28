@@ -180,7 +180,8 @@
 					"public/login.html",
 					"users/userInfo.html",
 					"users/opinion.html",
-					"public/about.html"
+					"public/about.html",
+					"users/oreManage.html"
 				],
 				"priority": 0
 			},
@@ -237,6 +238,13 @@
 				"resources": [],
 				"refer": [
 					"public/trade.html"
+				],
+				"priority": 0
+			},
+			"property/import-wallet.html": {
+				"resources": [],
+				"refer": [
+					"property/code.html"
 				],
 				"priority": 0
 			}

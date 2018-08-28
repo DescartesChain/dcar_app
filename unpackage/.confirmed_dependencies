@@ -42,7 +42,8 @@
 			"public/login.html",
 			"users/userInfo.html",
 			"users/opinion.html",
-			"public/about.html"
+			"public/about.html",
+			"users/oreManage.html"
 		]
 	},
 	"property/account-info.html": {
@@ -83,6 +84,11 @@
 	"pages/market.html": {
 		"refer": [
 			"public/trade.html"
+		]
+	},
+	"property/import-wallet.html": {
+		"refer": [
+			"property/code.html"
 		]
 	}
 }

@@ -1,8 +1,10 @@
 .logo{
-	padding: 53px 153px;
+	padding: 53px 0;
+	text-align: center;
 }
 .logo img{
-	width: 100%;
+	width: 20%;
+	/*height:50px;*/
 }
 .introduce{
 	padding: 0 15px;

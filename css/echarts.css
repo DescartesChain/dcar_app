@@ -70,3 +70,42 @@
 #main{
 	border-bottom: 5px solid #e5e5e5;
 }
+.summary{
+	padding: 0 15px;
+}
+.summary h5{
+	font-size: 14px;
+	color: #333;
+	padding: 20px 0 10px 0;
+}
+.summary p{
+	font-size: 14px;
+	color: #333;
+	line-height: 24px;
+}
+.footer{
+	width: 80%;
+	margin: 0 auto;
+	padding: 10px 15px;
+	background: #fff;
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	margin-left: -40%;
+}
+.footer button{
+	width: 48%;
+	height: 40px;
+	border: 0;
+	color: #fff;
+	border-radius: 6px;
+	font-size: 20px;
+}
+.footer button:first-child{
+	float: left;
+	background: #08bfb6;
+}
+.footer button:last-child{
+	float: right;
+	background: #e66d42;
+}

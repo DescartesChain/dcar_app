@@ -232,6 +232,13 @@
 					"users/resetPassword.html"
 				],
 				"priority": 0
+			},
+			"pages/market.html": {
+				"resources": [],
+				"refer": [
+					"public/trade.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

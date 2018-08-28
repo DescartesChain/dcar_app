@@ -9,21 +9,418 @@
 .trade_nav>li {
 	float: left;
 	font-size: 14px;
+	height: 40px;
 }
-.trade_nav>li:nth-child(1){
-	padding-right:45px;
+
+.trade_nav>li:nth-child(1) {
+	margin-right: 45px;
 }
-.trade_nav>li>span{
-	height:40px;
+
+.trade_nav>li>span {
+	height: 40px;
 	display: inline-block;
 }
-.active_state{
-	color:#4384c5;
+
+.active_state {
+	color: #4384c5;
 	border-bottom: 3px solid #4384c5;
 }
-.grey_state{
-	color:#999;
+
+.grey_state {
+	color: #999;
 }
-.trade_main{
-	padding:15px;
+
+.trade_main {
+	padding: 15px;
+}
+
+.group_btn {
+	overflow: hidden;
+}
+
+.group_btn>li {
+	font-size: 18px;
+	border-radius: 5px;
+	height: 30px;
+	line-height: 30px;
+	width: 45%;
+	text-align: center;
+}
+
+.group_btn>li:nth-child(1) {
+	float: left;
+}
+
+.group_btn>li:nth-child(2) {
+	float: right;
+}
+
+.left_main {
+	padding-right: 10px;
+}
+
+.green_btn {
+	border: 1px solid #08bf86;
+	color: #08bf86;
+}
+
+.grey_btn {
+	border: 1px solid #666;
+	color: #666;
+}
+
+.grey_word {
+	font-size: 13px;
+	color: #999;
+	margin: 10px 0;
+}
+
+.grey_word>img {
+	height: 7px;
+	margin-left: 5px;
+}
+
+.orange_word {
+	color: #E66D42;
+}
+
+.input_box {
+	position: relative;
+}
+
+.input_box>input {
+	padding-right: 75px;
+	border: 1px solid #848484;
+	color: #333;
+	font-size: 18px;
+	border-radius: 5px;
+	margin-bottom: 0;
+}
+
+.operate_box {
+	position: absolute;
+	top: 10px;
+	right: 0;
+	border-left: 1px solid #7E7E7E;
+	width: 70px;
+	height: 23px;
+}
+
+.operate_box>img {
+	width: 15px;
+	position: absolute;
+}
+
+.operate_box>img:nth-child(1) {
+	top: 10px;
+	left: 15px;
+}
+
+.operate_box>img:nth-child(2) {
+	top: 3px;
+	right: 10px;
+}
+
+input::-webkit-input-placeholder {
+	/*WebKit browsers*/
+	color: #999;
+	font-size: 12px;
+}
+
+input::-moz-input-placeholder {
+	/*Mozilla Firefox*/
+	color: #999;
+	font-size: 12px;
+}
+
+input::-ms-input-placeholder {
+	/*Internet Explorer*/
+	color: #999;
+	font-size: 12px;
+}
+
+.mui-input-row.mui-input-range {
+	padding-right: 0;
+}
+
+.sliding_alert {
+	overflow: hidden;
+}
+
+.sliding_alert>li {
+	float: left;
+	width: 20%;
+	font-size: 12px;
+	color: #4384C5;
+	text-align: center;
+}
+
+
+/*.sliding_alert>li:nth-child(1){
+	text-align: left !important;
+}
+.sliding_alert>li:nth-child(5){
+	text-align: right !important;
+}*/
+
+.mui-input-range input[type=range] {
+	background-color: #08bf86;
+	height: 10px;
+	border-radius: 5px;
+}
+
+
+/*滑块start*/
+
+#Main {
+	width: 70%;
+	height: 300px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+#scrollBar {
+	width: 80%;
+	height: 10px;
+	background-color: #ccc;
+	margin: 0 auto;
+	margin-top: 50px;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	cursor: pointer;
+}
+
+#scroll_Track {
+	width: 0px;
+	height: 10px;
+	background-color: #ff4400;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+
+#scroll_Thumb {
+	height: 25px;
+	width: 25px;
+	background-color: #efefef;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+	border: 1px solid #ccc;
+	-webkit-box-shadow: 0px 0px 5px #ccc;
+	-moz-box-shadow: 0px 0px 5px #ccc;
+	box-shadow: 0px 0px 5px #ccc;
+	position: absolute;
+	margin-top: -18px;
+	cursor: pointer;
+}
+
+#scroll_Thumb:hover {
+	background-color: #ff4400;
+	border: 1px solid #fff;
+}
+
+#progressBar {
+	width: 80%;
+	height: 10px;
+	background-color: #ccc;
+	margin: 0 auto;
+	margin-top: 50px;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+
+#progressBar_Track {
+	width: 200px;
+	height: 10px;
+	background-color: #ff4400;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+
+#beian {
+	text-align: center;
+	float: left;
+	width: 100%;
+	margin-top: 50px
+}
+
+#beian a {
+	color: gray;
+	font: 13px "微软雅黑", Arial, Helvetica, sans-serif;
+}
+
+.progressTime {
+	filter: alpha(opacity=50);
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	opacity: 0.5;
+	position: absolute;
+	_position: fixed;
+	left: 25%;
+	top: 25%;
+	Z-INDEX: 2;
+	border: 1px solid gray;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	color: white;
+	background: #000;
+	width: 660px;
+	height: 200px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+
+/*滑块end*/
+
+.green_block {
+	background: #08BF86;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 17px;
+	border-radius: 7px;
+	margin-top: 45px;
+}
+
+.green_title {
+	color: #08BF86;
+	font-size: 18px;
+	text-align: right;
+	padding-top: 10px;
+}
+
+.top_data {
+	overflow: hidden;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 10px 0 8px 10px;
+}
+
+.top_data>li {
+	width: 50%;
+	float: left;
+}
+
+.top_data>li:nth-child(1) {
+	text-align: left;
+}
+
+.top_data>li:nth-child(2) {
+	text-align: right;
+}
+
+.mini_grey {
+	color: #999;
+	font-size: 13px;
+}
+
+.data_title {
+	overflow: hidden;
+	padding-top: 25px;
+}
+
+.data_title>li {
+	float: left;
+	color: #999;
+	font-size: 13px;
+	width: 50%;
+}
+
+.data_title>li:nth-child(1) {
+	text-align: center;
+}
+
+.data_title>li:nth-child(2) {
+	text-align: right;
+}
+
+.each_data {
+	overflow: hidden;
+	margin: 10px 0;
+}
+
+.each_data>li {
+	width: 50%;
+	float: left;
+}
+
+.each_data>li:nth-child(1) {
+	text-align: left;
+	padding-left: 10px;
+}
+
+.each_data>li:nth-child(2) {
+	text-align: right;
+}
+
+.data_box {
+	border-bottom: 1px solid #E5E5E5;
+}
+
+.mini_green {
+	color: #08BF86;
+	font-size: 13px;
+}
+
+.mui-content {
+	border-bottom: 1px solid #E5E5E5;
+}
+
+.trade_main {
+	padding-bottom: 0;
+}
+
+
+/*去除系统默认的样式*/
+
+input[type=range] {
+	-webkit-appearance: none;
+	border-radius: 10px;
+	width: 100%;
+	background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;
+	background-size: 0% 100%;
+	/*这个属性设置使填充进度条时的图形为圆角*/
+}
+
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+}
+
+
+/*给滑动轨道(track)添加样式*/
+
+input[type=range]::-webkit-slider-runnable-track {
+	height: 15px;
+	border-radius: 10px;
+	/*将轨道设为圆角的*/
+	/*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; 轨道内置阴影效果*/
+	background: #E5E5E5;
+}
+
+
+/*原始的控件获取到焦点时，会显示包裹整个控件的边框，所以还需要把边框取消。*/
+
+input[type=range]:focus {
+	outline: none;
+}
+
+
+/*给滑块(thumb)添加样式*/
+
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	height: 25px;
+	width: 12px;
+	margin-top: -5px;
+	/*使滑块超出轨道部分的偏移量相等*/
+	background: #fff;
+	border-radius: 20px;
+	/*外观设置为圆形*/
+	border: 4px solid #08BF86;
 }

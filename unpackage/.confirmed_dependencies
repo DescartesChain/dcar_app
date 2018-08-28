@@ -79,5 +79,10 @@
 		"refer": [
 			"users/resetPassword.html"
 		]
+	},
+	"pages/market.html": {
+		"refer": [
+			"public/trade.html"
+		]
 	}
 }

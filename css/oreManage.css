@@ -66,3 +66,32 @@ body, .mui-content{
 	font-size: 19px;
 	margin-right: 5px;
 }
+
+.miner_chunk{
+	display: none;
+}
+.miner_chunk ul{
+	overflow: hidden;
+	margin-top: 10px;
+}
+.miner_chunk ul li{
+	float: left;
+	width: 18%;
+	padding: 10px 0;
+	margin-right: 2.5%;
+	margin-bottom: 10px;
+}
+.miner_chunk ul li:nth-child(5n){
+	margin-right: 0;
+}
+.miner_chunk ul li p{
+	text-align: center;
+	line-height: 28px;
+	font-size: 17px;
+}
+.miner_chunk ul li p:first-child{
+	color: #333;
+}
+.miner_chunk ul li p:last-child{
+	color: #4384c5;
+}

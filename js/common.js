@@ -1,7 +1,7 @@
-﻿var api = "http://yanjing.zhengdazikaowang.net/apps/";
-var iapi = "http://yanjing.zhengdazikaowang.net/";
-var base_url="http://yanjing.zhengdazikaowang.net/apps/";
-var img_url="http://yanjing.zhengdazikaowang.net/";
+﻿//var api = "http://yanjing.zhengdazikaowang.net/apps/";
+//var iapi = "http://yanjing.zhengdazikaowang.net/";
+//var base_url="http://yanjing.zhengdazikaowang.net/apps/";
+//var img_url="http://yanjing.zhengdazikaowang.net/";
 var log = console.log.bind(console);
 var S = JSON.stringify.bind(JSON);
 var P = JSON.parse.bind(JSON);

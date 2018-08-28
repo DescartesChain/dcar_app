@@ -10,7 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../css/oreManage.css" />
 	</head>
-
+	
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -98,8 +98,8 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
-			$("#manage").on("click", function(){
-				if ($("#manage").attr("class").indexOf("icon-shebeiguanli") > -1) {
+			$("#manage").on("click", function() {
+				if($("#manage").attr("class").indexOf("icon-shebeiguanli") > -1) {
 					$("#manage").attr("class", "iconfont icon-guanli complete_btn");
 					$(".miner_list").hide();
 					$(".miner_chunk").show();

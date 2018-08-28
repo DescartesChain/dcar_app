@@ -7,10 +7,20 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/echarts.css"/>
 	</head>
 
 	<body>
-		<div id="main" style="width: 100%;height: 400px;"></div>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">DCAR/BTH</h1>
+		</header>
+		<div class="mui-content">
+			<div class="batten">
+				
+			</div>
+			<div id="main" style="width: 100%;height: 400px;"></div>
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -172,11 +182,11 @@
 				color: colorList,
 				title: {
 					left: 'center',
-					text: '移动端 K线图'
+					text: ''
 				},
 				legend: {
 					top: 30,
-					data: ['日K']
+					data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
 				},
 				tooltip: {
 					triggerOn: 'none',
@@ -244,7 +254,7 @@
 					type: 'category',
 					gridIndex: 1,
 					data: dates,
-					scale: false,
+					scale: true,
 					boundaryGap: false,
 					splitLine: {
 						show: false
@@ -322,6 +332,38 @@
 					height: 40,
 					top: 260
 				}],
+				graphic: [{
+					type: 'group',
+					left: 'center',
+					top: 70,
+					width: 300,
+					bounding: 'raw',
+					children: [{
+						id: 'MA5',
+						type: 'text',
+						style: {
+							fill: colorList[1],
+							font: labelFont
+						},
+						left: 0
+					}, {
+						id: 'MA10',
+						type: 'text',
+						style: {
+							fill: colorList[2],
+							font: labelFont
+						},
+						left: 'center'
+					}, {
+						id: 'MA20',
+						type: 'text',
+						style: {
+							fill: colorList[3],
+							font: labelFont
+						},
+						right: 0
+					}]
+				}],
 				series: [{
 					name: 'Volume',
 					type: 'bar',
@@ -352,6 +394,39 @@
 							color0: '#444',
 							borderColor: 'black',
 							borderColor0: '#444'
+						}
+					}
+				}, {
+					name: 'MA5',
+					type: 'line',
+					data: dataMA5,
+					smooth: true,
+					showSymbol: false,
+					lineStyle: {
+						normal: {
+							width: 1
+						}
+					}
+				}, {
+					name: 'MA10',
+					type: 'line',
+					data: dataMA10,
+					smooth: true,
+					showSymbol: false,
+					lineStyle: {
+						normal: {
+							width: 1
+						}
+					}
+				}, {
+					name: 'MA20',
+					type: 'line',
+					data: dataMA20,
+					smooth: true,
+					showSymbol: false,
+					lineStyle: {
+						normal: {
+							width: 1
 						}
 					}
 				}]

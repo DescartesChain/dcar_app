@@ -1,41 +1,31 @@
-﻿//var api = "http://yanjing.zhengdazikaowang.net/apps/";
-//var iapi = "http://yanjing.zhengdazikaowang.net/";
-//var base_url="http://yanjing.zhengdazikaowang.net/apps/";
-//var img_url="http://yanjing.zhengdazikaowang.net/";
+﻿var api = "http://youpiao.zhengdazikaowang.net/apps/";
+var iapi = "http://youpiao.zhengdazikaowang.net";
+var img_url = "http://youpiao.zhengdazikaowang.net/"
+var base_url="http://youpiao.zhengdazikaowang.net/apps/";
+var root_url="http://youpiao.zhengdazikaowang.net/data/Upload/"
 var log = console.log.bind(console);
-var S = JSON.stringify.bind(JSON);
-var P = JSON.parse.bind(JSON);
-function check_login() {
-	var userId = plus.storage.getItem("userId");
+function check_login() { 
 	
+	var userId = localStorage.getItem("userId");
+
 	if(!userId) {
+		
 		//plus.webview.currentWebview().opener().close('none')
 		mui.openWindow({
-			url: "/public/login.html",
-			id: "/public/login.html",
+			url: "/user/login.html",
+			id: "/user/login.html",
 			waiting: {
 				autoShow: false, //自动显示等待框，默认为true
 			}
 		})
 		return false;
+	}else{
+		
+		return true;
 	}
-	return true;
+	
 }
-function check_bind() {
-	var bind = plus.storage.getItem("bind");
-	if(!bind || bind == 0) {
-		//plus.webview.currentWebview().opener().close('none')
-		mui.openWindow({
-			url: "/users/bind_phone.html",
-			id: "/users/bind_phone.html",
-			waiting: {
-				autoShow: false, //自动显示等待框，默认为true
-			}
-		})
-		return false;
-	}
-	return true;
-}
+
 mui.plusReady(function() {
 	//全局点击事件
 	$(".newact").on("tap", function() {
@@ -62,9 +52,6 @@ mui.plusReady(function() {
 		if(!check_login()) {
 			return;
 		}
-		/*if(!check_bind()) {
-			return;
-		}*/ 
 		var url = $(this).attr("url");
 		if(!url) {
 			return;
@@ -82,17 +69,14 @@ mui.plusReady(function() {
 			}
 		})
 	})
-
-	document.addEventListener("netchange", wainshow, false);
 })
 
 function wainshow() {
 	if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-		plus.nativeUI.closeWaiting();
 		mui.toast("网络异常，请检查网络设置！");
 		mui.openWindow({
-			url: '/pages/nointnet.html',
-			id: '/pages/nointnet.html',
+			url: '/public/noNet.html',
+			id: '/public/noNet.html',
 			waiting: {
 				autoShow: false, //自动显示等待框，默认为true
 			}
@@ -102,8 +86,87 @@ function wainshow() {
 
 	}
 }
+//数组去重
+/*Array.prototype.unique3 = function() {
+	var res = [];
+	var json = {};
+	for(var i = 0; i < this.length; i++) {
+		if(!json[this[i]]) {
+			res.push(this[i]);
+			json[this[i]] = 1;
+		}
+	}
+	return res;
+}
+*/
+function getDate(nS) {
+	return new Date(parseInt(nS) * 1000).toLocaleString().replace(/年|月/g, "-").replace(/日/g, " ");
+}
 
-//UI增强
+function addcar(id) {
+	var gwc = plus.storage.getItem('gwc');
+	if(!gwc) {
+		gwc = id;
+	}
+
+	var gw = gwc.split(",");
+	gw.push(id);
+	gw = gw.unique3();
+
+	var ngwc = gw.toString()
+	plus.storage.setItem('gwc', ngwc);
+	mui.toast('添加购物车成功！')
+	plus.webview.getWebviewById('pages/cart.html').evalJS('getCar()')
+	plus.webview.getLaunchWebview().evalJS('gwc()')
+}
+
+function delcar(id) {
+	var gwc = plus.storage.getItem('gwc');
+	var gw = gwc.split(",");
+	gw.remove(id)
+	var ngwc = gw.toString()
+	plus.storage.setItem('gwc', ngwc);
+	mui.toast('删除成功！');
+	plus.webview.getWebviewById('pages/cart.html').evalJS('getCar()')
+	plus.webview.getLaunchWebview().evalJS('gwc()')
+
+}
+
+/*Array.prototype.indexOf = function(val) {
+	for(var i = 0; i < this.length; i++) {
+		if(this[i] == val) return i;
+	}
+	return -1;
+};
+Array.prototype.remove = function(val) {
+	var index = this.indexOf(val);
+	if(index > -1) {
+		this.splice(index, 1);
+	}
+};*/
+
+
+//模板字符串() =>  
+String.prototype.render = function (context) {
+  return this.replace(/{{(.*?)}}/g, function(match, key){
+  	return context[key.trim()]
+  });
+};
+
+String.prototype.startWith=function(str){     
+  var reg=new RegExp("^"+str);     
+  return reg.test(this);        
+} 
+
+
+// 数字前补0
+
+function buling(num){
+	
+	return num>=10?num:'0'+num;
+}
+var log = console.log.bind(console);
+
 (function($, window) {
     //显示加载框
     $.showLoading = function(message,type) {
@@ -160,16 +223,20 @@ function wainshow() {
         }
       }
 })(mui, window);
+
+// $(window).scroll(function() {
+//			    var $_scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;  
+//			    if($_scrollTop>100){
+//				    $("#back_top").fadeIn();
+//				}else{
+//				    $("#back_top").fadeOut();
+//			    }
+//		
+//		})
+//  $("#back_top").click(function(){
+//			$('html,body').animate({
+//				scrollTop:'0px'
+//			},500)
+//		})
 //数组去重
 
-Array.prototype.unique3 = function() {
-	var res = [];
-	var json = {};
-	for(var i = 0; i < this.length; i++) {
-		if(!json[this[i]]) {
-			res.push(this[i]);
-			json[this[i]] = 1;
-		}
-	}
-	return res;
-}

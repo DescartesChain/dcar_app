@@ -1,0 +1,72 @@
+.batten{
+	padding: 0 15px;
+	margin: 10px 0;
+}
+.title{
+	overflow: hidden;
+}
+.title h5{
+	float: left;
+	font-size: 26px;
+	color: #333;
+	line-height: 30px;
+	font-weight: 500;
+}
+.title p{
+	float: right;
+	font-size: 14px;
+	color: #333;
+	line-height: 30px;
+}
+.title span{
+	float: right;
+	font-size: 14px;
+	color: #999;
+	line-height: 30px;
+	margin-right: 20px;
+}
+.price{
+	overflow: hidden;
+}
+.price h5{
+	float: left;
+	font-size: 14px;
+	color: #333;
+	line-height: 30px;
+	font-weight: 500;
+}
+.price p{
+	float: right;
+	font-size: 14px;
+	color: #333;
+	line-height: 30px;
+}
+.price span{
+	float: right;
+	font-size: 14px;
+	color: #999;
+	line-height: 30px;
+	margin-right: 20px;
+}
+.nav{
+	padding: 0 15px;
+	border-bottom: 5px solid #e5e5e5;
+}
+.nav ul{
+	overflow: hidden;
+}
+.nav ul li{
+	float: left;
+	width: 15%;
+	text-align: center;
+	font-size: 14px;
+	color: #999;
+	margin-right: 2%;
+	padding: 5px 0;
+}
+.nav ul li:last-child{
+	margin-right: 0;
+}
+#main{
+	border-bottom: 5px solid #e5e5e5;
+}

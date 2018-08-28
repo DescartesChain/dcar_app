@@ -43,7 +43,7 @@
 						<li>|</li>
 						<li id="ma5">MA5</li>
 						<li id="ma10">MA10</li>
-						<li>隐藏</li>
+						<li id="delete">隐藏</li>
 					</ul>
 					<ul>
 						<li>副图</li>
@@ -73,7 +73,6 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			
 			var myChart = echarts.init(document.getElementById('main'));
 
 			var rawData = [
@@ -457,34 +456,64 @@
 			};
 
 			myChart.setOption(option);
-			
+
 			$("#quota").on("click", function() {
 				$("#norm_detail").toggle();
 			})
 			$("#ma5").on("click", function() {
-				if($(this).hasClass("norm_active")) {
-					$(this).removeClass("norm_active")
-					for (var i=0;i<option.series.length;i++){
-						if (option.series[i].name == "MA5"){
-							option.series.splice(i, 1);
+				$(this).addClass("norm_active")
+				option.series.push({
+					name: 'MA5',
+					type: 'line',
+					data: dataMA5,
+					smooth: true,
+					showSymbol: false,
+					lineStyle: {
+						normal: {
+							width: 1
 						}
 					}
-					myChart.setOption(option);
-				} else {
-					$(this).addClass("norm_active")
-					option.series.push({
-						name: 'MA5',
-						type: 'line',
-						data: dataMA5,
-						smooth: true,
-						showSymbol: false,
-						lineStyle: {
-							normal: {
-								width: 1
-							}
+				});
+				$("#norm_detail").hide();
+				myChart.setOption(option);
+			})
+			$("#delete").on("click",function(){
+				$(this).siblings().attr("class", "")
+				alert("delete")
+				option.series = [{
+					name: 'Volume',
+					type: 'bar',
+					xAxisIndex: 1,
+					yAxisIndex: 1,
+					itemStyle: {
+						normal: {
+							color: '#7fbe9e'
+						},
+						emphasis: {
+							color: '#140'
 						}
-					});
-				}
+					},
+					data: volumes
+				}, {
+					type: 'candlestick',
+					name: '日K',
+					data: data,
+					itemStyle: {
+						normal: {
+							color: '#ef232a',
+							color0: '#14b143',
+							borderColor: '#ef232a',
+							borderColor0: '#14b143'
+						},
+						emphasis: {
+							color: 'black',
+							color0: '#444',
+							borderColor: 'black',
+							borderColor0: '#444'
+						}
+					}
+				}];
+				$("#norm_detail").hide();
 				myChart.setOption(option);
 			})
 		</script>

@@ -1,94 +1,94 @@
 {
-	"index.html": {
-		"resources": [
-			"pages/home.html"
-		],
-		"refer": [
-			"pages/home.html",
-			"pages/property.html",
-			"pages/mine.html",
-			"pages/market.html"
-		]
-	},
-	"pages/home.html": {
-		"refer": [
-			"public/notice.html",
-			"public/login.html"
-		]
-	},
-	"public/login.html": {
-		"refer": [
-			"public/register.html"
-		]
-	},
-	"pages/property.html": {
-		"refer": [
-			"property/account-main.html",
-			"property/import-wallet.html"
-		]
-	},
-	"property/account-main.html": {
-		"refer": [
-			"property/account-info.html",
-			"property/wallet-address.html",
-			"property/backup-wallet.html",
-			"property/export-private-key.html",
-			"users/tradeRecord.html"
-		]
-	},
-	"pages/mine.html": {
-		"refer": [
-			"users/invite.html",
-			"public/login.html",
-			"users/userInfo.html",
-			"users/opinion.html",
-			"public/about.html",
-			"users/oreManage.html"
-		]
-	},
-	"property/account-info.html": {
-		"refer": [
-			"property/account-title.html"
-		]
-	},
-	"users/userInfo.html": {
-		"refer": [
-			"users/alterPassword.html"
-		]
-	},
-	"property/backup-wallet.html": {
-		"refer": [
-			"property/backup-mnemonic-word.html"
-		]
-	},
-	"property/backup-mnemonic-word.html": {
-		"refer": [
-			"property/sure-mnemonic-word.html"
-		]
-	},
-	"property/sure-mnemonic-word.html": {
-		"refer": [
-			"property/account-main.html"
-		]
-	},
-	"users/tradeRecord.html": {
-		"refer": [
-			"users/tradeDetail.html"
-		]
-	},
-	"users/alterPassword.html": {
-		"refer": [
-			"users/resetPassword.html"
-		]
-	},
-	"pages/market.html": {
-		"refer": [
-			"public/trade.html"
-		]
-	},
-	"property/import-wallet.html": {
-		"refer": [
-			"property/code.html"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "pages/home.html"
+    ],
+    "refer": [
+      "pages/home.html",
+      "pages/property.html",
+      "pages/mine.html",
+      "pages/market.html"
+    ]
+  },
+  "pages/home.html": {
+    "refer": [
+      "public/notice.html",
+      "public/login.html"
+    ]
+  },
+  "public/login.html": {
+    "refer": [
+      "public/register.html"
+    ]
+  },
+  "pages/property.html": {
+    "refer": [
+      "property/account-main.html",
+      "property/import-wallet.html"
+    ]
+  },
+  "property/account-main.html": {
+    "refer": [
+      "property/account-info.html",
+      "property/wallet-address.html",
+      "property/backup-wallet.html",
+      "property/export-private-key.html",
+      "users/tradeRecord.html"
+    ]
+  },
+  "pages/mine.html": {
+    "refer": [
+      "users/invite.html",
+      "public/login.html",
+      "users/userInfo.html",
+      "users/opinion.html",
+      "public/about.html",
+      "users/oreManage.html"
+    ]
+  },
+  "property/account-info.html": {
+    "refer": [
+      "property/account-title.html"
+    ]
+  },
+  "users/userInfo.html": {
+    "refer": [
+      "users/alterPassword.html"
+    ]
+  },
+  "property/backup-wallet.html": {
+    "refer": [
+      "property/backup-mnemonic-word.html"
+    ]
+  },
+  "property/backup-mnemonic-word.html": {
+    "refer": [
+      "property/sure-mnemonic-word.html"
+    ]
+  },
+  "property/sure-mnemonic-word.html": {
+    "refer": [
+      "property/account-main.html"
+    ]
+  },
+  "users/tradeRecord.html": {
+    "refer": [
+      "users/tradeDetail.html"
+    ]
+  },
+  "users/alterPassword.html": {
+    "refer": [
+      "users/resetPassword.html"
+    ]
+  },
+  "pages/market.html": {
+    "refer": [
+      "public/trade.html"
+    ]
+  },
+  "property/import-wallet.html": {
+    "refer": [
+      "property/code.html"
+    ]
+  }
 }

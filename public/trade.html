@@ -58,7 +58,7 @@
 					</div>
 					<div class="sliding_box">
 						<div class="green_bg"></div>
-						<input type="range" value="10" id="slideBox" />
+						<input type="range" value="0" id="slideBox" />
 					</div>
 					<ul class="sliding_alert">
 						<li>0%</li>
@@ -154,11 +154,10 @@
 					$('.block_btn').addClass('orange_block');
 				}
 			})
-			$('#slideBox').mousedown(function() {
-				$('#slideBox').mousemove(function() {
-					console.log($(this).val());
-				})
-			})
+//			$('#slideBox').change(function() {
+//			    $(".green_bg").css('width', $(this).val() + "%")
+//			    // $(this).css('width', 100-$(this).val() + "%")
+//			})
 		</script>
 	</body>
 

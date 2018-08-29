@@ -431,7 +431,6 @@ input[type=range]::-webkit-slider-thumb {
 .green_bg{
 	height:13px;
 	width:100%;
-	background: #08BF86;
 	border-radius: 10px;
 	position: absolute;
 	top:1px;
@@ -444,9 +443,11 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .sliding_box>input{
-	z-index: 500;
+	-webkit-appearance: none;
+	background: #08BF86;
+	z-index: 6;
 	position: absolute;
 	top:0;
-	left:0;
+	right:0;
 	width:100%;
 }

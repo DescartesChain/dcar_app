@@ -29,14 +29,31 @@
 				</div>
 			</div>
 			<div class="nav">
-				<ul>
+				<ul class="unit">
 					<li>分时</li>
 					<li>15分</li>
 					<li>1小时</li>
 					<li>4小时</li>
 					<li>日线</li>
-					<li>指标</li>
+					<li id="quota">指标</li>
 				</ul>
+				<div class="norm_detail" id="norm_detail">
+					<ul>
+						<li>主图</li>
+						<li>|</li>
+						<li id="ma5">MA5</li>
+						<li id="ma10">MA10</li>
+						<li id="delete">隐藏</li>
+					</ul>
+					<ul>
+						<li>副图</li>
+						<li>|</li>
+						<li>MACD</li>
+						<li>KDJ</li>
+						<li>RSL</li>
+						<li>隐藏</li>
+					</ul>
+				</div>
 			</div>
 			<div id="main" style="width: 100%; min-height: 220px;"></div>
 			<div class="summary">
@@ -437,20 +454,68 @@
 					}
 				}]
 			};
-			option.series.push({
-				name: 'MA5',
-				type: 'line',
-				data: dataMA5,
-				smooth: true,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 1
-					}
-				}
-			});
 
 			myChart.setOption(option);
+
+			$("#quota").on("click", function() {
+				$("#norm_detail").toggle();
+			})
+			$("#ma5").on("click", function() {
+				$(this).addClass("norm_active")
+				option.series.push({
+					name: 'MA5',
+					type: 'line',
+					data: dataMA5,
+					smooth: true,
+					showSymbol: false,
+					lineStyle: {
+						normal: {
+							width: 1
+						}
+					}
+				});
+				$("#norm_detail").hide();
+				myChart.setOption(option);
+			})
+			$("#delete").on("click",function(){
+				$(this).siblings().attr("class", "")
+				alert("delete")
+				option.series = [{
+					name: 'Volume',
+					type: 'bar',
+					xAxisIndex: 1,
+					yAxisIndex: 1,
+					itemStyle: {
+						normal: {
+							color: '#7fbe9e'
+						},
+						emphasis: {
+							color: '#140'
+						}
+					},
+					data: volumes
+				}, {
+					type: 'candlestick',
+					name: '日K',
+					data: data,
+					itemStyle: {
+						normal: {
+							color: '#ef232a',
+							color0: '#14b143',
+							borderColor: '#ef232a',
+							borderColor0: '#14b143'
+						},
+						emphasis: {
+							color: 'black',
+							color0: '#444',
+							borderColor: 'black',
+							borderColor0: '#444'
+						}
+					}
+				}];
+				$("#norm_detail").hide();
+				myChart.setOption(option);
+			})
 		</script>
 	</body>
 

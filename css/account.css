@@ -120,7 +120,7 @@ span.mui-icon {
 
 .mui-popover {
 	width: 85%;
-	/*min-height: 380px;*/
+	min-height: 380px;
 	background: #F0F0F0;
 }
 

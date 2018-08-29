@@ -63,8 +63,8 @@
 		</div>
 		<div class="footer">
 			<div class="footer_main">
-				<button class="newact" url="/public/trade.html">买入</button>
-				<button class="newact" url="/public/trade.html">卖出</button>
+				<button onclick="jump_trade('buy')">买入</button>
+				<button onclick="jump_trade('sell')">卖出</button>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -73,6 +73,19 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			// 跳转到交易页面
+			function jump_trade(state) {
+				mui.openWindow({
+					id: "/public/trade.html",
+					url: "/public/trade.html",
+					extras: {
+						targetId: state,
+					},
+					show: {
+						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+					},
+				})
+			}
 			var myChart = echarts.init(document.getElementById('main'));
 
 			var rawData = [
@@ -477,7 +490,7 @@
 				$("#norm_detail").hide();
 				myChart.setOption(option);
 			})
-			$("#delete").on("click",function(){
+			$("#delete").on("click", function() {
 				$(this).siblings().attr("class", "")
 				alert("delete")
 				option.series = [{

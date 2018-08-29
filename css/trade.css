@@ -65,8 +65,13 @@
 }
 
 .grey_btn {
-	border: 1px solid #666;
-	color: #666;
+	border: 1px solid #7D7D7D;
+	color: #7D7D7D;
+}
+
+.orange_btn {
+	border: 1px solid #E66D42;
+	color: #E66D42;
 }
 
 .grey_word {
@@ -278,8 +283,7 @@ input::-ms-input-placeholder {
 
 /*滑块end*/
 
-.green_block {
-	background: #08BF86;
+.block_btn {
 	color: #fff;
 	height: 40px;
 	line-height: 40px;
@@ -287,6 +291,14 @@ input::-ms-input-placeholder {
 	font-size: 17px;
 	border-radius: 7px;
 	margin-top: 45px;
+}
+
+.green_block {
+	background: #08BF86;
+}
+
+.orange_block {
+	background: #E66D42;
 }
 
 .green_title {
@@ -372,6 +384,7 @@ input::-ms-input-placeholder {
 	border-bottom: 1px solid #E5E5E5;
 }
 
+
 /*去除系统默认的样式*/
 
 input[type=range] {
@@ -380,7 +393,6 @@ input[type=range] {
 	width: 100%;
 	background: -webkit-linear-gradient(#059CFA, #059CFA) no-repeat;
 	background-size: 0% 100%;
-	/*这个属性设置使填充进度条时的图形为圆角*/
 }
 
 input[type=range]::-webkit-slider-thumb {
@@ -393,8 +405,6 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]::-webkit-slider-runnable-track {
 	height: 15px;
 	border-radius: 10px;
-	/*将轨道设为圆角的*/
-	/*box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112; 轨道内置阴影效果*/
 	background: #E5E5E5;
 }
 
@@ -413,9 +423,30 @@ input[type=range]::-webkit-slider-thumb {
 	height: 25px;
 	width: 12px;
 	margin-top: -5px;
-	/*使滑块超出轨道部分的偏移量相等*/
 	background: #fff;
 	border-radius: 20px;
-	/*外观设置为圆形*/
 	border: 4px solid #08BF86;
+}
+
+.green_bg{
+	height:13px;
+	width:100%;
+	background: #08BF86;
+	border-radius: 10px;
+	position: absolute;
+	top:1px;
+	left:0;
+	z-index: 5;
+}
+.sliding_box{
+	position: relative;
+	height:30px;
+}
+
+.sliding_box>input{
+	z-index: 500;
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
 }

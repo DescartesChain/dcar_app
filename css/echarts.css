@@ -49,13 +49,14 @@
 	margin-right: 20px;
 }
 .nav{
-	padding: 0 15px;
 	border-bottom: 5px solid #e5e5e5;
+	position: relative;
 }
-.nav ul{
+.nav .unit{
+	padding: 0 15px;
 	overflow: hidden;
 }
-.nav ul li{
+.nav .unit li{
 	float: left;
 	width: 15%;
 	text-align: center;
@@ -64,8 +65,29 @@
 	margin-right: 2%;
 	padding: 5px 0;
 }
-.nav ul li:last-child{
+.nav .unit li:last-child{
 	margin-right: 0;
+}
+.norm_detail{
+	width: 100%;
+	position: absolute;
+	top: 30px;
+	background: rgba(0,0,0,0.8);
+	z-index: 9999;
+	display: none;
+}
+.norm_detail ul{
+	overflow: hidden;
+	padding: 0 30px;
+}
+.norm_detail ul li{
+	float: left;
+	color: #999;
+	font-size: 14px;
+	padding: 20px 10px;
+}
+.norm_detail ul li:last-child{
+	float: right;
 }
 #main{
 	border-bottom: 5px solid #e5e5e5;
@@ -109,4 +131,7 @@
 .footer_main button:last-child{
 	float: right;
 	background: #e66d42;
+}
+.norm_active{
+	color: #fff !important;
 }

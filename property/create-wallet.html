@@ -6,17 +6,40 @@
 		<title>新建DCAR钱包</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/createWallet.css" />
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">创建钱包</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">创建钱包</h1>
 		</header>
 		<div class="mui-content">
-			创建钱包
+			<div class="create_main">
+				<div class="create_alert">
+					密码用于保护私钥和交易授权，强度非常重要。DCAR不存储密码，也无法帮您找回，请务必牢记
+				</div>
+				<div class="mui-input-row info">
+					<input type="text" class="mui-input-clear" placeholder="请输入钱包名称">
+				</div>
+				<div class="mui-input-row info">
+					<input type="password" class="mui-input-password" placeholder="请输入钱包密码">
+				</div>
+				<div class="mui-input-row info">
+					<input type="password" class="mui-input-password" placeholder="请再次输入钱包密码">
+				</div>
+				<div class="mui-input-row mui-checkbox agreement">
+					<input name="checkbox1" id="isagree" value="Item 1" type="checkbox" checked>
+					<label>我已仔细阅读并同意<a>《用户协议》</a></label>
+				</div>
+				<div class="backup_button newact"  url="/property/create-wallet-success.html">创建钱包</div>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
 		</script>

@@ -69,6 +69,7 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -103,19 +104,18 @@
 			}
 			// 显示dcar钱包
 			function showDcarPurse() {
-				alert(localStorage.getItem("dcarPurse"))
-				if (localStorage.getItem("dcarPurse") == null) {
+				if (store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
 					let dcarArray = []
-					localStorage.setItem("dcarPurse", JSON.stringify(dcarArray))
+					store.set('dcarPurse', dcarArray)
 				} else {
-					if (JSON.parse(localStorage.getItem("dcarPurse")).length == 0) {
+					if (store.get('dcarPurse').length == 0) {
 						$("#dcar_purse").hide();
 					} else {
 						$("#dcar_purse").show();
 					}
 				}
 			}
-			// showDcarPurse()
+			showDcarPurse()
 		</script>
 	</body>
 

@@ -26,23 +26,25 @@
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
-			<div class="blue_bg card_one mui-row" id="dcar_purse" onclick="go_detail('dcar')">
-				<div class="mui-col-sm-3 mui-col-xs-3">
-					<img src="../img/property/wallet.png" alt="" />
-				</div>
-				<div class="mui-col-sm-6 mui-col-xs-6">
-					<div>DCAR-Wallet</div>
-					<div>0.000DCAR</div>
-					<div>&yen;0.00</div>
-					<div>0xbsdakdhkdsidusidshhskkh</div>
-				</div>
-				<div class="mui-col-sm-3 mui-col-xs-3">
-					<p>
-						<span>买入</span>
-					</p>
-					<p>
-						<span>卖出</span>
-					</p>
+			<div id="dcar_purse">
+				<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
+					<div class="mui-col-sm-3 mui-col-xs-3">
+						<img src="../img/property/wallet.png" alt="" />
+					</div>
+					<div class="mui-col-sm-6 mui-col-xs-6">
+						<div>DCAR-Wallet</div>
+						<div>0.000DCAR</div>
+						<div>&yen;0.00</div>
+						<div>0xbsdakdhkdsidusidshhskkh</div>
+					</div>
+					<div class="mui-col-sm-3 mui-col-xs-3">
+						<p>
+							<span>买入</span>
+						</p>
+						<p>
+							<span>卖出</span>
+						</p>
+					</div>
 				</div>
 			</div>
 			<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail('ETH')">
@@ -104,11 +106,11 @@
 			}
 			// 显示dcar钱包
 			function showDcarPurse() {
-				if (store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
+				if(store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
 					var dcarArray = []
 					store.set('dcarPurse', dcarArray)
 				} else {
-					if (store.get('dcarPurse').length == 0) {
+					if(store.get('dcarPurse').length == 0) {
 						$("#dcar_purse").hide();
 					} else {
 						$("#dcar_purse").show();

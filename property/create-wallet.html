@@ -82,11 +82,11 @@
 					var keystore = JSON.stringify(account.encrypt(password));
 					console.log(keystore);
 					if (keystore){
-						let arr = store.get('dcarPurse');
+						var arr = store.get('dcarPurse');
 						arr.push(account);
 						store.set('dcarPurse', arr)
 						mui.toast('钱包创建成功',{ duration: 2000, type:'div' });
-						let time = null;
+						var time = null;
 						clearTimeout(time);
 						setTimeout(function(){
 							plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");

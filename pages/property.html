@@ -26,7 +26,7 @@
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
-			<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
+			<div class="blue_bg card_one mui-row" id="dcar_purse" onclick="go_detail('dcar')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -45,7 +45,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="yellow_bg card_one mui-row" onclick="go_detail('ETH')">
+			<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail('ETH')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -56,7 +56,7 @@
 					<div>0xbsdakdhkdsidusidshhskkh</div>
 				</div>
 			</div>
-			<div class="black_bg card_one mui-row" onclick="go_detail('BTC')">
+			<div class="black_bg card_one mui-row" id="btc_purse" onclick="go_detail('BTC')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -69,6 +69,7 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -101,6 +102,20 @@
 					},
 				})
 			}
+			// 显示dcar钱包
+			function showDcarPurse() {
+				if (store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
+					let dcarArray = []
+					store.set('dcarPurse', dcarArray)
+				} else {
+					if (store.get('dcarPurse').length == 0) {
+						$("#dcar_purse").hide();
+					} else {
+						$("#dcar_purse").show();
+					}
+				}
+			}
+			showDcarPurse()
 		</script>
 	</body>
 

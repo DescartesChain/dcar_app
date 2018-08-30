@@ -23,18 +23,18 @@
 				<li class="grey_state choose">私钥</li>
 			</ul>
 			<div class="import_main">
-				<textarea rows="3" placeholder="输入助记词，用空格分隔" class="import_input"></textarea>
+				<textarea id="keystoreString" rows="3" placeholder="输入助记词，用空格分隔" class="import_input"></textarea>
 				<p class="import_alert">使用助记词导入的同时可以修改密码</p>
 				<div class="between">
 					<h4>重置密码</h4>
 					<p class="limit">8-20位字符，不可以是纯数字</p>
 					<div class="mui-input-row info">
-						<input type="password" class="mui-input-password" placeholder="钱包密码">
+						<input id="pass" value="" type="password" class="mui-input-password" placeholder="钱包密码">
 					</div>
 					<div class="mui-input-row info">
-						<input type="password" class="mui-input-password" placeholder="再次输入钱包密码">
+						<input id="ensurePass" type="password" class="mui-input-password" placeholder="再次输入钱包密码">
 					</div>
-					<div class="backup_button">开始导入</div>
+					<div class="backup_button" id="leadIn">开始导入</div>
 				</div>
 			</div>
 		</div>
@@ -42,6 +42,7 @@
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 			$('.choose').click(function() {
@@ -53,6 +54,37 @@
 				if($(this).html() == '私钥') {
 					$('.import_alert').html('输入 Private Key 文件内容至输入框。或通过扫描 Private Key内容生成二维码录入');
 					$('.import_input').attr('placeholder', '输入明文私钥');
+				}
+			})
+			$("#leadIn").on("click",function(){
+				if ($("#keystoreString").val() == "") {
+					mui.toast('私钥不能为空',{ duration: 2000, type:'div' })
+				} else if ($("#pass").val() == "") {
+					mui.toast('密码不能为空',{ duration: 2000, type:'div' })
+				} else if ($("#ensurePass").val() == "") {
+					mui.toast('请再次输入密码',{ duration: 2000, type:'div' })
+				} else if ($("#pass").val() != $("#ensurePass").val()) {
+					mui.toast('两次密码不一致',{ duration: 2000, type:'div' })
+				} else {
+					// 创建 Web3 实例
+					let web3 = new Web3();
+					// 用户导入 keystore 文件
+					let keystoreString = $("#keystoreString").val();
+					// 转换为 JSON 文件
+					let keystoreJsonV3 = JSON.parse(keystoreString);
+					// 用户输入争取的密码
+					let password = $("#pass").val();
+					// 获取钱包信息
+					try {
+						let wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+						mui.toast('钱包导入成功',{ duration: 2000, type:'div' })
+					}catch(err){
+						mui.toast('密码输入错误',{ duration: 2000, type:'div' })
+					}
+					// 读取 钱包地址
+					console.log(wallet.address)
+					// 读取 私钥
+					console.log(wallet.privateKey)
 				}
 			})
 			mui.plusReady(function() {

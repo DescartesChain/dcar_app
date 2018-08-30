@@ -32,7 +32,6 @@
 	padding-right: 0;
 }
 .backup_button {
-	background: #4384C5;
 	color: #fff;
 	height: 40px;
 	line-height: 40px;
@@ -49,4 +48,10 @@
 	font-size: 14px;
 	color: #999;
 	border-radius: 0;
+}
+.can{
+	background: #4384c5;
+}
+.cannot{
+	background: #bfd7ee;
 }

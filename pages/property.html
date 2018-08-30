@@ -27,7 +27,7 @@
 			</div>
 			<!--有-->
 			<div id="dcar_purse">
-				<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
+				<!--<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
 					<div class="mui-col-sm-3 mui-col-xs-3">
 						<img src="../img/property/wallet.png" alt="" />
 					</div>
@@ -45,9 +45,9 @@
 							<span>卖出</span>
 						</p>
 					</div>
-				</div>
+				</div>-->
 			</div>
-			<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail('ETH')">
+			<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail(2)">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -58,7 +58,7 @@
 					<div>0xbsdakdhkdsidusidshhskkh</div>
 				</div>
 			</div>
-			<div class="black_bg card_one mui-row" id="btc_purse" onclick="go_detail('BTC')">
+			<div class="black_bg card_one mui-row" id="btc_purse" onclick="go_detail(3)">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -77,6 +77,7 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
+			showDcarPurse()
 			//打开详情页
 			function go_detail(state) {
 				mui.openWindow({
@@ -106,23 +107,43 @@
 			}
 			// 显示dcar钱包
 			function showDcarPurse() {
-				console.log(store.get('dcarPurse'))
-				if(store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
+				var arr = store.get('dcarPurse')
+				if(arr == undefined || arr == null || arr == "") {
 					var dcarArray = []
 					store.set('dcarPurse', dcarArray)
 				} else {
-					if(store.get('dcarPurse').length == 0) {
+					if(arr.length == 0) {
 						$("#dcar_purse").hide();
 					} else {
-						$.each(store.get('dcarPurse'), function(i, t) {
-							console.log(t)
+						var dcar = 1;
+						var item='';
+						$.each(arr, function(i, t) {
+							item+='<div class="blue_bg card_one mui-row" onclick="go_detail('+dcar+')">'
+										+'<div class="mui-col-sm-3 mui-col-xs-3">'
+											+'<img src="../img/property/wallet.png" alt="" />'
+										+'</div>'
+										+'<div class="mui-col-sm-6 mui-col-xs-6">'
+											+'<div>DCAR-Wallet</div>'
+											+'<div>0.000DCAR</div>'
+											+'<div>&yen;0.00</div>'
+											+'<div>'+ t.address +'</div>'
+										+'</div>'
+										+'<div class="mui-col-sm-3 mui-col-xs-3">'
+											+'<p>'
+												+'<span>买入</span>'
+											+'</p >'
+											+'<p>'
+												+'<span>卖出</span>'
+											+'</p >'
+										+'</div>'
+									+'</div>'
+							
 						});
+						$("#dcar_purse").html(item)
 						$("#dcar_purse").show();
 					}
 				}
 			}
-			showDcarPurse()
 		</script>
 	</body>
-
 </html>

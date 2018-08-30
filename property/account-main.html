@@ -80,16 +80,16 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
-				// 判断钱包类型
-				if(targetId == 'dcar') {
+				// 判断钱包类型  1 dcar   2  ETH  3 BTC
+				if(targetId == '1') {
 					$('.account_title').html('DCAR-Wallet');
 					$('#showAll').show();
 					$('#showHalf').hide();
-				} else if(targetId == 'ETH') {
+				} else if(targetId == '2') {
 					$('.account_title').html('ETH-Wallet');
 					$('#showAll').hide();
 					$('#showHalf').show();
-				} else if(targetId == 'BTC') {
+				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
 					$('#showAll').hide();
 					$('#showHalf').show();

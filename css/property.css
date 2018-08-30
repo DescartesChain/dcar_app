@@ -38,10 +38,10 @@
 	width:75%;
 }
 .card_one>div:nth-child(2)>div{
-	line-height: 30px;
+	line-height: 20px;
 	height:30px;
 	color:#fff;
-	overflow: hidden;
+	word-break:break-all; 
 }
 .card_one>div:nth-child(2)>div:nth-child(2){
 	font-size:25px;

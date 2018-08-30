@@ -144,8 +144,8 @@
 						url: "/property/export-private-key.html",
 						extras: {
 							purseIndex: purseIndex,
-							purseAddress: wallet.address,
-							privateKey: wallet.privateKey
+//							purseAddress: wallet.address,
+//							privateKey: wallet.privateKey
 						},
 						waiting : {
 							autoShow : false,
@@ -174,7 +174,7 @@
 					id: "../property/wallet-address.html",
 					url: "../property/wallet-address.html",
 					extras: {
-						targetId: '1',
+						purseIndex: purseIndex
 					},
 				})
 			}

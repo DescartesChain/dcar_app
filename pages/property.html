@@ -26,7 +26,7 @@
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
-			<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
+			<div class="blue_bg card_one mui-row" id="dcar_purse" onclick="go_detail('dcar')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -45,7 +45,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="yellow_bg card_one mui-row" onclick="go_detail('ETH')">
+			<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail('ETH')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -56,7 +56,7 @@
 					<div>0xbsdakdhkdsidusidshhskkh</div>
 				</div>
 			</div>
-			<div class="black_bg card_one mui-row" onclick="go_detail('BTC')">
+			<div class="black_bg card_one mui-row" id="btc_purse" onclick="go_detail('BTC')">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
 				</div>
@@ -101,6 +101,21 @@
 					},
 				})
 			}
+			// 显示dcar钱包
+			function showDcarPurse() {
+				alert(localStorage.getItem("dcarPurse"))
+				if (localStorage.getItem("dcarPurse") == null) {
+					let dcarArray = []
+					localStorage.setItem("dcarPurse", JSON.stringify(dcarArray))
+				} else {
+					if (JSON.parse(localStorage.getItem("dcarPurse")).length == 0) {
+						$("#dcar_purse").hide();
+					} else {
+						$("#dcar_purse").show();
+					}
+				}
+			}
+			// showDcarPurse()
 		</script>
 	</body>
 

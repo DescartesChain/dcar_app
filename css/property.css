@@ -89,3 +89,12 @@
 	background: linear-gradient(to bottom right, #464647, #828282);
 	/* 标准的语法 */
 }
+#dcar_purse{
+	display: none;
+}
+#eth_purse{
+	display: none;
+}
+#btc_purse{
+	display: none;
+}

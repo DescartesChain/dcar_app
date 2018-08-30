@@ -58,25 +58,31 @@
 			})
 			$("#leadIn").on("click",function(){
 				if ($("#keystoreString").val() == "") {
-					mui.toast('私钥不能为空',{ duration: 2000, type:'div' })
-				} else if ($("#pass").val() == "") {
-					mui.toast('密码不能为空',{ duration: 2000, type:'div' })
-				} else if ($("#ensurePass").val() == "") {
-					mui.toast('请再次输入密码',{ duration: 2000, type:'div' })
-				} else if ($("#pass").val() != $("#ensurePass").val()) {
-					mui.toast('两次密码不一致',{ duration: 2000, type:'div' })
+					mui.toast('私钥不能为空')
+					return false;
+				} 
+				if ($("#pass").val() == "") {
+					mui.toast('密码不能为空')
+					return false;
+				} 
+				if ($("#ensurePass").val() == "") {
+					mui.toast('请再次输入密码')
+					return false;
+				}
+				if ($("#pass").val() != $("#ensurePass").val()) {
+					mui.toast('两次密码不一致')
 				} else {
 					// 创建 Web3 实例
-					let web3 = new Web3();
+					var web3 = new Web3();
 					// 用户导入 keystore 文件
-					let keystoreString = $("#keystoreString").val();
+					var keystoreString = $("#keystoreString").val();
 					// 转换为 JSON 文件
-					let keystoreJsonV3 = JSON.parse(keystoreString);
+					var keystoreJsonV3 = JSON.parse(keystoreString);
 					// 用户输入争取的密码
-					let password = $("#pass").val();
+					var password = $("#pass").val();
 					// 获取钱包信息
 					try {
-						let wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+						var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
 						mui.toast('钱包导入成功',{ duration: 2000, type:'div' })
 					}catch(err){
 						mui.toast('密码输入错误',{ duration: 2000, type:'div' })

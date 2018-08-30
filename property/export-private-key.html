@@ -18,7 +18,8 @@
 		<div class="mui-content">
 			<div class="key_content">
 				<div class="key_box">
-					<input type="text" value="FDNMHmxlsjdljdldididuissncmclskjcljdddddddsuytwuetueweutswwqw" readonly="readonly" style="display: none;" /> FDNMHmxlsjdljdldididuissncmclskjcljdddddddsuytwuetueweutswwqw
+					<input type="text" value="" readonly="readonly" style="display: none;" id="keyInput"/> 
+					<span id="keyBox"></span>
 				</div>
 				<div class="backup_button" id="copyKey">点击复制私钥</div>
 				<div class="backup_button" id="showCode">显示二维码</div>
@@ -48,11 +49,16 @@
 			<div class="code_text">二维码禁止保存、截图、以及拍照。仅供用户在安全环境下直接扫描来方便的导入钱包。</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
+			var purseInfo = store.get('dcarPurse');
+//			alert(purseInfo[0].privateKey);
+			$('#keyInput').val(purseInfo[0].privateKey);
+			$('#keyBox').html(purseInfo[0].privateKey);
 			mui.plusReady(function() {
 				// 弹出请勿截图 提示
 				mui('.alert_box').popover('show');
@@ -61,7 +67,7 @@
 				});
 				$("#showCode").on("click", function() {
 					mui('.code_box').popover('toggle');
-				})
+				});
 			})
 			$("#copyKey").on("click", function() {
 				mui.toast('复制私钥成功', {

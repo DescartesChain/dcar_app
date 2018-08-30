@@ -20,12 +20,17 @@
 				<img src="../img/property/code.jpg" alt="" />
 				<img src="../img/property/code_border.png" alt="" />
 			</div>
-			<div class="address_box">3035465464566747ddd</div>
+			<div class="address_box"></div>
 			<div class="copy_btn">点击复制钱包地址</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			var purseInfo = store.get('dcarPurse');
+//			alert(purseInfo[0].address);
+			$('.address_box').html(purseInfo[0].address);
 		</script>
 	</body>
 

@@ -82,9 +82,10 @@
 					var keystore = JSON.stringify(account.encrypt(password));
 					console.log(keystore);
 					if (keystore){
+						store.set('keystore', keystore);
 						var arr = store.get('dcarPurse');
 						arr.push(account);
-						store.set('dcarPurse', arr)
+						store.set('dcarPurse', arr);
 						mui.toast('钱包创建成功',{ duration: 2000, type:'div' });
 						var time = null;
 						clearTimeout(time);

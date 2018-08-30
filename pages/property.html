@@ -106,6 +106,7 @@
 			}
 			// 显示dcar钱包
 			function showDcarPurse() {
+				console.log(store.get('dcarPurse'))
 				if(store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
 					var dcarArray = []
 					store.set('dcarPurse', dcarArray)
@@ -113,6 +114,9 @@
 					if(store.get('dcarPurse').length == 0) {
 						$("#dcar_purse").hide();
 					} else {
+						$.each(store.get('dcarPurse'), function(i, t) {
+							console.log(t)
+						});
 						$("#dcar_purse").show();
 					}
 				}

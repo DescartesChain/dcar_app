@@ -55,26 +55,28 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-popover email_code_box">
+		<div class="mui-popover email_code_box" style="display: block;">
 			<div class="popover_header">
 				<p>安全验证</p>
 				<span id="cancel">取消</span>
 			</div>
 			<div class="popover_content">
-				<p>请输入登录密码</p>
+				<p>请输入钱包密码</p>
 				<div class="mui-input-row">
-					<input type="password" class="mui-input-password" placeholder="请输入账户登录密码" id="pass">
+					<input type="password" class="mui-input-password" placeholder="请输入钱包密码" id="pass">
 				</div>
 				<div class="sure_box">
 					<button type="button" class="mui-btn mui-btn-primary cannot newact showWord" id="ensure" url="/property/backup-wallet.html">确定</button>
-					<button type="button" class="mui-btn mui-btn-primary cannot newact showKey" id="ensure" url="/property/export-private-key.html">确定</button>
+					<button type="button" class="mui-btn mui-btn-primary cannot newact showKey" id="ensureImport" url="/property/export-private-key.html">确定</button>
 				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function() {
@@ -99,13 +101,18 @@
 					if($("#pass").val() == '') {
 						$("#ensure").removeClass("can");
 						$("#ensure").addClass("cannot");
+						$("#ensureImport").removeClass("can");
+						$("#ensureImport").addClass("cannot");
 					} else {
 						$("#ensure").removeClass("cannot");
 						$("#ensure").addClass("can");
+						$("#ensureImport").removeClass("cannot");
+						$("#ensureImport").addClass("can");
 					}
 				})
 				// 导出助记词
 				$("#export").on("click", function() {
+					$("#pass").val("");
 					mui('.email_code_box').popover('toggle');
 					$('.showWord').show();
 					$('.showKey').hide();
@@ -115,7 +122,15 @@
 				})
 				// 导出私钥
 				$("#key").on("click", function() {
+					$("#pass").val("");
 					mui('.email_code_box').popover('toggle');
+					var keystoreString = store.get('keystore');
+					var password = $("#pass").val();
+					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+					// 读取 钱包地址
+					console.log(wallet.address)
+					// 读取 私钥
+					console.log(wallet.privateKey)
 					$('.showWord').hide();
 					$('.showKey').show();
 				})

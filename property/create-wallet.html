@@ -70,32 +70,32 @@
 					mui.toast('两次密码不一致');
 					return false;
 				}
-				if ($("#isagree").is(":checked")) {
-					mui.showLoading("加载中...","div")
-					var web3 = new Web3();
-					// 用户输入密码
-					var password = $("#pass").val();
-					// 创建账户(生成私钥、地址)
-					var account = web3.eth.accounts.create();
-					console.log(account);
-					// 根据用户输入的密码加密私钥，生成 Keystore 文件
-					var keystore = JSON.stringify(account.encrypt(password));
-					console.log(keystore);
-					if (keystore){
-						store.set('keystore', keystore);
-						var arr = store.get('dcarPurse');
-						arr.push(account);
-						store.set('dcarPurse', arr);
-						mui.toast('钱包创建成功',{ duration: 2000, type:'div' });
-						var time = null;
-						clearTimeout(time);
-						setTimeout(function(){
-							plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
-							plus.webview.currentWebview().close();
-						}, 1000);
-					}
-				} else {
+				if (!$("#isagree").is(":checked")){
 					mui.toast('用户协议未勾选');
+					return false;
+				}
+				mui.showLoading("加载中...","div")
+				var web3 = new Web3();
+				// 用户输入密码
+				var password = $("#pass").val();
+				// 创建账户(生成私钥、地址)
+				var account = web3.eth.accounts.create();
+				// 根据用户输入的密码加密私钥，生成 Keystore 文件
+				var keystore = JSON.stringify(account.encrypt(password));
+				if (keystore){ 
+					account.keystore = keystore;
+					// store.set('keystore', keystore);
+					var arr = store.get('dcarPurse');
+					arr.push(account);
+					console.log(arr)
+					store.set('dcarPurse', arr);
+					mui.toast('钱包创建成功',{ duration: 2000, type:'div' });
+					var time = null;
+					clearTimeout(time);
+					setTimeout(function(){
+						plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+						plus.webview.currentWebview().close();
+					}, 1000);
 				}
 		   })
 		</script>

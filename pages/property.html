@@ -105,7 +105,7 @@
 			// 显示dcar钱包
 			function showDcarPurse() {
 				if (store.get('dcarPurse') == undefined || store.get('dcarPurse') == null || store.get('dcarPurse') == "") {
-					let dcarArray = []
+					var dcarArray = []
 					store.set('dcarPurse', dcarArray)
 				} else {
 					if (store.get('dcarPurse').length == 0) {

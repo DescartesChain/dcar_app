@@ -31,6 +31,7 @@
 	line-height: 20px;
 }
 
+
 .alert_box {
 	text-align: center;
 	width: 87%;
@@ -88,9 +89,9 @@
 .code_border {
 	position: absolute;
 	left: 50%;
-	top: 43%;
+	top: 50%;
 	transform: translate(-50%, -50%);
-	height:210px;
+	width:170px;
 }
 
 .code_img {
@@ -101,5 +102,18 @@
 	height:200px;
 }
 .out_box{
-	height:210px;
+	position: relative;
+	height:180px;
+}
+#qrcode {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
+
+#keyInput{
+	font-size: 14px;
+	border:none;
+	line-height: 20px;	
 }

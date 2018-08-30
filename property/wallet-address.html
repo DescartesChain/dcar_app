@@ -17,20 +17,59 @@
 		</header>
 		<div class="mui-content">
 			<div class="code_box">
-				<img src="../img/property/code.jpg" alt="" />
-				<img src="../img/property/code_border.png" alt="" />
+				<div id="qrcode"></div>
+				<!--<img src="../img/property/code.jpg" alt="" />-->
+				<img src="../img/property/code_border.png" alt="" class="codeBorder" />
 			</div>
-			<div class="address_box"></div>
-			<div class="copy_btn">点击复制钱包地址</div>
+			<div class="address_box">
+				<textarea readonly="readonly" id="addressBox" ></textarea>
+			</div>
+			<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制钱包地址</div>
+			<div id="qrcode"></div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/qrcode/qrcode.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/clipboard/clipboard.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
+			// 复制地址
+			var clipboard = new ClipboardJS('#copyAddress');
+
+			clipboard.on('success', function(e) {
+				mui.toast('复制钱包地址成功', {
+					duration: 2000,
+					type: 'div'
+				})
+			});
+
+			clipboard.on('error', function(e) {
+				mui.toast('复制失败', {
+					duration: 2000,
+					type: 'div'
+				})
+			});
+			// 显示二维码
 			var purseInfo = store.get('dcarPurse');
-//			alert(purseInfo[0].address);
-			$('.address_box').html(purseInfo[0].address);
+			var keystore = store.get('keystore');
+			//			alert(purseInfo[0].address);
+			$('#addressBox').html(purseInfo[0].address);
+			var qrcode = new QRCode(document.getElementById("qrcode"), {
+				text: {
+					"version": 3,
+					"id": "4b108243-2b81-494f-8ff9-90ee37eb4091",
+					"address": "ef9be7ce13bda174d7d6eda0c95f7f759b079276",
+					"crypto": keystore
+				},
+				width: 128,
+				height: 128,
+				colorDark: "#000000",
+				colorLight: "#ffffff",
+				correctLevel: QRCode.CorrectLevel.H
+			});
 		</script>
 	</body>
 

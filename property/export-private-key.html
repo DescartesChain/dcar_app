@@ -18,10 +18,11 @@
 		<div class="mui-content">
 			<div class="key_content">
 				<div class="key_box">
-					<input type="text" value="" readonly="readonly" style="display: none;" id="keyInput"/> 
-					<span id="keyBox"></span>
+					<!--<input type="text" value="" readonly="readonly" id="keyInput" />-->
+					<textarea readonly="readonly" id="keyInput" ></textarea>
+					<!--<span id="keyBox"></span>-->
 				</div>
-				<div class="backup_button" id="copyKey">点击复制私钥</div>
+				<div class="backup_button" id="copyKey" data-clipboard-action="copy" data-clipboard-target="#keyInput">点击复制私钥</div>
 				<div class="backup_button" id="showCode">显示二维码</div>
 				<div class="grey_box">
 					<div>温馨提示：</div>
@@ -43,22 +44,44 @@
 		<!--显示二维码-->
 		<div class="mui-popover code_box">
 			<div class="out_box">
-				<img src="../img/property/code.jpg" alt="" class="code_img" />
+				<div id="qrcode"></div>
+				<!--<img src="../img/property/code.jpg" alt="" class="code_img" />-->
 				<img src="../img/property/code_border.png" alt="" class="code_border" />
 			</div>
 			<div class="code_text">二维码禁止保存、截图、以及拍照。仅供用户在安全环境下直接扫描来方便的导入钱包。</div>
 		</div>
+
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/qrcode/qrcode.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/clipboard/clipboard.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			// 复制私钥
+			var clipboard = new ClipboardJS('#copyKey');
+
+			clipboard.on('success', function(e) {
+				mui.toast('复制私钥成功', {
+					duration: 2000,
+					type: 'div'
+				})
+			});
+
+			clipboard.on('error', function(e) {
+				mui.toast('复制失败', {
+					duration: 2000,
+					type: 'div'
+				})
+			});
+			
+			// 获取钱包信息
 			var purseInfo = store.get('dcarPurse');
-//			alert(purseInfo[0].privateKey);
 			$('#keyInput').val(purseInfo[0].privateKey);
-			$('#keyBox').html(purseInfo[0].privateKey);
+//			$('#keyBox').html(purseInfo[0].privateKey);
+			// #end
 			mui.plusReady(function() {
 				// 弹出请勿截图 提示
 				mui('.alert_box').popover('show');
@@ -68,13 +91,23 @@
 				$("#showCode").on("click", function() {
 					mui('.code_box').popover('toggle');
 				});
-			})
-			$("#copyKey").on("click", function() {
-				mui.toast('复制私钥成功', {
-					duration: 2000,
-					type: 'div'
-				})
-			})
+			});
+			
+			// 显示二维码
+			var keystore = store.get('keystore');
+			var qrcode = new QRCode(document.getElementById("qrcode"), {
+				text: {
+					"version": 3,
+					"id": "4b108243-2b81-494f-8ff9-90ee37eb4091",
+					"address": "ef9be7ce13bda174d7d6eda0c95f7f759b079276",
+					"crypto": keystore
+				},
+				width: 128,
+				height: 128,
+				colorDark: "#000000",
+				colorLight: "#ffffff",
+				correctLevel: QRCode.CorrectLevel.H
+			});
 		</script>
 	</body>
 

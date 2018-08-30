@@ -1,44 +1,60 @@
-.code_box{
+.code_box {
 	text-align: center;
-	padding-top:100px;
-	padding-bottom:20px;
+	padding-top: 250px;
+	padding-bottom: 20px;
 	position: relative;
 }
-.code_box>img{
-	width:50%;
-}
-.code_box>img:nth-child(2){
+
+#qrcode {
 	position: absolute;
-	bottom:20px;
-	left:50%;
-	margin-left:-25%;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
 }
-.copy_btn{
+
+.code_box>img {
+	width: 170px;
+}
+
+.codeBorder {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
+
+.copy_btn {
 	width: 100%;
 	height: 40px;
-	line-height:40px;
+	line-height: 40px;
 	font-size: 16px;
-	color: #fff;	
+	color: #fff;
 	margin-top: 10px;
 	border: 0;
 	background: #4384c5;
 	text-align: center;
 	letter-spacing: 2px;
-	width:93%;
+	width: 93%;
 	margin: 0 auto;
 	border-radius: 5px;
 }
-.address_box{
-	border:1px solid #F0F0F0;
+
+.address_box {
+	border: 1px solid #F0F0F0;
 	border-radius: 5px;
-	width:93%;
+	width: 93%;
 	margin: 0 auto;
-	padding:8px 40px;
+	padding: 10px 40px;
 	text-align: center;
 	font-size: 14px;
 	overflow: hidden;
-	margin-bottom:50px;
-	margin-top:10px;
-	word-break:break-all; 
-	line-height: 22px;
+	margin-bottom: 50px;
+	margin-top: 10px;
+}
+
+#addressBox {
+	font-size: 14px;
+	border: none;
+	line-height: 20px;
+	text-align: center;
 }

@@ -55,7 +55,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="mui-popover email_code_box" style="display: block;">
+		<div class="mui-popover email_code_box">
 			<div class="popover_header">
 				<p>安全验证</p>
 				<span id="cancel">取消</span>
@@ -67,12 +67,12 @@
 				</div>
 				<div class="sure_box">
 					<button type="button" class="mui-btn mui-btn-primary cannot newact showWord" id="ensure" url="/property/backup-wallet.html">确定</button>
-					<button type="button" class="mui-btn mui-btn-primary cannot newact showKey" id="ensureImport" url="/property/export-private-key.html">确定</button>
+					<button type="button" class="mui-btn mui-btn-primary cannot showKey" id="ensureImport">确定</button>
 				</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script src="../js/store/dist/store.legacy.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
@@ -124,17 +124,39 @@
 				// 导出私钥
 				$("#key").on("click", function() {
 					$("#pass").val("");
-					mui('.email_code_box').popover('toggle');
-					var keystoreString = store.get('keystore');
-					var password = $("#pass").val();
-					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-					// 读取 钱包地址
-					console.log(wallet.address)
-					// 读取 私钥
-					console.log(wallet.privateKey)
 					$('.showWord').hide();
 					$('.showKey').show();
+					mui('.email_code_box').popover('toggle');
 				})
+			})
+			$("#ensureImport").on("click", function(){
+				mui.showLoading("加载中...","div");
+				// mui.hideLoading();
+				var web3 = new Web3();
+				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+				var keystoreJsonV3 = JSON.parse(keystoreString)
+				var password = $("#pass").val();
+				try {
+					// 读取 钱包地址
+					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+					mui.openWindow({
+						id: "/property/export-private-key.html",
+						url: "/property/export-private-key.html",
+						extras: {
+							purseIndex: purseIndex,
+							purseAddress: wallet.address,
+							privateKey: wallet.privateKey
+						},
+						waiting : {
+							autoShow : false,
+						}
+				    })
+					console.log(wallet.address)
+					console.log(wallet.privateKey)
+				}catch(err){
+					mui.toast('密码输入错误');
+					console.log('错误')
+				}
 			})
 			// 点击头像跳转到账户信息
 			function account_info() {

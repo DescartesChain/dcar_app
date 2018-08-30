@@ -79,12 +79,13 @@
 			mui.init()
 			showDcarPurse()
 			//打开详情页
-			function go_detail(state) {
+			function go_detail(num, state) {
 				mui.openWindow({
 					id: "account-main.html",
 					url: "../property/account-main.html",
 					extras: {
 						targetId: state,
+						purseIndex: num
 					},
 					show: {
 						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
@@ -98,7 +99,7 @@
 					id: "../property/import-wallet.html",
 					url: "../property/import-wallet.html",
 					extras: {
-						targetId: state,
+						targetId: state
 					},
 					show: {
 						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
@@ -118,7 +119,7 @@
 						var dcar = 1;
 						var item='';
 						$.each(arr, function(i, t) {
-							item+='<div class="blue_bg card_one mui-row" onclick="go_detail('+dcar+')">'
+							item+='<div class="blue_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
 											+'<img src="../img/property/wallet.png" alt="" />'
 										+'</div>'

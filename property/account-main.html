@@ -82,6 +82,7 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
+				purseIndex = self.purseIndex;
 				// 判断钱包类型  1 dcar   2  ETH  3 BTC
 				if(targetId == '1') {
 					$('.account_title').html('DCAR-Wallet');

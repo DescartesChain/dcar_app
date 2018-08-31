@@ -20,7 +20,7 @@
 		<div class="mui-content">
 			<ul class="import_nav">
 				<li class="active_state choose">助记词</li>
-				<li class="grey_state choose">私钥</li>
+				<li class="grey_state choose">keyStore导入</li>
 			</ul>
 			<div class="import_main">
 				<textarea id="keystoreString" rows="3" placeholder="输入助记词，用空格分隔" class="import_input"></textarea>
@@ -52,14 +52,14 @@
 					$('.import_alert').html('使用助记词导入的同时可以修改密码');
 					$('.import_input').attr('placeholder', '输入助记词，用空格分隔');
 				};
-				if($(this).html() == '私钥') {
-					$('.import_alert').html('输入 Private Key 文件内容至输入框。或通过扫描 Private Key内容生成二维码录入');
-					$('.import_input').attr('placeholder', '输入明文私钥');
+				if($(this).html() == 'keyStore导入') {
+					$('.import_alert').html('请输入keyStore 文件内容至输入框。或通过扫描 Private Key内容生成二维码录入');
+					$('.import_input').attr('placeholder', '请输入keyStore');
 				}
 			})
 			$("#leadIn").on("click", function() {
 				if($("#keystoreString").val() == "") {
-					mui.toast('私钥不能为空')
+					mui.toast('keyStore不能为空')
 					return false;
 				}
 				if($("#pass").val() == "") {
@@ -109,7 +109,7 @@
 								plus.webview.currentWebview().close();
 							}, 1000);
 						} catch(err) {
-							mui.toast('密码或私钥错误');
+							mui.toast('密码或keyStore错误');
 						}
 						mui.hideLoading();
 					}, 10)

@@ -20,7 +20,9 @@
 				<li class="imageup">
 					<h6>头像</h6>
 					<span class="mui-icon mui-icon-arrowright"></span>
-					<div class="portrait"></div>
+					<div class="portrait">
+						<img src="../img/mine/touxiang.jpg"/>
+					</div>
 				</li>
 				<li id="changeName">
 					<h6>用户名</h6>
@@ -83,7 +85,6 @@
 
 			// 跳转到修改用户名
 			$('#changeName').click(function() {
-				alert(username);
 				mui.openWindow({
 					id: "/users/alterUserName.html",
 					url: "/users/alterUserName.html",

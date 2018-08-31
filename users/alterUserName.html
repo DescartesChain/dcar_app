@@ -22,11 +22,13 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+			var changeName;
 			// 获取用户名
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
@@ -34,11 +36,33 @@
 				$('#userName').val(name);
 				// 点击完成
 				$('#complete').click(function() {
-//					var username = $('#userName').val();
-//					purseInfo[purseIndex].name = newTitle;
-//					store.set('dcarPurse', purseInfo);
-//					plus.webview.currentWebview().close();
-					plus.webview.getWebviewById("users/userInfo.html").evalJS("getUserInfo()");
+					changeName = $('#userName').val();
+					mui.showLoading("提交中...", "div");
+					$.ajax({
+						type: "put",
+						url: api + "user/" + store.get('userInfo').id,
+						data: {
+							name: changeName
+						},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('token', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.success) {
+								mui.toast('修改成功');
+								var tiner = null;
+								clearTimeout(tiner);
+								tiner = setTimeout(function() {
+									plus.webview.getWebviewById("users/userInfo.html").evalJS("getUserInfo()");
+									plus.webview.currentWebview().close();
+								}, 500)
+							} else {
+								mui.toast(ret.msg)
+							}
+						}
+					});
 				});
 			});
 		</script>

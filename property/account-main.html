@@ -162,30 +162,62 @@
 
 			// 导出私钥
 			$("#ensureImport").on("click", function() {
-				mui.showLoading("加载中...", "div");
-				// mui.hideLoading();
-				var web3 = new Web3();
-				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-				var keystoreJsonV3 = JSON.parse(keystoreString)
-				var password = $("#pass").val();
-				try {
-					// 读取 钱包地址
-					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-					mui.openWindow({
-						id: "/property/export-private-key.html",
-						url: "/property/export-private-key.html",
-						extras: {
-							purseIndex: purseIndex,
-						},
-						waiting: {
-							autoShow: false,
+				$("input").blur();
+				var timer = null;
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					mui.showLoading("加载中...", "div");
+					var tiner = null;
+					clearTimeout(tiner);
+					tiner = setTimeout(function() {
+						mui.hideLoading();
+						var web3 = new Web3();
+						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+						var keystoreJsonV3 = JSON.parse(keystoreString)
+						var password = $("#pass").val();
+						try {
+							// 读取 钱包地址
+							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+							mui.openWindow({
+								id: "/property/export-private-key.html",
+								url: "/property/export-private-key.html",
+								extras: {
+									purseIndex: purseIndex,
+								},
+								waiting: {
+									autoShow: false,
+								}
+							})
+							console.log(wallet.address)
+							console.log(wallet.privateKey)
+						} catch(err) {
+							mui.toast('密码输入错误');
 						}
-					})
-					console.log(wallet.address)
-					console.log(wallet.privateKey)
-				} catch(err) {
-					mui.toast('密码输入错误');
-				}
+					}, 100)
+				}, 1000)
+				//				mui.showLoading("加载中...", "div");
+				//				var web3 = new Web3();
+				//				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+				//				var keystoreJsonV3 = JSON.parse(keystoreString)
+				//				var password = $("#pass").val();
+				//				try {
+				//					// 读取 钱包地址
+				//					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+				//					mui.openWindow({
+				//						id: "/property/export-private-key.html",
+				//						url: "/property/export-private-key.html",
+				//						extras: {
+				//							purseIndex: purseIndex,
+				//						},
+				//						waiting: {
+				//							autoShow: false,
+				//						}
+				//					})
+				//					console.log(wallet.address)
+				//					console.log(wallet.privateKey)
+				//				} catch(err) {
+				//					mui.toast('密码输入错误');
+				//				}
 			});
 
 			// 导出keystore
@@ -219,9 +251,8 @@
 							console.log(wallet.address)
 							console.log(wallet.privateKey)
 						} catch(err) {
-							mui.toast('密码输入错误'); 
+							mui.toast('密码输入错误');
 						}
-						// mui.hideLoading();
 					}, 100)
 				}, 1000)
 			});

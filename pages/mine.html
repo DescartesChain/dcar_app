@@ -75,9 +75,12 @@
 					mui.toast('您还未登录，请先登录',{ duration: 4000, type:'div' })
 				}
 			}
-			$("#cleanCach").on("click", function() {
-				store.clearAll();
-				mui.toast('缓存清理完成',{ duration: 2000, type:'div' })
+			mui.plusReady(function(){
+				$("#cleanCach").on("click", function() {
+					store.clearAll();
+					plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+					mui.toast('缓存清理完成',{ duration: 2000, type:'div' })
+				})
 			})
 			detection()
 			mui.init()

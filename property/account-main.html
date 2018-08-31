@@ -152,10 +152,10 @@
 				});
 				// 导出keystore
 				$("#keystore").on("click", function() {
-										$("#pass").val("");
-										$('.showWord').hide();
-										$('.showKey').hide();
-										$('.showKeystore').show();
+					$("#pass").val("");
+					$('.showWord').hide();
+					$('.showKey').hide();
+					$('.showKeystore').show();
 					mui('.email_code_box').popover('toggle');
 				})
 			})
@@ -185,7 +185,6 @@
 					console.log(wallet.privateKey)
 				} catch(err) {
 					mui.toast('密码输入错误');
-					console.log('错误')
 				}
 			});
 
@@ -216,7 +215,8 @@
 					mui.toast('密码输入错误');
 					console.log('错误')
 				}
-			})
+			});
+			
 			// 点击头像跳转到账户信息
 			function account_info() {
 				mui.openWindow({

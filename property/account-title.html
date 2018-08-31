@@ -41,6 +41,8 @@
 					store.set('dcarPurse', purseInfo);
 					plus.webview.currentWebview().close();
 					plus.webview.getWebviewById("../property/account-info.html").evalJS("init()");
+					plus.webview.getWebviewById("account-main.html").evalJS("init()");
+					plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
 				});
 			});
 		</script>

@@ -48,6 +48,11 @@
 						导出私钥
 					</a>
 				</li>
+				<li class="mui-table-view-cell" id="keystore">
+					<a class="mui-navigate-right">
+						导出Keystore
+					</a>
+				</li>
 				<li class="mui-table-view-cell newact" url="/users/tradeRecord.html">
 					<a class="mui-navigate-right ">
 						交易记录
@@ -68,6 +73,7 @@
 				<div class="sure_box">
 					<button type="button" class="mui-btn mui-btn-primary cannot newact showWord" id="ensure" url="/property/backup-wallet.html">确定</button>
 					<button type="button" class="mui-btn mui-btn-primary cannot showKey" id="ensureImport">确定</button>
+					<button type="button" class="mui-btn mui-btn-primary cannot showKeystore" id="sureKeystore">确定</button>
 				</div>
 			</div>
 		</div>
@@ -79,6 +85,13 @@
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+
+			function init() {
+				var self = plus.webview.currentWebview();
+				purseIndex = self.purseIndex;
+				var purseInfo = store.get('dcarPurse');
+				$('.account_title').html(purseInfo[purseIndex].name);
+			}
 
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
@@ -92,7 +105,7 @@
 					$('#showAll').show();
 					$('#showHalf').hide();
 				} else if(targetId == '2') {
-					$('.account_title').html('ETH-Wallet');
+					//					$('.account_title').html('ETH-Wallet');
 					$('#showAll').hide();
 					$('#showHalf').show();
 				} else if(targetId == '3') {
@@ -107,11 +120,15 @@
 						$("#ensure").addClass("cannot");
 						$("#ensureImport").removeClass("can");
 						$("#ensureImport").addClass("cannot");
+						$("#sureKeystore").removeClass("can");
+						$("#sureKeystore").addClass("cannot");
 					} else {
 						$("#ensure").removeClass("cannot");
 						$("#ensure").addClass("can");
 						$("#ensureImport").removeClass("cannot");
 						$("#ensureImport").addClass("can");
+						$("#sureKeystore").removeClass("can");
+						$("#sureKeystore").addClass("cannot");
 					}
 				})
 				// 导出助记词
@@ -120,6 +137,7 @@
 					mui('.email_code_box').popover('toggle');
 					$('.showWord').show();
 					$('.showKey').hide();
+					$('.showKeystore').hide();
 				})
 				$("#cancel").on("click", function() {
 					mui('.email_code_box').popover('hide');
@@ -129,10 +147,20 @@
 					$("#pass").val("");
 					$('.showWord').hide();
 					$('.showKey').show();
+					$('.showKeystore').hide();
+					mui('.email_code_box').popover('toggle');
+				});
+				// 导出keystore
+				$("#keystore").on("click", function() {
+										$("#pass").val("");
+										$('.showWord').hide();
+										$('.showKey').hide();
+										$('.showKeystore').show();
 					mui('.email_code_box').popover('toggle');
 				})
 			})
 
+			// 导出私钥
 			$("#ensureImport").on("click", function() {
 				mui.showLoading("加载中...", "div");
 				// mui.hideLoading();
@@ -148,8 +176,35 @@
 						url: "/property/export-private-key.html",
 						extras: {
 							purseIndex: purseIndex,
-							//							purseAddress: wallet.address,
-							//							privateKey: wallet.privateKey
+						},
+						waiting: {
+							autoShow: false,
+						}
+					})
+					console.log(wallet.address)
+					console.log(wallet.privateKey)
+				} catch(err) {
+					mui.toast('密码输入错误');
+					console.log('错误')
+				}
+			});
+
+			// 导出keystore
+			$("#sureKeystore").on("click", function() {
+				mui.showLoading("加载中...", "div");
+				// mui.hideLoading();
+				var web3 = new Web3();
+				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+				var keystoreJsonV3 = JSON.parse(keystoreString)
+				var password = $("#pass").val();
+				try {
+					// 读取 钱包地址
+					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+					mui.openWindow({
+						id: "/property/export-keystore.html",
+						url: "/property/export-keystore.html",
+						extras: {
+							purseIndex: purseIndex,
 						},
 						waiting: {
 							autoShow: false,

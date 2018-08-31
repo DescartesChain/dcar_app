@@ -64,6 +64,7 @@
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -74,8 +75,12 @@
 					mui.toast('您还未登录，请先登录',{ duration: 4000, type:'div' })
 				}
 			}
-			$("#cleanCach").on("click", function() {
-				mui.toast('缓存清理完成',{ duration: 2000, type:'div' })
+			mui.plusReady(function(){
+				$("#cleanCach").on("click", function() {
+					store.clearAll();
+					plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+					mui.toast('缓存清理完成',{ duration: 2000, type:'div' })
+				})
 			})
 			detection()
 			mui.init()

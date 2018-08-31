@@ -16,18 +16,18 @@
 		</header>
 		<div class="mui-content property_main">
 			<!--无-->
-			<div class="property_card blue_bg newact" url="/property/create-wallet.html">
+			<div class="property_card blue_bg newact" id="creat_dcar" url="/property/create-wallet.html">
 				<span>新建DCAR钱包</span>
 			</div>
-			<div class="property_card yellow_bg" onclick="import_wallet('ETH')">
+			<div id="dcar_purse"></div>
+			<div class="property_card yellow_bg" id="import_eth" onclick="import_wallet('ETH')">
 				<span>导入ETH钱包</span>
 			</div>
+			<div id="eth_purse"></div>
 			<div class="property_card black_bg" onclick="import_wallet('BTC')">
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
-			<div id="dcar_purse"></div>
-			<div id="eth_purse"></div>
 			<!--<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail(2)">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
@@ -98,7 +98,9 @@
 				} else {
 					if(arr.length == 0) {
 						$("#dcar_purse").hide();
+						$("#creat_dcar").show();
 					} else {
+						$("#creat_dcar").hide();
 						var dcar = 1;
 						var item='';
 						$.each(arr, function(i, t) {
@@ -136,7 +138,9 @@
 				} else {
 					if(eth.length == 0) {
 						$("#eth_purse").hide();
+						$("#import_eth").show();
 					} else {
+						$("#import_eth").hide();
 						var dcar = 2;
 						var item='';
 						$.each(eth, function(i, t) {

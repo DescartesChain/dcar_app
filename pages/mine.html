@@ -14,9 +14,11 @@
 	<body>
 		<div class="header">
 			<div class="portrait">
-				<img src="../img/mine/icon_Sign.png" class="newact" url="/users/userInfo.html"/>
+				<img src="../img/mine/icon_Sign.png" class="newact not" url="/public/login.html"/>
+				<img src="../img/mine/touxiang.jpg" class="newact already" url="/users/userInfo.html"/>
 			</div>
-			<p class="newact" url="/public/login.html">登录与注册</p>
+			<p class="newact not" url="/public/login.html">登录与注册</p>
+			<p class="already newact" id="userName" url="/users/userInfo.html"></p>
 		</div>
 		<div class="content operation_list">
 			<ul class="list">
@@ -69,20 +71,51 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			var state = 1;
+			detection()
+			console.log(store.get("userInfo").id)
+			// 判断是否登录
 			function detection() {
-				if (state == 1) {
-					mui.toast('您还未登录，请先登录',{ duration: 4000, type:'div' })
+				if (store.get("userInfo") == undefined) {
+					$(".not").show();
+					$(".already").hide();
+					mui.toast('您还未登录，请先登录');
+					return false;
 				}
+				$(".not").hide();
+				$(".already").show();
+				getUserInfo();
+			}
+			// 根据用户id获取用户信息
+			function getUserInfo() {
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: api + "user/" + store.get("userInfo").id,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('token', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							$("#userName").html(ret.data.name);
+						} else{
+							mui.toast(ret.msg);
+						}
+					}
+				})
 			}
 			mui.plusReady(function(){
 				$("#cleanCach").on("click", function() {
-					store.clearAll();
+					store.remove("dcarPurse");
+					store.remove("ethPurse");
 					plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
-					mui.toast('缓存清理完成',{ duration: 2000, type:'div' })
+					plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
+					mui.toast('缓存清理完成');
 				})
 			})
-			detection()
 			mui.init()
 		</script>
 	</body>

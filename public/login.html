@@ -71,6 +71,7 @@
 							var tiner = null;
 							clearTimeout(tiner);
 							tiner = setTimeout(function() {
+								plus.webview.getWebviewById("pages/mine.html").evalJS("detection()");
 								plus.webview.currentWebview().close();
 							},500)
 						} else {

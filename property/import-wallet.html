@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 	<head>
 		<meta charset="UTF-8">
 		<title>导入钱包</title>
@@ -40,6 +39,7 @@
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
@@ -83,14 +83,15 @@
 					// 获取钱包信息
 					try {
 						var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-						mui.toast('钱包导入成功',{ duration: 2000, type:'div' })
+						// 读取 钱包地址
+						console.log(wallet.address);
+						// 读取 私钥
+						console.log(wallet.privateKey);
+						mui.toast('钱包导入成功')
 					}catch(err){
-						mui.toast('密码输入错误',{ duration: 2000, type:'div' })
+						mui.toast('密码输入错误');
+						console.log("错误")
 					}
-					// 读取 钱包地址
-					console.log(wallet.address)
-					// 读取 私钥
-					console.log(wallet.privateKey)
 				}
 			})
 			mui.plusReady(function() {
@@ -104,6 +105,11 @@
 					$(".mui-title").html('导入BTC钱包');
 				}
 			})
+			function getResult() {
+				if(store.get("result") != undefined || store.get("result") != null){
+					$("#keystoreString").val(store.get("result"));
+				}
+			}
 		</script>
 	</body>
 

@@ -1,8 +1,8 @@
-﻿var api = "http://youpiao.zhengdazikaowang.net/apps/";
-var iapi = "http://youpiao.zhengdazikaowang.net";
-var img_url = "http://youpiao.zhengdazikaowang.net/"
-var base_url="http://youpiao.zhengdazikaowang.net/apps/";
-var root_url="http://youpiao.zhengdazikaowang.net/data/Upload/"
+﻿var api = "http://192.168.1.100:3000/";
+//var iapi = "http://youpiao.zhengdazikaowang.net";
+//var img_url = "http://youpiao.zhengdazikaowang.net/"
+//var base_url="http://youpiao.zhengdazikaowang.net/apps/";
+//var root_url="http://youpiao.zhengdazikaowang.net/data/Upload/"
 var log = console.log.bind(console);
 function check_login() { 
 	

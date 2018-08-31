@@ -6,22 +6,22 @@
 		<title>登录</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/login.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/login.css" />
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-pull-left mui_cliclk newact">取消</a>
-		    <h1 class="mui-title">登录</h1>
+			<h1 class="mui-title">登录</h1>
 		</header>
 		<div class="mui-content login_page">
 			<div class="logo_box">
-				<img src="../img/login/img_DCAR2.png" class="logo"/>
+				<img src="../img/login/img_DCAR2.png" class="logo" />
 			</div>
 			<form class="login_info">
 				<div class="mui-input-row">
-					<input type="text" class="mui-input-clear" placeholder="请输入邮箱" id="email">
+					<input type="text" class="mui-input-clear" placeholder="请输入用户名" id="username">
 				</div>
 				<div class="mui-input-row">
 					<input type="password" class="mui-input-password" placeholder="请输入密码" id="pass">
@@ -34,21 +34,52 @@
 			</form>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
-			$("#email, #pass").keyup(function() {
-				if ($("#email").val() != '' &&  $("#pass").val() != ''){
+			$("#username, #pass").keyup(function() {
+				if($("#username").val() != '' && $("#pass").val() != '') {
 					$("#sign").removeClass("cannot");
-			        $("#sign").addClass("can");
+					$("#sign").addClass("can");
 				} else {
 					$("#sign").removeClass("can");
-			        $("#sign").addClass("cannot");
+					$("#sign").addClass("cannot");
 				}
-			})
-			
+			});
+			$('#sign').click(function() {
+				mui.showLoading("登录中...", "div");
+				var name = $('#username').val();
+				var pass = $('#pass').val();
+				// 登录
+				$.ajax({
+					type: "post",
+					url: api + "login",
+					data: {
+						name: name,
+						password: pass
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+//						console.log(ret);
+						if(ret.success) {
+							store.set('userInfo', ret.data);
+							mui.toast('登录成功');
+							var tiner = null;
+							clearTimeout(tiner);
+							tiner = setTimeout(function() {
+								plus.webview.currentWebview().close();
+							},500)
+						} else {
+							mui.toast(ret.msg)
+						}
+					}
+
+				});
+			});
 		</script>
 	</body>
 

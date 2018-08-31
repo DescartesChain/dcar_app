@@ -190,15 +190,15 @@
 
 			// 导出keystore
 			$("#sureKeystore").on("click", function() {
+				$("input").blur();
 				var timer = null;
 				clearTimeout(timer);
-				$("input").blur();
 				timer = setTimeout(function() {
 					mui.showLoading("加载中...", "div");
 					var tiner = null;
 					clearTimeout(tiner);
 					tiner = setTimeout(function() {
-						// mui.hideLoading();
+						mui.hideLoading();
 						var web3 = new Web3();
 						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
 						var keystoreJsonV3 = JSON.parse(keystoreString)
@@ -221,8 +221,8 @@
 						} catch(err) {
 							mui.toast('密码输入错误'); 
 						}
-						mui.hideLoading();
-					}, 10)
+						// mui.hideLoading();
+					}, 100)
 				}, 1000)
 			});
 

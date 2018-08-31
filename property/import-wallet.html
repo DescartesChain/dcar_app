@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>导入钱包</title>
@@ -56,52 +57,62 @@
 					$('.import_input').attr('placeholder', '输入明文私钥');
 				}
 			})
-			$("#leadIn").on("click",function(){
-				if ($("#keystoreString").val() == "") {
+			$("#leadIn").on("click", function() {
+				if($("#keystoreString").val() == "") {
 					mui.toast('私钥不能为空')
 					return false;
-				} 
-				if ($("#pass").val() == "") {
+				}
+				if($("#pass").val() == "") {
 					mui.toast('密码不能为空')
 					return false;
-				} 
-				if ($("#ensurePass").val() == "") {
+				}
+				if($("#ensurePass").val() == "") {
 					mui.toast('请再次输入密码')
 					return false;
 				}
-				if ($("#pass").val() != $("#ensurePass").val()) {
+				if($("#pass").val() != $("#ensurePass").val()) {
 					mui.toast('两次密码不一致')
-				} else {
-					// 创建 Web3 实例
-					var web3 = new Web3();
-					// 用户导入 keystore 文件
-					var keystoreString = $("#keystoreString").val();
-					// 转换为 JSON 文件
-					var keystoreJsonV3 = JSON.parse(keystoreString);
-					// 用户输入争取的密码
-					var password = $("#pass").val();
-					// 获取钱包信息
-					try {
-						var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-						var purse_data = store.get("dcarPurse");
-						var eth_data = store.get("ethPurse");
-						for (var i=0; i<purse_data.length; i++){
-							if (purse_data[i].privateKey == wallet.privateKey) {
-								eth_data.push(purse_data[i]);
-							}
-						}
-						store.set('ethPurse', eth_data);
-						mui.toast('钱包导入成功');
-						var time = null;
-						clearTimeout(time);
-						setTimeout(function(){
-							plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
-							plus.webview.currentWebview().close();
-						}, 1000);
-					}catch(err){
-						mui.toast('密码输入错误');
-					}
+					return false;
 				}
+				$("input").blur();
+				var tiner = null;
+				clearTimeout(tiner);
+				tiner = setTimeout(function() {
+					mui.showLoading("加载中...", "div");
+					var time = null;
+					clearTimeout(time);
+					time = setTimeout(function() {
+						// 创建 Web3 实例
+						var web3 = new Web3();
+						// 用户导入 keystore 文件
+						var keystoreString = $("#keystoreString").val();
+						// 转换为 JSON 文件
+						var keystoreJsonV3 = JSON.parse(keystoreString);
+						// 用户输入争取的密码
+						var password = $("#pass").val();
+						// 获取钱包信息
+						try {
+							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+							var purse_data = store.get("dcarPurse");
+							var eth_data = store.get("ethPurse");
+							for(var i = 0; i < purse_data.length; i++) {
+								if(purse_data[i].privateKey == wallet.privateKey) {
+									eth_data.push(purse_data[i]);
+								}
+							}
+							store.set('ethPurse', eth_data);
+							mui.toast('钱包导入成功');
+							var timer = null;
+							clearTimeout(timer);
+							timer = setTimeout(function() {
+								plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
+								plus.webview.currentWebview().close();
+							}, 1000);
+						} catch(err) {
+							mui.toast('密码或私钥错误');
+						}
+					}, 10)
+				}, 1000)
 			})
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
@@ -114,8 +125,9 @@
 					$(".mui-title").html('导入BTC钱包');
 				}
 			})
+
 			function getResult() {
-				if(store.get("result") != undefined || store.get("result") != null){
+				if(store.get("result") != undefined || store.get("result") != null) {
 					$("#keystoreString").val(store.get("result"));
 				}
 			}

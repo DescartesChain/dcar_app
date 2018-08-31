@@ -26,27 +26,8 @@
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
-			<div id="dcar_purse">
-				<!--<div class="blue_bg card_one mui-row" onclick="go_detail('dcar')">
-					<div class="mui-col-sm-3 mui-col-xs-3">
-						<img src="../img/property/wallet.png" alt="" />
-					</div>
-					<div class="mui-col-sm-6 mui-col-xs-6">
-						<div>DCAR-Wallet</div>
-						<div>0.000DCAR</div>
-						<div>&yen;0.00</div>
-						<div>0xbsdakdhkdsidusidshhskkh</div>
-					</div>
-					<div class="mui-col-sm-3 mui-col-xs-3">
-						<p>
-							<span>买入</span>
-						</p>
-						<p>
-							<span>卖出</span>
-						</p>
-					</div>
-				</div>-->
-			</div>
+			<div id="dcar_purse"></div>
+			<div id="eth_purse"></div>
 			<!--<div class="yellow_bg card_one mui-row" id="eth_purse" onclick="go_detail(2)">
 				<div class="mui-col-sm-3 mui-col-xs-3">
 					<img src="../img/property/wallet.png" alt="" />
@@ -76,8 +57,10 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
-			showDcarPurse()
+			mui.init();
+			// store.clearAll();
+			showDcarPurse();
+			showEthPurse();
 			//打开详情页
 			function go_detail(num, state) {
 				mui.openWindow({
@@ -138,10 +121,38 @@
 											+'</p >'
 										+'</div>'
 									+'</div>'
-							
 						});
 						$("#dcar_purse").html(item)
 						$("#dcar_purse").show();
+					}
+				}
+			}
+			// 显示ETH钱包
+			function showEthPurse(){
+				var eth = store.get('ethPurse')
+				if(eth == undefined || eth == null || eth == "") {
+					var ethArray = []
+					store.set('ethPurse', ethArray)
+				} else {
+					if(eth.length == 0) {
+						$("#eth_purse").hide();
+					} else {
+						var dcar = 2;
+						var item='';
+						$.each(eth, function(i, t) {
+							item+='<div class="yellow_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
+										+'<div class="mui-col-sm-3 mui-col-xs-3">'
+											+'<img src="../img/property/wallet.png" alt="" />'
+										+'</div>'
+										+'<div class="mui-col-sm-9 mui-col-xs-9">'
+											+'<div>'+ t.name +'</div>'
+											+'<div>0.000DCAR</div>'
+											+'<div>&yen;0.00</div>'
+											+'<div>'+ t.address +'</div>'
+										+'</div>'
+						});
+						$("#eth_purse").html(item)
+						$("#eth_purse").show();
 					}
 				}
 			}

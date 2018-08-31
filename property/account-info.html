@@ -12,7 +12,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" id="back"></a>
 			<h1 class="mui-title">账户信息</h1>
 		</header>
 		<div class="mui-content">
@@ -71,14 +71,21 @@
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
 			// 获取钱包名称
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
 				$('#walletTitle').html(purseInfo[purseIndex].name);
 			});
+
+			function init() {
+				var self = plus.webview.currentWebview();
+				purseIndex = self.purseIndex;
+				var purseInfo = store.get('dcarPurse');
+				$('#walletTitle').html(purseInfo[purseIndex].name);
+			}
 			// 跳转到修改钱包名称
 			function account_title() {
 				mui.openWindow({
@@ -96,6 +103,7 @@
 			mui('body').on('hidden', '.mui-popover', function(e) {
 				//console.log('hidden', e.detail.id);//detail为当前popover元素
 			});
+
 			function hide_modal() {
 				mui('#middlePopover').popover('hide');
 			}

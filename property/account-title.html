@@ -14,7 +14,7 @@
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">账户名称</h1>
-			<span class="complete_btn">完成</span>
+			<span class="complete_btn" id="complete">完成</span>
 		</header>
 		<div class="mui-content">
 			<div class="mui-input-row search_box">
@@ -24,6 +24,8 @@
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
 			// 获取钱包名称
@@ -32,6 +34,14 @@
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
 				$('#walletTitle').val(purseInfo[purseIndex].name);
+				// 点击完成
+				$('#complete').click(function() {
+					var newTitle = $('#walletTitle').val();
+					purseInfo[purseIndex].name = newTitle;
+					store.set('dcarPurse', purseInfo);
+					plus.webview.currentWebview().close();
+					plus.webview.getWebviewById("../property/account-info.html").evalJS("init()");
+				});
 			});
 		</script>
 	</body>

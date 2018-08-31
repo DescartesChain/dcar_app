@@ -78,7 +78,8 @@
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
@@ -131,8 +132,9 @@
 					mui('.email_code_box').popover('toggle');
 				})
 			})
-			$("#ensureImport").on("click", function(){
-				mui.showLoading("加载中...","div");
+
+			$("#ensureImport").on("click", function() {
+				mui.showLoading("加载中...", "div");
 				// mui.hideLoading();
 				var web3 = new Web3();
 				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
@@ -146,16 +148,16 @@
 						url: "/property/export-private-key.html",
 						extras: {
 							purseIndex: purseIndex,
-//							purseAddress: wallet.address,
-//							privateKey: wallet.privateKey
+							//							purseAddress: wallet.address,
+							//							privateKey: wallet.privateKey
 						},
-						waiting : {
-							autoShow : false,
+						waiting: {
+							autoShow: false,
 						}
-				    })
+					})
 					console.log(wallet.address)
 					console.log(wallet.privateKey)
-				}catch(err){
+				} catch(err) {
 					mui.toast('密码输入错误');
 					console.log('错误')
 				}

@@ -93,23 +93,20 @@
 				console.log(purseIndex);
 				var purseInfo = store.get('dcarPurse');
 				console.log(purseInfo[purseIndex].privateKey);
+				console.log(purseInfo[purseIndex].keystore);
 				$('#keyInput').val(purseInfo[purseIndex].privateKey);
-			});
-
-			// 显示二维码
-			var keystore = store.get('keystore');
-			var qrcode = new QRCode(document.getElementById("qrcode"), {
-				text: {
-					"version": 3,
-					"id": "4b108243-2b81-494f-8ff9-90ee37eb4091",
-					"address": "ef9be7ce13bda174d7d6eda0c95f7f759b079276",
-					"crypto": 'purseInfo[purseIndex].keystore'
-				},
-				width: 128,
-				height: 128,
-				colorDark: "#000000",
-				colorLight: "#ffffff",
-				correctLevel: QRCode.CorrectLevel.H
+				var keystore = purseInfo[purseIndex].keystore;
+				if(keystore !== undefined) {
+					// 显示二维码
+					var qrcode = new QRCode(document.getElementById("qrcode"), {
+						text: keystore,
+						width: 128,
+						height: 128,
+						colorDark: "#000000",
+						colorLight: "#ffffff",
+						correctLevel: QRCode.CorrectLevel.L
+					});
+				}
 			});
 		</script>
 	</body>

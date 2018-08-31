@@ -84,6 +84,7 @@
 				var keystore = JSON.stringify(account.encrypt(password));
 				if (keystore){ 
 					account.keystore = keystore;
+					account.name = $("#purseName").val();
 					// store.set('keystore', keystore);
 					var arr = store.get('dcarPurse');
 					arr.push(account);

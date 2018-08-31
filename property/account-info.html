@@ -27,7 +27,7 @@
 					</li>
 					<li class="mui-table-view-cell" onclick="account_title()">
 						<a class="mui-navigate-right">
-							<span class="mui-badge">DCAR-Wallet</span> 钱包名称
+							<span class="mui-badge" id="walletTitle"></span> 钱包名称
 						</a>
 					</li>
 				</ul>
@@ -68,16 +68,24 @@
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			// 获取钱包名称
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				purseIndex = self.purseIndex;
+				var purseInfo = store.get('dcarPurse');
+				$('#walletTitle').html(purseInfo[purseIndex].name);
+			});
 			// 跳转到修改钱包名称
 			function account_title() {
 				mui.openWindow({
 					id: "account-title.html",
 					url: "account-title.html",
 					extras: {
-						targetId: '1',
+						purseIndex: purseIndex
 					},
 				})
 			}

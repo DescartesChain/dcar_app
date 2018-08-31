@@ -18,13 +18,21 @@
 		</header>
 		<div class="mui-content">
 			<div class="mui-input-row search_box">
-				<input type="text" class="mui-input-clear" placeholder="dcar">
+				<input type="text" class="mui-input-clear" id="walletTitle">
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			// 获取钱包名称
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				purseIndex = self.purseIndex;
+				var purseInfo = store.get('dcarPurse');
+				$('#walletTitle').val(purseInfo[purseIndex].name);
+			});
 		</script>
 	</body>
 

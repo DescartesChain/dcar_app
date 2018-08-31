@@ -33,6 +33,7 @@
 	text-align: center;
 	padding-top: 5px;
 	padding-bottom: 25px;
+	word-break:break-all; 
 }
 
 .dcar_money {

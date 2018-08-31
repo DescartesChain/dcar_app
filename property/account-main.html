@@ -20,7 +20,7 @@
 				<img src="../img/property/wallet.png" alt="" />
 			</div>
 			<div class="wallet_title account_title"></div>
-			<div class="wallet_address">nshsaidyia...akhasduaydsy</div>
+			<div class="wallet_address"></div>
 			<div class="mui-row dcar_money" id="showAll">
 				<div class="mui-col-sm-12 mui-col-xs-12">
 					当前余额：<span class="orange_text ">2566.00</span> DCAR
@@ -83,9 +83,11 @@
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
 				purseIndex = self.purseIndex;
+				var purseInfo = store.get('dcarPurse');
+				$('.wallet_address').html(purseInfo[purseIndex].address);
+				$('.account_title').html(purseInfo[purseIndex].name);
 				// 判断钱包类型  1 dcar   2  ETH  3 BTC
 				if(targetId == '1') {
-					$('.account_title').html('DCAR-Wallet');
 					$('#showAll').show();
 					$('#showHalf').hide();
 				} else if(targetId == '2') {
@@ -164,7 +166,7 @@
 					id: "../property/account-info.html",
 					url: "../property/account-info.html",
 					extras: {
-						targetId: '1',
+						purseIndex: purseIndex
 					},
 				})
 			}

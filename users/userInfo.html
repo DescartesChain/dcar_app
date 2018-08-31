@@ -199,6 +199,16 @@
 			} else {
 				document.addEventListener("plusready", plusReady, false);
 			}
+			$("#signOut").click(function(){
+				store.clearAll();
+				mui.toast('退出成功');
+				var tiner = null;
+				clearTimeout(tiner);
+				tiner = setTimeout(function() {
+					plus.webview.getWebviewById("pages/mine.html").evalJS("detection()");
+					plus.webview.currentWebview().close();
+				},500)
+			})
 		</script>
 	</body>
 

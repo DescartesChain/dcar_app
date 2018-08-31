@@ -22,14 +22,14 @@
 					<span class="mui-icon mui-icon-arrowright"></span>
 					<div class="portrait"></div>
 				</li>
-				<li class="newact" url="/users/alterUserName.html">
+				<li id="changeName">
 					<h6>用户名</h6>
 					<span class="mui-icon mui-icon-arrowright"></span>
-					<p>ID9527</p>
+					<p id="username"></p>
 				</li>
 				<li>
 					<h6>邮箱</h6>
-					<p>132***@163.com</p>
+					<p id="email">132***@163.com</p>
 				</li>
 				<li class="newact" url="/users/alterPassword.html">
 					<h6>修改密码</h6>
@@ -41,19 +41,57 @@
 			<button type="button" class="mui-btn mui-btn-primary cannot" id="signOut">退出登录</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
-
+			var username;
 			function plusReady() {
+				getUserInfo();
 				// 弹出系统选择按钮框
 				mui("body").on("tap", ".imageup", function() {
 					page.imgUp();
 				})
+			};
 
-			}
+			// 获取个人信息
+			function getUserInfo() {
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: api + "user/" + store.get('userInfo').id,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('token', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							username = ret.data.name;
+							$('#username').html(username);
+							$('#email').html(ret.data.email);
+						} else {
+							mui.toast(ret.msg)
+						}
+					}
+
+				});
+			};
+
+			// 跳转到修改用户名
+			$('#changeName').click(function() {
+				alert(username);
+				mui.openWindow({
+					id: "/users/alterUserName.html",
+					url: "/users/alterUserName.html",
+					extras: {
+						name: username
+					},
+				})
+			});
 
 			var page = null;
 			page = {

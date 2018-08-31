@@ -6,24 +6,41 @@
 		<title>用户名</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/alterUserName.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/alterUserName.css" />
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">用户名</h1>
-			<a class="complete_btn">完成</a>
+			<a class="complete_btn" id="complete">完成</a>
 		</header>
 		<div class="mui-content">
 			<div class="mui-input-row search_box">
-				<input type="text" class="mui-input-clear" placeholder="ID9527">
+				<input type="text" class="mui-input-clear" id="userName">
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			// 获取用户名
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				name = self.name;
+				$('#userName').val(name);
+				// 点击完成
+				$('#complete').click(function() {
+//					var username = $('#userName').val();
+//					purseInfo[purseIndex].name = newTitle;
+//					store.set('dcarPurse', purseInfo);
+//					plus.webview.currentWebview().close();
+					plus.webview.getWebviewById("users/userInfo.html").evalJS("getUserInfo()");
+				});
+			});
 		</script>
 	</body>
 

@@ -22,7 +22,7 @@
 				<img src="../img/property/code_border.png" alt="" class="codeBorder" />
 			</div>
 			<div class="address_box">
-				<textarea contentEditable="true" id="addressBox"></textarea>
+				<textarea readonly="readonly" id="addressBox"></textarea>
 			</div>
 			<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制钱包地址</div>
 			<div id="qrcode"></div>
@@ -41,7 +41,7 @@
 				var self = plus.webview.currentWebview();
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
-				$('#addressBox').html(purseInfo[purseIndex].address);
+				$('#addressBox').val(purseInfo[purseIndex].address);
 				address = purseInfo[purseIndex].address;
 				var keystore = purseInfo[purseIndex].keystore;
 				if(keystore !== undefined) {
@@ -72,7 +72,7 @@
 			//				})
 			//			});
 			$('#copyAddress').click(function() {
-				const el = document.getElementById('addressBox');
+				const el = document.createElement('input');
 				const btn = document.getElementById('copyAddress');
 				el.value = address;
 				el.style.opacity = '0';
@@ -91,7 +91,13 @@
 				el.readOnly = readOnly;
 				const ret = document.execCommand('copy');
 				el.blur();
-				btn.text = ret ? '已复制' : '复制失败';
+				btn.text = ret;
+				if(btn.text) {
+					mui.toast('复制钱包地址成功');
+				} else{
+					mui.toast('复制失败');
+				}
+
 			})
 		</script>
 	</body>

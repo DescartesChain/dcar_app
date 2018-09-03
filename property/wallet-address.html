@@ -22,8 +22,11 @@
 				<img src="../img/property/code_border.png" alt="" class="codeBorder" />
 			</div>
 			<div class="address_box">
-				<textarea readonly="readonly" id="addressBox"></textarea>
+				<!--<textarea readonly="readonly" id="addressBox"></textarea>-->
+				<h4 id="addressBox"></h4>
+				<!--<button id="addressBox"></button>-->
 			</div>
+			 <button class="btn" data-clipboard-action="copy" data-clipboard-target="h4" id="copyAddress">Copy</button>
 			<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制钱包地址</div>
 			<div id="qrcode"></div>
 		</div>
@@ -40,7 +43,7 @@
 				var self = plus.webview.currentWebview();
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
-				$('#addressBox').val(purseInfo[purseIndex].address);
+				$('#addressBox').html(purseInfo[purseIndex].address);
 				var keystore = purseInfo[purseIndex].keystore;
 				if(keystore !== undefined) {
 					var qrcode = new QRCode(document.getElementById("qrcode"), {

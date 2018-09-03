@@ -22,7 +22,7 @@
 				<img src="../img/property/code_border.png" alt="" class="codeBorder" />
 			</div>
 			<div class="address_box">
-				<textarea readonly="false" contentEditable="true" id="addressBox"></textarea>
+				<textarea contentEditable="true" id="addressBox"></textarea>
 			</div>
 			<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制钱包地址</div>
 			<div id="qrcode"></div>
@@ -36,11 +36,13 @@
 		<script src="../js/clipboard/clipboard.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
+			var address;
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
 				$('#addressBox').html(purseInfo[purseIndex].address);
+				address = purseInfo[purseIndex].address;
 				var keystore = purseInfo[purseIndex].keystore;
 				if(keystore !== undefined) {
 					var qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -70,9 +72,9 @@
 			//				})
 			//			});
 			$('#copyAddress').click(function() {
-				const el = document.createElement('input');
+				const el = document.getElementById('addressBox');
 				const btn = document.getElementById('copyAddress');
-				el.value = '待复制文本';
+				el.value = address;
 				el.style.opacity = '0';
 				document.body.appendChild(el);
 				const editable = el.contentEditable;

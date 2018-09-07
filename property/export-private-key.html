@@ -60,23 +60,23 @@
 		<script src="../js/clipboard/clipboard.min.js"></script>
 		<script type="text/javascript">
 			mui.init();
-
+			var key;
 			// 复制私钥
-			var clipboard = new ClipboardJS('#copyKey');
-
-			clipboard.on('success', function(e) {
-				mui.toast('复制私钥成功', {
-					duration: 2000,
-					type: 'div'
-				})
-			});
-
-			clipboard.on('error', function(e) {
-				mui.toast('复制失败', {
-					duration: 2000,
-					type: 'div'
-				})
-			});
+			//			var clipboard = new ClipboardJS('#copyKey');
+			//
+			//			clipboard.on('success', function(e) {
+			//				mui.toast('复制私钥成功', {
+			//					duration: 2000,
+			//					type: 'div'
+			//				})
+			//			});
+			//
+			//			clipboard.on('error', function(e) {
+			//				mui.toast('复制失败', {
+			//					duration: 2000,
+			//					type: 'div'
+			//				})
+			//			});
 
 			mui.plusReady(function() {
 				// 弹出请勿截图 提示
@@ -90,11 +90,9 @@
 				// 获取钱包信息
 				var self = plus.webview.currentWebview();
 				purseIndex = self.purseIndex;
-				console.log(purseIndex);
 				var purseInfo = store.get('dcarPurse');
-				console.log(purseInfo[purseIndex].privateKey);
-				console.log(purseInfo[purseIndex].keystore);
 				$('#keyInput').val(purseInfo[purseIndex].privateKey);
+				key = purseInfo[purseIndex].privateKey;
 				var keystore = purseInfo[purseIndex].keystore;
 				if(keystore !== undefined) {
 					// 显示二维码
@@ -108,6 +106,34 @@
 					});
 				}
 			});
+
+			$('#copyKey').click(function() {
+				const el = document.createElement('input');
+				const btn = document.getElementById('copyKey');
+				el.value = key;
+				el.style.opacity = '0';
+				document.body.appendChild(el);
+				const editable = el.contentEditable;
+				const readOnly = el.readOnly;
+				el.contentEditable = true;
+				el.readOnly = false;
+				const range = document.createRange();
+				range.selectNodeContents(el);
+				const sel = window.getSelection();
+				sel.removeAllRanges();
+				sel.addRange(range);
+				el.setSelectionRange(0, 999999);
+				el.contentEditable = editable;
+				el.readOnly = readOnly;
+				const ret = document.execCommand('copy');
+				el.blur();
+				btn.text = ret;
+				if(btn.text) {
+					mui.toast('复制私钥成功');
+				} else {
+					mui.toast('复制失败');
+				}
+			})
 		</script>
 	</body>
 

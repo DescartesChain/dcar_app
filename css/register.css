@@ -24,7 +24,7 @@ body{
 	margin-top: 45px;
 }
 .input_box{
-	margin-top: 35px;
+	margin-top: 25px;
 }
 .input_box input{
 	height: 40px;
@@ -48,7 +48,7 @@ body{
 	width: 100%;
 	height: auto;
 	overflow: hidden;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 /*.tuigu_shuru input{
 	width: 12%;

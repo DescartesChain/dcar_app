@@ -23,14 +23,14 @@
 			<div class="wallet_address"></div>
 			<div class="mui-row dcar_money" id="showAll">
 				<div class="mui-col-sm-12 mui-col-xs-12">
-					当前余额：<span class="orange_text ">2566.00</span> DCAR
+					当前余额：<span class="orange_text ">2566.00</span> <span class="unit">DCAR</span>
 				</div>
 				<div class="mui-col-sm-12 mui-col-xs-12" style="padding-top:10px;">
-					矿收：<span class="green_text">2866.00</span> DCAR
+					矿收：<span class="green_text">0</span> <span class="unit">DCAR</span>
 				</div>
 			</div>
 			<div class="dcar_money" id="showHalf">
-				当前余额：<span class="orange_text">2566.00</span> DCAR
+				当前余额：<span class="orange_text">0</span> <span class="unit">DCAR</span>
 			</div>
 			<ul class="mui-table-view">
 				<li class="mui-table-view-cell" onclick="wallet_address()">
@@ -97,24 +97,26 @@
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
 				purseIndex = self.purseIndex;
-				var purseInfo = store.get('dcarPurse');
-				$('.wallet_address').html(purseInfo[purseIndex].address);
-				$('.account_title').html(purseInfo[purseIndex].name);
 				// 判断钱包类型  1 dcar   2  ETH  3 BTC
 				if(targetId == '1') {
-					$("#headPort").attr("src", "../img/property/wallet.png");
+					var purseInfo = store.get('dcarPurse');
+					$(".unit").html("DCAR");
 					$('#showAll').show();
 					$('#showHalf').hide();
 				} else if(targetId == '2') {
+					var purseInfo = store.get('ethPurse');
+					//					$('.account_title').html('ETH-Wallet');
 					$("#headPort").attr("src", "../img/property/btn-ethereum.png");
+					$(".unit").html("ETH");
 					$('#showAll').hide();
 					$('#showHalf').show();
 				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
-					$("#headPort").attr("src", "../img/property/wallet.png");
 					$('#showAll').hide();
 					$('#showHalf').show();
 				}
+				$('.wallet_address').html(purseInfo[purseIndex].address);
+				$('.account_title').html(purseInfo[purseIndex].name);
 				// 判断密码是否为空
 				$("#pass").keyup(function() {
 					if($("#pass").val() == '') {
@@ -275,7 +277,8 @@
 					id: "../property/wallet-address.html",
 					url: "../property/wallet-address.html",
 					extras: {
-						purseIndex: purseIndex
+						purseIndex: purseIndex,
+						targetId: targetId
 					},
 				})
 			}

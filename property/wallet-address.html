@@ -40,10 +40,15 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				purseIndex = self.purseIndex;
-				var purseInfo = store.get('dcarPurse');
+				targetId = self.targetId;
+				if(targetId == '1') {
+					var purseInfo = store.get('dcarPurse');
+				} else if(targetId == '2') {
+					var purseInfo = store.get('ethPurse');
+				}
 				$('#addressBox').val(purseInfo[purseIndex].address);
 				address = purseInfo[purseIndex].address;
-				var keystore = purseInfo[purseIndex].keystore;
+				var keystore = purseInfo[purseIndex].address;
 				if(keystore !== undefined) {
 					var qrcode = new QRCode(document.getElementById("qrcode"), {
 						text: keystore,

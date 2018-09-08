@@ -20,11 +20,11 @@
 				<span>新建DCAR钱包</span>
 			</div>
 			<div id="dcar_purse"></div>
-			<div class="property_card yellow_bg" id="import_eth" onclick="import_wallet('ETH')">
+			<div class="property_card black_bg" id="import_eth" onclick="import_wallet('ETH')">
 				<span>导入ETH钱包</span>
 			</div>
 			<div id="eth_purse"></div>
-			<div class="property_card black_bg" onclick="import_wallet('BTC')">
+			<div class="property_card yellow_bg" onclick="import_wallet('BTC')">
 				<span>导入BTC钱包</span>
 			</div>
 			<!--有-->
@@ -56,6 +56,7 @@
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
 			showDcarPurse();
@@ -143,18 +144,20 @@
 						$("#eth_purse").hide();
 						$("#import_eth").show();
 					} else {
+						console.log(eth)
+						this.ethBalance(eth[0].address, '.eth_money');
 						$("#import_eth").hide();
 						var dcar = 2;
 						var item='';
 						$.each(eth, function(i, t) {
-							item+='<div class="yellow_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
+							item+='<div class="black_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
-											+'<img src="../img/property/wallet.png" alt="" />'
+											+'<img src="../img/property/btn-ethereum.png" alt="" />'
 										+'</div>'
 										+'<div class="mui-col-sm-9 mui-col-xs-9">'
 											+'<div>'+ t.name +'</div>'
-											+'<div>0.000DCAR</div>'
-											+'<div>&yen;0.00</div>'
+											+'<div class="eth_money">0ETH</div>'
+											+'<div class="eth_money">&yen;0</div>'
 											+'<div>'+ t.address +'</div>'
 										+'</div>'
 						});
@@ -162,6 +165,15 @@
 						$("#eth_purse").show();
 					}
 				}
+			}
+			function ethBalance (address, cas) {
+				var web3 = new Web3(ethProvider);
+				web3.eth.getBalance(address)
+				.then((result) => {
+					$(cas).html(web3.utils.fromWei(result, 'ether') + 'ETH');
+				}).catch(() => {
+					mui.toast('链接不到以太坊区块链网络');
+				});
 			}
 		</script>
 	</body>

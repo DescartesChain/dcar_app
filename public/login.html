@@ -64,7 +64,6 @@
 					async: true,
 					success: function(ret) {
 						mui.hideLoading();
-//						console.log(ret);
 						if(ret.success) {
 							store.set('userInfo', ret.data);
 							mui.toast('登录成功');

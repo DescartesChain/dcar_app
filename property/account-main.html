@@ -17,7 +17,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="img_box" onclick="account_info()">
-				<img src="../img/property/wallet.png" alt="" />
+				<img src="../img/property/wallet.png" alt="" id="headPort"/>
 			</div>
 			<div class="wallet_title account_title"></div>
 			<div class="wallet_address"></div>
@@ -102,14 +102,16 @@
 				$('.account_title').html(purseInfo[purseIndex].name);
 				// 判断钱包类型  1 dcar   2  ETH  3 BTC
 				if(targetId == '1') {
+					$("#headPort").attr("src", "../img/property/wallet.png");
 					$('#showAll').show();
 					$('#showHalf').hide();
 				} else if(targetId == '2') {
-					//					$('.account_title').html('ETH-Wallet');
+					$("#headPort").attr("src", "../img/property/btn-ethereum.png");
 					$('#showAll').hide();
 					$('#showHalf').show();
 				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
+					$("#headPort").attr("src", "../img/property/wallet.png");
 					$('#showAll').hide();
 					$('#showHalf').show();
 				}

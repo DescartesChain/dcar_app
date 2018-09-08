@@ -26,8 +26,8 @@
 				<textarea id="keystoreString" rows="3" placeholder="输入助记词，用空格分隔" class="import_input"></textarea>
 				<p class="import_alert">使用助记词导入的同时可以修改密码</p>
 				<div class="between">
-					<h4>重置密码</h4>
-					<p class="limit">8-20位字符，不可以是纯数字</p>
+					<h4>请输入密码</h4>
+					<p class="limit">两次密码应保持一致</p>
 					<div class="mui-input-row info">
 						<input id="pass" value="" type="password" class="mui-input-password" placeholder="钱包密码">
 					</div>
@@ -93,13 +93,9 @@
 						// 获取钱包信息
 						try {
 							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-							var purse_data = store.get("dcarPurse");
+							wallet.name = 'ETH钱包';
 							var eth_data = store.get("ethPurse");
-							for(var i = 0; i < purse_data.length; i++) {
-								if(purse_data[i].privateKey == wallet.privateKey) {
-									eth_data.push(purse_data[i]);
-								}
-							}
+							eth_data.push(wallet);
 							store.set('ethPurse', eth_data);
 							mui.toast('钱包导入成功');
 							var timer = null;
@@ -109,6 +105,7 @@
 								plus.webview.currentWebview().close();
 							}, 1000);
 						} catch(err) {
+							console.log(err);
 							mui.toast('密码或keyStore错误');
 						}
 						mui.hideLoading();

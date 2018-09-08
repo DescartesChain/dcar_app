@@ -1,4 +1,5 @@
 ﻿var api = "http://192.168.1.100:3000/api/";
+var ethProvider = 'HTTP://127.0.0.1:7545';
 //var iapi = "http://youpiao.zhengdazikaowang.net";
 //var img_url = "http://youpiao.zhengdazikaowang.net/"
 //var base_url="http://youpiao.zhengdazikaowang.net/apps/";

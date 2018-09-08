@@ -6,39 +6,26 @@
 		<title>注册</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/register.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/register.css" />
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">注册</h1>
+			<h1 class="mui-title">注册</h1>
 		</header>
 		<div class="mui-content between">
 			<h4>邮箱注册</h4>
 			<div class="mui-input-row input_box">
-				<input type="text" class="mui-input-clear" placeholder="请输入邮箱">
+				<input type="text" value="" id="email" class="mui-input-clear" placeholder="请输入邮箱号码">
 			</div>
 			<h4>邮箱验证码</h4>
-			<div class="tuigu_shuru">
-				<!--<input type="tel" name="" id="title" value="" />
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>-->
-				<input type="tel" name="" id="title" value="" />
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-				<p></p>
-		    </div>
-		    <p class="send_code">发送验证码</p>
-			<button type="button" class="mui-btn mui-btn-primary cannot newact" id="next" url="/public/setPassword.html">下一步</button>
+			<div class="mui-input-row input_box">
+				<input type="text" value="" id="title" class="mui-input-clear" placeholder="请输入验证码">
+			</div>
+			<p class="send_code" id="sendCode">发送验证码</p>
+			<button type="button" class="mui-btn mui-btn-primary cannot" id="next">下一步</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -46,20 +33,92 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+			function closePage () {
+				plus.webview.currentWebview().close();
+			}
 			$("#title").keyup(function() {
-			    if ($("#title").val().length >= 6) {
-			        $("#title").val($("#title").val().substring(0, 6));
-			        $("#title").blur();
-			        $("#next").removeClass("cannot");
-			        $("#next").addClass("can");
-			    } else {
-			    	$("#next").removeClass("can");
-			        $("#next").addClass("cannot");
-			    }
+				if($("#title").val().length >= 6) {
+					$("#title").val($("#title").val().substring(0, 6));
+					$("#title").blur();
+					$("#next").removeClass("cannot");
+					$("#next").addClass("can");
+				} else {
+					$("#next").removeClass("can");
+					$("#next").addClass("cannot");
+				}
 			});
-			$("#next").on("click", function () {
-				if ($("#next").is(".cannot")){
+			$("#next").on("click", function() {
+				if($("#next").is(".cannot")) {
 					return false
+				}
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "post",
+					url: api + "verify_email_code",
+					data: {
+						'email': $("#email").val(),
+        				'verifyCode': $("#title").val()
+					},
+					async: true,
+					success: function (result) {
+						mui.hideLoading();
+						if (result.success) {
+							mui.openWindow({
+								url: '/public/setPassword.html',
+								id: '/public/setPassword.html',
+								extras: {
+									ackId: result.data,
+									email: $("#email").val()
+								},
+								waiting: {
+									autoShow: false, //自动显示等待框，默认为true
+								}
+							})
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				});
+			})
+			$("#sendCode").on("click", function() {
+				if($("#sendCode").html() == '发送验证码' || $("#sendCode").html() == '重新发送') {
+					if($("#email").val() == '') {
+						mui.toast('请输入邮箱号');
+						return false;
+					}
+					mui.showLoading("加载中...", "div");
+					$.ajax({
+						type: "post",
+						url: api + "req_email_code",
+						data: {
+							'email': $("#email").val()
+						},
+						async: true,
+						success: function(result) {
+							mui.hideLoading();
+							if(result.success) {
+								mui.toast('发送成功');
+								var time = 120;
+								var empty = null;
+								clearInterval(empty);
+								empty = setInterval(function() {
+									if(time > 1) {
+										time--;
+										$("#sendCode").html(time + '秒后重新发送');
+									} else {
+										$("#sendCode").html('重新发送');
+										clearInterval(empty);
+									}
+								}, 1000);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					});
 				}
 			})
 		</script>

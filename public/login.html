@@ -77,8 +77,11 @@
 						} else {
 							mui.toast(ret.msg)
 						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
 					}
-
 				});
 			});
 		</script>

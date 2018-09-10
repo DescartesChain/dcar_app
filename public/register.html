@@ -93,7 +93,8 @@
 						type: "post",
 						url: api + "req_email_code",
 						data: {
-							'email': $("#email").val()
+							'email': $("#email").val(),
+							'action': 1 // 1 表示注册，2 表示恢复密码
 						},
 						async: true,
 						success: function(result) {

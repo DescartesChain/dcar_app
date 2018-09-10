@@ -12,38 +12,63 @@
 <body>
 	<header class="mui-bar mui-bar-nav">
 		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		<h1 class="mui-title">公告详情</h1>
+		<h1 class="mui-title"></h1>
 	</header>
 	<div class="mui-content">
 		<div class="notice_top">
-			<p>币安回应市场称6月份将所有GAS分发完成</p>
+			<p id="title"></p>
 			<p>
-				<span>07-01</span>
-				<span>2323浏览</span>
+				<span id="date"></span>
 			</p>
 		</div>
 		<div class="mui-content-padded">
 			<p>
-				毫无疑问，近年来区块链技术的飞速发展在2018年初迎来了一波爆发。区块链技术被誉为价值网络，是彻底重构互联网生产关系的革命性技术。Boolan 链接行业内三十余位深耕区块链技术的一线专家和技术领袖，回归技术原点，于2018年8月24-25日在上海五角场凯悦酒店举办2018全球区块链技术大会 。
-			</p>
-			<p>
 				<img src="../img/home/banner.png" data-preview-src="" data-preview-group="1" />
 			</p>
-			<p>
-				区块链概念究竟有多火爆？各位互联网巨头都在各种重要场合不约而同的提及了区块链技术，尽管对于 ICO 的风险与监管仍有诸多争论，
-				但是对于区块链技术的前景，各家几乎一致看好。马化腾在两会期间表示：区块链技术可以应用在很多领域，有划时代意义。李彦宏也认为：
-				尽管现在还处于非常早期的阶段，但区块链是非常有革命性的技术。不仅仅是科技巨头，创投圈名人更是纷纷以实际行动表达了对区块链技术的看好，
-				薛蛮子，李笑来，徐小平等无数我们熟知的名字都频频同区块链一同出现，薛蛮子甚至说：“区块链让所有人都有机会干出 BAT 。”
-			</p>
+			<p id="content"></p>
 		</div>
 	</div>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery-2.1.1.min.js"></script>
 	<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/mui.zoom.js"></script>
 	<script src="../js/mui.previewimage.js"></script>
 	<script type="text/javascript">
-		mui.init()
+		var postInfo;
+		var title;
+		mui.init();
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview();
+			purseIndex = self.purseIndex;
+			loadPostList();
+		});
+		// 获取公告列表
+		function loadPostList() {
+			mui.showLoading("加载中...", "div");
+			$.ajax({
+				type: "get",
+				url: api + "posts",
+				data: {},
+				async: true,
+				success: function(ret) {
+					mui.hideLoading();
+					if(ret.success) {
+						mui.toast('加载成功');
+						postInfo = ret.data.list[purseIndex];
+						$('#title').html(postInfo.title);
+						$('#content').html(postInfo.content);
+						$('#date').html(postInfo.createdAt);
+					} else {
+						mui.toast(ret.msg);
+					}
+				},
+				error: function(error) {
+					mui.hideLoading();
+					mui.toast(error.responseJSON.msg);
+				}
+			})
+		};
 	</script>
 </body>
 

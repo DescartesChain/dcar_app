@@ -100,6 +100,7 @@
 						success: function(result) {
 							mui.hideLoading();
 							if(result.success) {
+								console.log(result);
 								mui.toast('发送成功');
 								var time = 120;
 								var empty = null;

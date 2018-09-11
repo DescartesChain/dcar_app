@@ -54,10 +54,11 @@
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "post",
-					url: api + "verify_email_code",
+					url: api + "verify_code",
 					data: {
 						'email': $("#email").val(),
-        				'verifyCode': $("#title").val()
+        				'verifyCode': $("#title").val(),
+        				'action': 1
 					},
 					async: true,
 					success: function (result) {
@@ -91,7 +92,7 @@
 					mui.showLoading("加载中...", "div");
 					$.ajax({
 						type: "post",
-						url: api + "req_email_code",
+						url: api + "send_code",
 						data: {
 							'email': $("#email").val(),
 							'action': 1 // 1 表示注册，2 表示恢复密码

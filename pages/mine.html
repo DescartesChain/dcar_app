@@ -93,7 +93,7 @@
 					url: api + "user/" + store.get("userInfo").id,
 					data: {},
 					beforeSend: function(xhr) {
-						xhr.setRequestHeader('token', store.get("userInfo").token);
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
 					},
 					async: true,
 					success: function(ret) {
@@ -101,7 +101,6 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							$("#userName").html(ret.data.name);
-							alert(ret.data.name);
 						} else{
 							mui.toast(ret.msg);
 						}

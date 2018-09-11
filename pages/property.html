@@ -169,9 +169,9 @@
 			function ethBalance (address, cas) {
 				var web3 = new Web3(ethProvider);
 				web3.eth.getBalance(address)
-				.then((result) => {
+				.then(function (result) {
 					$(cas).html(web3.utils.fromWei(result, 'ether') + 'ETH');
-				}).catch(() => {
+				}).catch(function () {
 					mui.toast('链接不到以太坊区块链网络');
 				});
 			}

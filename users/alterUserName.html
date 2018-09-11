@@ -45,7 +45,7 @@
 							name: changeName
 						},
 						beforeSend: function(xhr) {
-							xhr.setRequestHeader('token', store.get("userInfo").token);
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
 						},
 						async: true,
 						success: function(ret) {

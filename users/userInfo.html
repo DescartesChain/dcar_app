@@ -67,12 +67,10 @@
 					url: api + "user/" + store.get('userInfo').id,
 					data: {},
 					beforeSend: function(xhr) {
-						console.log(store.get("userInfo").id);
-						xhr.setRequestHeader('token', store.get("userInfo").token);
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
 					},
 					async: true,
 					success: function(ret) {
-						alert('success');
 						mui.hideLoading();
 						if(ret.success) {
 							username = ret.data.name;
@@ -83,7 +81,6 @@
 						}
 					},
 					error: function(error) {
-						alert('error');
 						mui.hideLoading();
 						mui.toast(error.responseJSON.msg);
 					}

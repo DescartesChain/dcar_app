@@ -55,12 +55,16 @@
 								var tiner = null;
 								clearTimeout(tiner);
 								tiner = setTimeout(function() {
-									plus.webview.getWebviewById("users/userInfo.html").evalJS("getUserInfo()");
+									plus.webview.getWebviewById("/users/userInfo.html").evalJS("closeCurrent()");
 									plus.webview.currentWebview().close();
 								}, 500)
 							} else {
 								mui.toast(ret.msg)
 							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
 						}
 					});
 				});

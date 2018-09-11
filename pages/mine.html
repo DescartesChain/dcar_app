@@ -101,6 +101,7 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							$("#userName").html(ret.data.name);
+							alert(ret.data.name);
 						} else{
 							mui.toast(ret.msg);
 						}

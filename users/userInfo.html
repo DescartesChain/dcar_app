@@ -50,6 +50,7 @@
 		<script type="text/javascript">
 			mui.init()
 			var username;
+			getUserInfo();
 			function plusReady() {
 				getUserInfo();
 				// 弹出系统选择按钮框
@@ -66,20 +67,23 @@
 					url: api + "user/" + store.get('userInfo').id,
 					data: {},
 					beforeSend: function(xhr) {
+						console.log(store.get("userInfo").id);
 						xhr.setRequestHeader('token', store.get("userInfo").token);
 					},
 					async: true,
 					success: function(ret) {
+						alert('success');
 						mui.hideLoading();
 						if(ret.success) {
 							username = ret.data.name;
 							$('#username').html(username);
 							$('#email').html(ret.data.email);
 						} else {
-							mui.toast(ret.msg)
+							mui.toast('ret.msg')
 						}
 					},
 					error: function(error) {
+						alert('error');
 						mui.hideLoading();
 						mui.toast(error.responseJSON.msg);
 					}
@@ -203,7 +207,7 @@
 				document.addEventListener("plusready", plusReady, false);
 			}
 			$("#signOut").click(function(){
-				store.clearAll();
+				store.remove('userInfo');
 				mui.toast('退出成功');
 				var tiner = null;
 				clearTimeout(tiner);

@@ -21,7 +21,7 @@
 					<h6>头像</h6>
 					<span class="mui-icon mui-icon-arrowright"></span>
 					<div class="portrait">
-						<img src="../img/mine/touxiang.jpg"/>
+						<img src="../img/mine/touxiang.jpg" />
 					</div>
 				</li>
 				<li id="changeName">
@@ -33,7 +33,7 @@
 					<h6>邮箱</h6>
 					<p id="email"></p>
 				</li>
-				<li class="newact">
+				<li class="newact" url="/users/changePassword.html">
 					<h6>修改密码</h6>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
@@ -51,6 +51,7 @@
 			mui.init()
 			var username;
 			getUserInfo();
+
 			function plusReady() {
 				getUserInfo();
 				// 弹出系统选择按钮框
@@ -77,7 +78,7 @@
 							$('#username').html(username);
 							$('#email').html(ret.data.email);
 						} else {
-							mui.toast('ret.msg')
+							mui.toast(ret.msg)
 						}
 					},
 					error: function(error) {
@@ -203,7 +204,7 @@
 			} else {
 				document.addEventListener("plusready", plusReady, false);
 			}
-			$("#signOut").click(function(){
+			$("#signOut").click(function() {
 				store.remove('userInfo');
 				mui.toast('退出成功');
 				var tiner = null;
@@ -211,8 +212,13 @@
 				tiner = setTimeout(function() {
 					plus.webview.getWebviewById("pages/mine.html").evalJS("detection()");
 					plus.webview.currentWebview().close();
-				},500)
+				}, 500)
 			})
+			// 关闭当前页面
+			function closeCurrent() {
+				plus.webview.getWebviewById("pages/mine.html").evalJS("detection()");
+				plus.webview.currentWebview().close();
+			}
 		</script>
 	</body>
 

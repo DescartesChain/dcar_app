@@ -149,3 +149,69 @@ body, .mui-content{
 	color: #6e7ebf;
 	font-size: 13px;
 }
+/*矿机管理*/
+.mill_top{
+	background: #fff;
+	text-align: center;
+	padding:30px 0;
+}
+.first_line{
+	color:#388ee4;
+	font-size: 12px;
+}
+.second_line{
+	color:#388EE4;
+	font-size: 30px;
+	padding:15px 0;
+}
+.third_line{
+	color:#23507c;
+	font-size: 15px;
+}
+.alert_box {
+	text-align: center;
+	width: 87%;
+	padding-bottom: 10px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
+
+.alert_title {
+	color: #333;
+	font-size: 24px;
+	font-weight: bold;
+	padding-top: 30px;
+	padding-bottom: 23px;
+}
+
+.alert_body {
+	color: #333;
+	font-size: 15px;
+	margin: 5px 0;
+}
+
+.alert_operate{
+	overflow: hidden;
+	width:85%;
+	margin:40px auto 30px;
+}
+.alert_operate>li{
+	width:45%;
+	border-radius: 5px;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
+}
+.alert_operate>li:nth-child(1){
+	background: #E66D42;
+	float: left;
+}
+.alert_operate>li:nth-child(2){
+	background: #9e9b9a;
+	float: right;
+}
+

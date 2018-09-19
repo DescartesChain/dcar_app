@@ -98,10 +98,11 @@
 		<!--开机关机弹框-->
 		<div class="mui-popover alert_box">
 			<p class="alert_title">提示</p>
-			<!--<div class="alert_body">确定要关机吗？确定之后矿机将停止挖矿</div>-->
-			<div class="alert_body">确定要开机吗？确定之后矿机将开始挖矿</div>
+			<!--<div class="alert_body" id="close">确定要关机吗？确定之后矿机将停止挖矿</div>-->
+			<div class="alert_body" id="delete">确定要删除吗？</div>
+			<!--<div class="alert_body" id="open">确定要开机吗？确定之后矿机将开始挖矿</div>-->
 			<ul class="alert_operate">
-				<li class="alert_button">确定</li>
+				<li class="alert_button" onclick="sureConfirm()">确定</li>
 				<li class="alert_button">取消</li>
 			</ul>
 		</div>
@@ -112,6 +113,7 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			loadmillList();
+			var alertState;
 			mui.plusReady(function() {
 				$("#cart_list").on("click", ".open_box", function() {
 					mui('.alert_box').popover('show');
@@ -131,7 +133,47 @@
 						}
 					})
 			    })
+				$("#cart_list").on("click", ".delete_miner", function() {
+					mui('.alert_box').popover('show');
+					alertState = 'delete';
+					var currentId = $(this).attr("uuid");
+					$('#delete').show();
+					$('#close').hide();
+					$('#open').hide();
+				});
 			});
+			// 确定 
+			function sureConfirm(){
+				if (alertState == 'delete') {
+					mui.showLoading("删除中...", "div");
+					$.ajax({
+						type: "delete",
+						url: api + "miners/" + currentId,
+						data: {},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.success) {
+								mui.toast('删除成功');
+								for (var i=0;i<goods.length;i++) {
+									if (goods[i].uuid == currentId) {
+										goods.splice(i, 1);
+									}
+								}
+							} else {
+								mui.toast(ret.msg);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					});
+				}
+			}
 			var goods = [];
 			var cart_list = '';
 			// 获取矿机列表
@@ -199,7 +241,7 @@
 //													'</p>'+
 //												'</div>'+
 											'</div>' +
-											'<div class="delete_miner">' +
+											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
 												'<i class="iconfont icon-shanchu"></i>' +
 												'<p>' + '删除' + '</p>'+
 											'</div>' +

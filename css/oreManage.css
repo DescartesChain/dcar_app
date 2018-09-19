@@ -7,7 +7,7 @@ body, .mui-content{
 }
 .miner_list{
 	width: 100%;
-	height: auto;
+	padding-bottom:15px;
 }
 .miner_box{
 	overflow: hidden;

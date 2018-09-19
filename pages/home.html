@@ -124,23 +124,14 @@
 					},
 					error: function(error) {
 						mui.hideLoading();
-//						console.log(error);
 						mui.toast(error.responseJSON.msg);
 					}
 				})
 			};
 
 			mui.init()
-//			//预加载详情页
-//			var homeDetail = mui.preload({
-//				id: "notice.html",
-//				url: "../public/notice.html"
-//			});
 			//打开详情页
 			function go_detail(num) {
-//				mui.fire(homeDetail, "movieID", {
-//					id: 123
-//				})
 				mui.openWindow({
 					id: "notice.html",
 					url: "../public/notice.html",

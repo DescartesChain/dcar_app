@@ -26,8 +26,8 @@
 				</p>
 				<p class="third_line">≈125666.00 CNY</p>
 			</div>
-			<div class="miner_list">
-				<div class="miner_box">
+			<div class="miner_list" id="cart_list">
+				<!--<div class="miner_box">
 					<div class="miner">
 						<div class="title">
 							<h5 class="name">矿机一</h5>
@@ -59,8 +59,8 @@
 						<i class="iconfont icon-shanchu"></i>
 						<p>删除</p>
 					</div>
-				</div>
-				<div class="miner_box">
+				</div>-->
+				<!--<div class="miner_box">
 					<div class="miner">
 						<div class="title">
 							<h5 class="name">矿机二</h5>
@@ -92,7 +92,7 @@
 						<i class="iconfont icon-shanchu"></i>
 						<p>删除</p>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<!--开机关机弹框-->
@@ -106,10 +106,81 @@
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			loadmillList();
+			var goods;
+			var cart_list = '';
+			// 获取矿机列表
+			function loadmillList() {
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: api + "miners",
+					data: {
+
+					},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							goods = ret.data.list;
+							if(goods.length > 0) {
+								$.each(goods, function(i, t) {
+									cart_list +=
+										'<div class="miner_box">' +
+											'<div class="miner">' +
+												'<div class="title">' +
+													'<h5 class="name">' + t.name + '</h5>' +
+													'<p class="status stay">' + '正在挖矿' + '</p>' +
+												'</div>' +
+												'<div class="miner_content">' +
+													'<ul class="miner_income">' +
+														'<li>' +
+															'<h6>' + '今日收益（24h）' + '</h6>' +
+															'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
+														'</li>' +
+														'<li>' +
+															'<h6>' + '算力值（KH/S）' + '</h6>' +
+															'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
+														'</li>' +
+													'</ul>' +
+													'<p class="miner_address">' + '矿机地址' + '<span>' + 'wadsfafafafasdaffdddddfafasf' + '</span>' + '</p>' +
+												'</div>' +
+												'<div class="miner_footer">' +
+													'<p class="shut_down open_box">' +
+														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
+													'</p>' +
+													'<p class="purse">' +
+														'<i class="iconfont icon-qianbao"></i>' + '钱包管理' +
+													'</p>' +
+												'</div>' +
+											'</div>' +
+											'<div class="delete_miner">' +
+												'<i class="iconfont icon-shanchu"></i>' +
+												'<p>' + '删除' + '</p>'+
+											'</div>' +
+										'</div>'
+								});
+								$('#cart_list').html(cart_list);
+							}
+						} else {
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			};
 			mui.plusReady(function() {
 				$('.open_box').click(function() {
 					mui('.alert_box').popover('show');
@@ -118,15 +189,17 @@
 					mui('.alert_box').popover('toggle');
 				});
 			})
-			$(".miner").on("swipeleft", function() {
-				$(".miner_box").find(".delete_miner").css("right", "-85px")
-				$(".miner_box").find(".miner").css("margin-left", "0")
-				$(this).parent().find(".delete_miner").css("right", "0")
-				$(this).parent().find(".miner").css("margin-left", "-85px")
-			})
-			$(".miner").on("swiperight", function() {
-				$(this).parent().find(".delete_miner").css("right", "-85px")
-				$(this).parent().find(".miner").css("margin-left", "0")
+			$(function(){
+				$(".miner").on("swipeleft", function() {
+					$(".miner_box").find(".delete_miner").css("right", "-85px")
+					$(".miner_box").find(".miner").css("margin-left", "0")
+					$(this).parent().find(".delete_miner").css("right", "0")
+					$(this).parent().find(".miner").css("margin-left", "-85px")
+				})
+				$(".miner").on("swiperight", function() {
+					$(this).parent().find(".delete_miner").css("right", "-85px")
+					$(this).parent().find(".miner").css("margin-left", "0")
+				})
 			})
 		</script>
 	</body>

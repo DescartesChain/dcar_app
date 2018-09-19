@@ -94,15 +94,12 @@
 				var arr = store.get('dcarPurse')
 				if(arr == undefined || arr == null || arr == "") {
 					$("#dcar_purse").hide();
-					$("#creat_dcar").show();
 					var dcarArray = []
 					store.set('dcarPurse', dcarArray)
 				} else {
 					if(arr.length == 0) {
 						$("#dcar_purse").hide();
-						$("#creat_dcar").show();
 					} else {
-						$("#creat_dcar").hide();
 						var dcar = 1;
 						var item='';
 						$.each(arr, function(i, t) {

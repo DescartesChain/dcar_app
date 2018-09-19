@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>添加矿机</title>
+		<title>选择钱包</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/mui.picker.css"/>
@@ -14,10 +14,12 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left newact" url="/users/barcode.html"></a>
-		    <h1 class="mui-title">添加矿机</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">选择钱包</h1>
+		    <h1 class="mui-pull-right saoma_btn newact" url="/property/create-wallet.html">新建</h1>
 		</header>
 		<div class="mui-content between">
+			<p id="miner_name"></p>
 			<div class="example">
 				<p>选择钱包地址</p>
 				<div class="mui-input-row">
@@ -25,7 +27,7 @@
 				</div>
 				<div id='userResult' class="ui-alert"></div>
 			</div>
-			<div class="example">
+			<!--<div class="example">
 				<p>输入矿机验证码</p>
 				<div class="mui-input-row">
 					<input type="text" class="mui-input-clear" placeholder="请输入矿机验证码">
@@ -36,7 +38,7 @@
 				<div class="mui-input-row">
 					<input type="text" class="mui-input-clear" placeholder="请输入矿机名称">
 				</div>
-			</div>
+			</div>-->
 			<button type="button" class="mui-btn mui-btn-primary">确认</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -60,16 +62,21 @@
 					}]);
 					var showUserPickerButton = doc.getElementById('showUserPicker');
 					var userResult = doc.getElementById('showUserPicker');
-					var Input = doc.getElementsByTagName("input");
+//					var Input = doc.getElementsByTagName("input");
 					showUserPickerButton.addEventListener('tap', function(event) {
-						Input[1].blur();
-						Input[2].blur();
+//						Input[1].blur();
+//						Input[2].blur();
 						userPicker.show(function(items) {
 							userResult.value = items[0].text;
 						});
 					}, false);
 				});
 			})(mui, document);
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				minerName = self.minerName;
+				$("#miner_name").html("钱包名称：" + minerName);
+			})
 		</script>
 	</body>
 

@@ -119,6 +119,18 @@
 				$(".alert_button").on("click", function() {
 					mui('.alert_box').popover('toggle');
 				});
+				$("#cart_list").on("click", ".purse", function() {
+					mui.openWindow({
+						url: '/users/addOre.html',
+						id: '/users/addOre.html',
+						extras: {
+							minerName: $(this).attr("name")
+						},
+						waiting: {
+							autoShow: false,
+						}
+					})
+			    })
 			});
 			var goods = [];
 			var cart_list = '';
@@ -177,7 +189,7 @@
 													'<p class="shut_down open_box">' +
 														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
 													'</p>' +
-													'<p class="purse">' +
+													'<p class="purse" name="'+ t.name +'">' +
 														'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
 													'</p>' +
 												'</div>' +

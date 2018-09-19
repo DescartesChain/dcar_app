@@ -116,7 +116,7 @@
 		<script type="text/javascript">
 			loadmillList();
 			mui.plusReady(function() {
-				$('.open_box').click(function() {
+				$("#cart_list").on("click", ".open_box", function() {
 					mui('.alert_box').popover('show');
 				});
 				$(".alert_button").on("click", function() {
@@ -206,18 +206,16 @@
 					}
 				})
 			};
-			$(function(){
-				$(".miner").on("swipeleft", function() {
-					$(".miner_box").find(".delete_miner").css("right", "-85px")
-					$(".miner_box").find(".miner").css("margin-left", "0")
-					$(this).parent().find(".delete_miner").css("right", "0")
-					$(this).parent().find(".miner").css("margin-left", "-85px")
-				})
-				$(".miner").on("swiperight", function() {
-					$(this).parent().find(".delete_miner").css("right", "-85px")
-					$(this).parent().find(".miner").css("margin-left", "0")
-				})
-			})
+			$("#cart_list").on("swipeleft", ".miner", function() {
+				$(".miner_box").find(".delete_miner").css("right", "-85px")
+				$(".miner_box").find(".miner").css("margin-left", "0")
+				$(this).parent().find(".delete_miner").css("right", "0")
+				$(this).parent().find(".miner").css("margin-left", "-85px")
+			});
+			$("#cart_list").on("swiperight", ".miner", function() {
+				$(this).parent().find(".delete_miner").css("right", "-85px")
+				$(this).parent().find(".miner").css("margin-left", "0")
+			});
 		</script>
 	</body>
 

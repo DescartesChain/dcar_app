@@ -39,7 +39,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
-			<a class="mui-icon mui-icon-left-nav mui-pull-left newact" url="/users/barcode.html"></a>
+			<a class="mui-icon mui-icon-left-nav mui-pull-left fail_btn"></a>
 		    <h1 class="mui-title">绑定矿机</h1>
 		</header>
 		<div class="mui-content between">
@@ -51,7 +51,7 @@
 			<div class="prompt" id="fail">
 				<img src="../img/ore/09.png"/>
 				<p id="fail_cue"></p>
-				<button class="newact" url="/users/barcode.html">重新绑定</button>
+				<button class="fail_btn">重新绑定</button>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -65,12 +65,7 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				result = self.result;
-				alert(plus.webview.currentWebview().result)
-				var timer = null;
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					mui.showLoading("绑定中...", "div");
-				}, 500)
+				mui.showLoading("绑定中...", "div");
 				$.ajax({
 					type: "post",
 					url: api + "miners/bind",
@@ -101,8 +96,12 @@
 				});
 				$("#jumpList").on("tap", function() {
 					plus.webview.currentWebview().close();
-					plus.webview.getWebviewById("users/oreManage.html").evalJS("loadmillList()");
-					plus.webview.getWebviewById("users/barcode.html").evalJS("closeBarcode()");
+					plus.webview.getWebviewById("/users/oreManage.html").evalJS("loadmillList()");
+					plus.webview.getWebviewById("/users/barcode.html").evalJS("closeBarcode()");
+				})
+				$(".fail_btn").on("tap", function (){
+					plus.webview.getWebviewById("/users/barcode.html").evalJS("closeBarcode()");
+					plus.webview.currentWebview().close();
 				})
 			})
 		</script>

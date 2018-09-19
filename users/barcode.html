@@ -79,8 +79,7 @@
 				result = result.replace(/\r\n/g, '');
 				wo.evalJS("scaned('" + type + "','" + result + "','" + file + "');");
 				// back();
-				mui.toast('扫描二维码成功')
-				alert(result)
+				mui.toast('扫描二维码成功');
 				var time = null;
 				clearTimeout(time);
 				setTimeout(function() {
@@ -88,7 +87,7 @@
 						url: '/users/binders.html',
 						id: '/users/binders.html',
 						extras: {
-							result: result,
+							result: result
 						},
 						waiting: {
 							autoShow: false,

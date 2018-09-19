@@ -10,6 +10,7 @@
       "pages/market.html"
     ]
   },
+<<<<<<< Updated upstream
   "pages/home.html": {
     "refer": [
       "public/notice.html"
@@ -132,6 +133,12 @@
   "public/forgetPassword.html": {
     "refer": [
       "public/resetPassword.html"
+=======
+  "pages/mine.html": {
+    "refer": [
+      "users/userInfo.html",
+      "public/login.html"
+>>>>>>> Stashed changes
     ]
   }
 }

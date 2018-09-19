@@ -64,7 +64,10 @@
 					<div class="miner">
 						<div class="title">
 							<h5 class="name">矿机二</h5>
-							<p class="status stop">停止挖矿</p>
+							<p class="status stop">
+								<img src="../img/redPic.png" alt="" />
+								停止挖矿
+							</p>
 						</div>
 						<div class="miner_content">
 							<ul class="miner_income">
@@ -112,6 +115,14 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			loadmillList();
+			mui.plusReady(function() {
+				$('.open_box').click(function() {
+					mui('.alert_box').popover('show');
+				});
+				$(".alert_button").on("click", function() {
+					mui('.alert_box').popover('toggle');
+				});
+			});
 			var goods;
 			var cart_list = '';
 			// 获取矿机列表
@@ -139,7 +150,18 @@
 											'<div class="miner">' +
 												'<div class="title">' +
 													'<h5 class="name">' + t.name + '</h5>' +
-													'<p class="status stay">' + '正在挖矿' + '</p>' +
+													'<p class="status" id="doing">' + 
+														'<img src="../img/greenPic.png" alt="" />' +
+														'挖矿中' +
+													'</p>' +
+													'<p class="status" id="staying">' + 
+														'<img src="../img/yellowPic.png" alt="" />' +
+														'空闲中' +
+													'</p>' +
+													'<p class="status" id="closing">' + 
+														'<img src="../img/redPic.png" alt="" />' +
+														'关机' +
+													'</p>' +
 												'</div>' +
 												'<div class="miner_content">' +
 													'<ul class="miner_income">' +
@@ -159,7 +181,7 @@
 														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
 													'</p>' +
 													'<p class="purse">' +
-														'<i class="iconfont icon-qianbao"></i>' + '钱包管理' +
+														'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
 													'</p>' +
 												'</div>' +
 											'</div>' +
@@ -170,6 +192,9 @@
 										'</div>'
 								});
 								$('#cart_list').html(cart_list);
+								$('#doing').hide();
+								$('#staying').hide();
+								$('#closing').show();
 							}
 						} else {
 							mui.toast(ret.msg);
@@ -181,14 +206,6 @@
 					}
 				})
 			};
-			mui.plusReady(function() {
-				$('.open_box').click(function() {
-					mui('.alert_box').popover('show');
-				});
-				$(".alert_button").on("click", function() {
-					mui('.alert_box').popover('toggle');
-				});
-			})
 			$(function(){
 				$(".miner").on("swipeleft", function() {
 					$(".miner_box").find(".delete_miner").css("right", "-85px")

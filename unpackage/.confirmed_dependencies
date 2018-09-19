@@ -1,1 +1,18 @@
-null
+{
+	"index.html": {
+		"resources": [
+			"pages/home.html"
+		],
+		"refer": [
+			"pages/property.html",
+			"pages/mine.html",
+			"pages/home.html",
+			"pages/market.html"
+		]
+	},
+	"pages/mine.html": {
+		"refer": [
+			"users/oreManage.html"
+		]
+	}
+}

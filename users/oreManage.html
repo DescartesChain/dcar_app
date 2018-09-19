@@ -123,17 +123,17 @@
 					mui('.alert_box').popover('toggle');
 				});
 			});
-			var goods;
+			var goods = [];
 			var cart_list = '';
 			// 获取矿机列表
 			function loadmillList() {
+				$('#cart_list').empty();
+				cart_list = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
 					url: api + "miners",
-					data: {
-
-					},
+					data: {},
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
 					},

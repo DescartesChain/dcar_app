@@ -79,14 +79,17 @@
 				result = result.replace(/\r\n/g, '');
 				wo.evalJS("scaned('" + type + "','" + result + "','" + file + "');");
 				// back();
-				// alert('扫描二维码成功');
-				mui.toast('扫描二维码成功',{ duration: 2000, type:'div' })
+				mui.toast('扫描二维码成功')
+				alert(result)
 				var time = null;
 				clearTimeout(time);
 				setTimeout(function() {
 					mui.openWindow({
-						url: '/users/addOre.html',
-						id: '/users/addOre.html',
+						url: '/users/binders.html',
+						id: '/users/binders.html',
+						extras: {
+							result: result,
+						},
 						waiting: {
 							autoShow: false,
 						}
@@ -102,6 +105,9 @@
 				}, function(err) {
 					console.log('Failed: ' + err.message);
 				});
+			}
+			function closeBarcode() {
+				plus.webview.currentWebview().close();
 			}
 		</script>
 	</body>

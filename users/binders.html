@@ -1,0 +1,111 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>绑定矿机</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/mui.poppicker.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
+		<style type="text/css">
+			.prompt{
+				display: none;
+			}
+			.prompt img {
+				display: block;
+				width: 60%;
+				margin: 40px auto 20px;
+			}
+			.prompt p{
+				font-size: 18px;
+				text-align: center;
+			}
+			.prompt button{
+				display: block;
+				margin: 20px auto;
+				width: 80%;
+				height: 38px;
+				border: 0;
+				background: #0062CC;
+				border-radius: 4px;
+				color: #fff;
+				font-size: 18px;
+				outline: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left newact" url="/users/barcode.html"></a>
+		    <h1 class="mui-title">绑定矿机</h1>
+		</header>
+		<div class="mui-content between">
+			<div class="prompt" id="success">
+				<img src="../img/ore/08.png"/>
+				<p>恭喜您绑定成功</p>
+				<button id="jumpList">点击查看矿机列表</button>
+			</div>
+			<div class="prompt" id="fail">
+				<img src="../img/ore/09.png"/>
+				<p id="fail_cue"></p>
+				<button class="newact" url="/users/barcode.html">重新绑定</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				result = self.result;
+				alert(plus.webview.currentWebview().result)
+				var timer = null;
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					mui.showLoading("绑定中...", "div");
+				}, 500)
+				$.ajax({
+					type: "post",
+					url: api + "miners/bind",
+					data: {
+						uuid: result
+					},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							$("#success").show();
+							$("#fail").hide();
+						} else {
+							$("#success").hide();
+							$("#fail").show();
+							$("#fail_cue").html(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						$("#success").hide();
+						$("#fail").show();
+						$("#fail_cue").html(error.responseJSON.msg);
+					}
+				});
+				$("#jumpList").on("tap", function() {
+					plus.webview.currentWebview().close();
+					plus.webview.getWebviewById("users/oreManage.html").evalJS("loadmillList()");
+					plus.webview.getWebviewById("users/barcode.html").evalJS("closeBarcode()");
+				})
+			})
+		</script>
+	</body>
+
+</html>

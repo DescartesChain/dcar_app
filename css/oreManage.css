@@ -26,15 +26,15 @@ body, .mui-content{
 	overflow: hidden;
 	border-bottom: 1px solid #EFEFEF;
 	padding: 0 15px;
-	height:35px;
-	line-height: 35px;
+	height:45px;
+	line-height: 45px;
 }
 .miner .title .name{
 	float: left;
 	font-size: 15px;
 	color: #333;
 	font-weight: 500;
-	line-height: 35px;
+	line-height: 45px;
 }
 /*.miner .title{
 	font-size: 15px;
@@ -48,7 +48,7 @@ body, .mui-content{
 }
 .status>img{
 	position: absolute;
-	top:1px;
+	top:6px;
 	left:-35px;
 	height:30px;
 }
@@ -163,6 +163,7 @@ body, .mui-content{
 	border-top-left-radius: 8px;
 	transition: .3s;
 }
+
 .delete_miner i{
 	font-size: 25px;
 	display: block;

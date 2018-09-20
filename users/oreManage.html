@@ -112,9 +112,11 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			loadmillList();
+			loadmillList(); // 获取矿机列表
 			var alertState;
 			var currentId;
+			var stateList = []; //矿机状态列表
+			var millList = []; // 矿机列表
 			mui.plusReady(function() {
 				$("#cart_list").on("click", ".open_box", function() {
 					mui('.alert_box').popover('show');
@@ -127,7 +129,8 @@
 						url: '/users/addOre.html',
 						id: '/users/addOre.html',
 						extras: {
-							minerName: $(this).attr("name")
+							minerName: $(this).attr("name"),
+							uuid: $(this).attr("uuid")
 						},
 						waiting: {
 							autoShow: false,
@@ -199,10 +202,35 @@
 			}
 			var goods = [];
 			var cart_list = '';
+			// 获取矿机状态列表
+			function loadStateList() {
+				$.ajax({
+				  type: "get",    // 接口类型
+				  url: api + "miners/status",  // 接口地址
+				  data: {},  // 参数
+				  beforeSend: function(xhr) {
+				    xhr.setRequestHeader('x-requested-with', store.get("userInfo").token); // 需要携带的头部
+				  },
+				  async: true,
+				  success: function(ret) {
+				    mui.hideLoading();
+				    if(ret.success) {
+				      mui.toast('加载成功');
+				      stateList = ret.data; // 矿机状态列表
+				    } else{
+				      mui.toast(ret.msg);
+				    }
+				  },
+				  error: function(error) {
+				    mui.hideLoading();
+				    mui.toast(error.responseJSON.msg);
+				  }
+				})
+			}
 			// 获取矿机列表
 			function loadmillList() {
+				loadStateList(); // 获取矿机状态列表
 				$('#cart_list').empty();
-				cart_list = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
@@ -216,115 +244,8 @@
 						mui.hideLoading();
 						if(ret.success) {
 							mui.toast('加载成功');
-							for (var b=0;b<ret.data.list.length;b++){
-								ret.data.list[b].openState = 0
-							};
-							goods = ret.data.list;
-							console.log(goods[0].openState);
-							if(goods.length > 0) {
-								for (var m=0;m<goods.length;m++){
-									console.log(m);
-									// 获取矿机状态
-									$.ajax({
-									  type: "get",    // 接口类型
-									  url: api + "miners/" + goods[m].uuid + "/status",  // 接口地址
-									  data: {},  // 参数
-									  beforeSend: function(xhr) {
-									    xhr.setRequestHeader('x-requested-with', store.get("userInfo").token); // 需要携带的头部
-									  },
-									  async: true,
-									  success: function(ret) {
-									    mui.hideLoading();
-									    if(ret.success) {
-									     console.log(m);
-									      if (parseInt(ret.data.uptime)>0){
-									      	console.log('1');
-									      	goods[m].openState = 1;
-									      } else {
-									      	goods[m].openState = 0;
-									      }
-									    } else{
-									      goods[m].openState = 0
-									    }
-									  },
-									  error: function(error) {
-									    mui.hideLoading();
-									    mui.toast(error.responseJSON.msg);
-									  }
-									})
-								}
-//								goods = ret.data.list;
-								console.log(goods[0].openState);
-								$.each(goods, function(i, t) {
-									console.log(t.openState);
-									if (t.openState == 1) {
-										cart_list +=
-										'<div class="miner_box">' +
-											'<div class="miner">' +
-												'<div class="title">' +
-													'<h5 class="name">' + t.name + '</h5>' +
-													'<p class="status" id="doing">' + 
-														'<img src="../img/greenPic.png" alt="" />' +
-														'挖矿中' +
-													'</p>' +
-												'</div>' +
-												'<div class="miner_content">' +
-													'<ul class="miner_income">' +
-														'<li>' +
-															'<h6>' + '今日收益（24h）' + '</h6>' +
-															'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
-														'</li>' +
-														'<li>' +
-															'<h6>' + '算力值（KH/S）' + '</h6>' +
-															'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
-														'</li>' +
-													'</ul>' +
-													'<p class="miner_address">' + '矿机地址' + '<span>' + 'wadsfafafafasdaffdddddfafasf' + '</span>' + '</p>' +
-												'</div>' +
-												'<div class="miner_footer">' +
-													'<p class="shut_down open_box">' +
-														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
-													'</p>' +
-													'<p class="purse" name="'+ t.name +'">' +
-														'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
-													'</p>' +
-												'</div>' +
-											'</div>' +
-											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
-												'<i class="iconfont icon-shanchu"></i>' +
-												'<p>' + '删除' + '</p>'+
-											'</div>' +
-										'</div>'
-									} else {
-										cart_list +=
-										'<div class="miner_box">' +
-											'<div class="miner">' +
-												'<div class="title">' +
-													'<h5 class="name">' + t.name + '</h5>' +
-//													'<p class="status" id="staying">' + 
-//														'<img src="../img/yellowPic.png" alt="" />' +
-//														'空闲中' +
-//													'</p>' +
-													'<p class="status" id="closing">' + 
-														'<img src="../img/redPic.png" alt="" />' +
-														'关机' +
-													'</p>' +
-												'</div>' +
-												'<div class="miner_footer_two">'+
-													'<p class="start_open open_box">'+
-														'<i class="iconfont icon-guanjin"></i>' + '开机' +
-													'</p>'+
-												'</div>'+
-											'</div>' +
-											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
-												'<i class="iconfont icon-shanchu"></i>' +
-												'<p>' + '删除' + '</p>'+
-											'</div>' +
-										'</div>'
-									}
-								});
-								$('#cart_list').html(cart_list);
-							}
+							millList = ret.data.list; //矿机列表
+							mergeDate(); // 合并数据
 						} else {
 							mui.toast(ret.msg);
 						}
@@ -334,6 +255,18 @@
 						mui.toast(error.responseJSON.msg);
 					}
 				})
+			};
+			// 合并数据
+			function mergeDate(){
+				cart_list = '';
+				for(var i=0;i<millList.length;i++){
+					for (var j=0;j<stateList.length;j++){
+						if (i == j){
+							millList[i].uptime = stateList[j].uptime;
+						}
+					}
+				}
+				complete(); // 最终合成
 			};
 			$("#cart_list").on("swipeleft", ".miner", function() {
 				$(".miner_box").find(".delete_miner").css("right", "-85px")
@@ -345,6 +278,80 @@
 				$(this).parent().find(".delete_miner").css("right", "-85px")
 				$(this).parent().find(".miner").css("margin-left", "0")
 			});
+			// 合成页面
+			function complete() {
+				if(millList.length > 0) {
+					$.each(millList, function(i, t) {
+						if (t.uptime >0) {
+							cart_list +=
+							'<div class="miner_box">' +
+								'<div class="miner">' +
+									'<div class="title">' +
+										'<h5 class="name">' + t.name + '</h5>' +
+										'<p class="status" id="doing">' + 
+											'<img src="../img/greenPic.png" alt="" />' +
+											'挖矿中' +
+										'</p>' +
+									'</div>' +
+									'<div class="miner_content">' +
+										'<ul class="miner_income">' +
+											'<li>' +
+												'<h6>' + '今日收益（24h）' + '</h6>' +
+												'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
+											'</li>' +
+											'<li>' +
+												'<h6>' + '算力值（KH/S）' + '</h6>' +
+												'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
+											'</li>' +
+										'</ul>' +
+										'<p class="miner_address">' + '矿机地址' + '<span>' + 'wadsfafafafasdaffdddddfafasf' + '</span>' + '</p>' +
+									'</div>' +
+									'<div class="miner_footer">' +
+										'<p class="shut_down open_box">' +
+											'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
+										'</p>' +
+										'<p class="purse" name="'+ t.name +'">' +
+											'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
+										'</p>' +
+									'</div>' +
+								'</div>' +
+								'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+									'<i class="iconfont icon-shanchu"></i>' +
+									'<p>' + '删除' + '</p>'+
+								'</div>' +
+							'</div>'
+						} else {
+							cart_list +=
+							'<div class="miner_box">' +
+								'<div class="miner">' +
+									'<div class="title">' +
+										'<h5 class="name">' + t.name + '</h5>' +
+//													'<p class="status" id="staying">' + 
+//														'<img src="../img/yellowPic.png" alt="" />' +
+//														'空闲中' +
+//													'</p>' +
+										'<p class="status" id="closing">' + 
+											'<img src="../img/redPic.png" alt="" />' +
+											'关机' +
+										'</p>' +
+									'</div>' +
+									'<div class="miner_footer_two">'+
+										'<p class="start_open open_box">'+
+											'<i class="iconfont icon-guanjin"></i>' + '开机' +
+										'</p>'+
+									'</div>'+
+								'</div>' +
+								'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+									'<i class="iconfont icon-shanchu"></i>' +
+									'<p>' + '删除' + '</p>'+
+								'</div>' +
+							'</div>'
+						}
+					});
+					$('#cart_list').html(cart_list);
+				}
+			}
+		
 		</script>
 	</body>
 

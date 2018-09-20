@@ -71,7 +71,7 @@
 					<input type="password" class="mui-input-password" placeholder="请输入钱包密码" id="pass">
 				</div>
 				<div class="sure_box">
-					<button type="button" class="mui-btn mui-btn-primary cannot newact showWord" id="ensure" url="/property/backup-wallet.html">确定</button>
+					<button type="button" class="mui-btn mui-btn-primary cannot showWord" id="ensure">确定</button>
 					<button type="button" class="mui-btn mui-btn-primary cannot showKey" id="ensureImport">确定</button>
 					<button type="button" class="mui-btn mui-btn-primary cannot showKeystore" id="sureKeystore">确定</button>
 				</div>
@@ -163,6 +163,41 @@
 					mui('.email_code_box').popover('toggle');
 				})
 			})
+			
+			// 导出助记词
+			$("#ensure").on("click",function(){
+				$("input").blur();
+				var timer = null;
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					mui.showLoading("加载中...", "div");
+					var tiner = null;
+					clearTimeout(tiner);
+					tiner = setTimeout(function() {
+						mui.hideLoading();
+						var web3 = new Web3();
+						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+						var keystoreJsonV3 = JSON.parse(keystoreString)
+						var password = $("#pass").val();
+						try {
+							// 读取 钱包地址
+							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+							mui.openWindow({
+								id: "/property/backup-wallet.html",
+								url: "/property/backup-wallet.html",
+								extras: {
+									purseIndex: purseIndex,
+								},
+								waiting: {
+									autoShow: false,
+								}
+							})
+						} catch(err) {
+							mui.toast('密码输入错误');
+						}
+					}, 100)
+				}, 1000)
+			});
 
 			// 导出私钥
 			$("#ensureImport").on("click", function() {

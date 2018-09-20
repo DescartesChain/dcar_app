@@ -29,7 +29,7 @@
 			<div class="alert_body">请抄写下助记词并存放在安全的地方。</div>
 			<div class="alert_body">如果有人获取你的助记词，</div>
 			<div class="alert_body">将直接获取你的资产！</div>
-			<div class="alert_button newact" url="/property/backup-mnemonic-word.html">我知道了</div>
+			<div class="alert_button" onclick="knowAlert()">我知道了</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
@@ -38,11 +38,23 @@
 		<script type="text/javascript">
 			mui.init()
 			mui.plusReady(function() {
+				var self = plus.webview.currentWebview(); // 要写在mui.plusReady里面，不然会报错
+				purseIndex = self.purseIndex; // 获取传值
 				// 弹出请勿截图 提示
 				$("#showAlert").on("click", function() {
 					mui('.alert_box').popover('toggle');
+				});
+			});
+			// 跳转到助记词页面
+			function knowAlert() {
+				mui.openWindow({
+					id: "/property/backup-mnemonic-word.html", // 要跳转的页面
+					url: "/property/backup-mnemonic-word.html", // 要跳转的页面
+					extras: {
+						purseIndex: purseIndex // 要传的值
+					}
 				})
-			})
+			};
 		</script>
 	</body>
 

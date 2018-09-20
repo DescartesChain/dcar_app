@@ -12,7 +12,32 @@
 	},
 	"pages/mine.html": {
 		"refer": [
-			"users/oreManage.html"
+			"users/oreManage.html",
+			"users/userInfo.html",
+			"public/login.html"
+		]
+	},
+	"pages/property.html": {
+		"refer": [
+			"property/account-main.html",
+			"property/create-wallet.html",
+			"property/import-wallet.html"
+		]
+	},
+	"property/account-main.html": {
+		"refer": [
+			"property/backup-wallet.html",
+			"property/export-private-key.html"
+		]
+	},
+	"property/backup-wallet.html": {
+		"refer": [
+			"property/backup-mnemonic-word.html"
+		]
+	},
+	"property/backup-mnemonic-word.html": {
+		"refer": [
+			"property/sure-mnemonic-word.html"
 		]
 	}
 }

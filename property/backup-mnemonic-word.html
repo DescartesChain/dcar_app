@@ -19,8 +19,8 @@
 			<div class="backup_content">
 				<p class="backup_title">备份助记词</p>
 				<div class="backup_body">请仔细抄写下方助记词，我们将在下一步验证。</div>
-				<div class="word_box">
-					<span>twelve</span>
+				<div class="word_box" id="cart_list">
+					<!--<span>twelve</span>
 					<span>one</span>
 					<span>two</span>
 					<span>twelve</span>
@@ -28,17 +28,38 @@
 					<span>three</span>
 					<span>twelve</span>
 					<span>one</span>
-					<span>twelve</span>
+					<span>twelve</span>-->
 				</div>
 				<div class="backup_button newact" url="/property/sure-mnemonic-word.html">下一步</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview(); // 要写在mui.plusReady里面，不然会报错
+				purseIndex = self.purseIndex; // 获取传值
+				var purseInfo = store.get('dcarPurse');
+			});
+			var wordArray = [];
+			var cart_list = '';
+			randomWord();
+			// 生成随机汉字
+			function randomWord() {
+				for(var i = 0; i < 12; i++) {
+					eval("var word=" + '"\\u' + (Math.round(Math.random() * 20901) + 19968).toString(16) + '"');
+					wordArray.push(word);
+				}
+				console.log(wordArray);
+				$.each(wordArray, function(i, t) {
+					cart_list += '<span>' + t + '</span>'
+				});
+				$('#cart_list').html(cart_list);
+			};
 		</script>
 	</body>
 

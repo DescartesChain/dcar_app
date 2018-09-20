@@ -262,7 +262,7 @@
 				for(var i=0;i<millList.length;i++){
 					for (var j=0;j<stateList.length;j++){
 						if (i == j){
-							millList[i].uptime = stateList[j].uptime;
+							millList[i].stateData = stateList[j];
 						}
 					}
 				}
@@ -282,7 +282,7 @@
 			function complete() {
 				if(millList.length > 0) {
 					$.each(millList, function(i, t) {
-						if (t.uptime >0) {
+						if (t.stateData.uptime >0) {
 							cart_list +=
 							'<div class="miner_box">' +
 								'<div class="miner">' +
@@ -297,11 +297,11 @@
 										'<ul class="miner_income">' +
 											'<li>' +
 												'<h6>' + '今日收益（24h）' + '</h6>' +
-												'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
+												'<p>' + t.stateData.balance + '<span>' + 'DCAR' + '</span>' + '</p>' +
 											'</li>' +
 											'<li>' +
 												'<h6>' + '算力值（KH/S）' + '</h6>' +
-												'<p>' + '452138.00' + '<span>' + 'DCAR' + '</span>' + '</p>' +
+												'<p>' + t.stateData.hashrate + '<span>' + 'DCAR' + '</span>' + '</p>' +
 											'</li>' +
 										'</ul>' +
 										'<p class="miner_address">' + '矿机地址' + '<span>' + 'wadsfafafafasdaffdddddfafasf' + '</span>' + '</p>' +
@@ -310,7 +310,7 @@
 										'<p class="shut_down open_box">' +
 											'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
 										'</p>' +
-										'<p class="purse" name="'+ t.name +'">' +
+										'<p class="purse" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
 											'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
 										'</p>' +
 									'</div>' +

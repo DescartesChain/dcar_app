@@ -23,7 +23,7 @@
 			<div class="example">
 				<p>选择钱包</p>
 				<div class="mui-input-row">
-					<input type="text" class="mui-input-clear" placeholder="请选择钱包地址" id="showUserPicker">
+					<input type="text" value="" class="mui-input-clear" placeholder="请选择钱包地址" id="showUserPicker">
 				</div>
 				<div id='userResult' class="ui-alert"></div>
 			</div>
@@ -95,6 +95,10 @@
 				uuid = self.uuid;
 				$("#miner_name").html("矿机名称：" + minerName);
 				$("#ensure").on("tap", function(){
+					if ($("#showUserPicker").val() == ''){
+						mui.toast('请选择钱包');
+						return false;
+					}
 					mui.showLoading("加载中...", "div");
 					$.ajax({
 						type: "post",

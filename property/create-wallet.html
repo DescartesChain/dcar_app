@@ -101,6 +101,7 @@
 								clearTimeout(timer);
 								timer = setTimeout(function() {
 									plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+									plus.webview.getWebviewById("/users/addOre.html").evalJS("getPurseName()");
 									plus.webview.currentWebview().close();
 								}, 1000);
 							} else {

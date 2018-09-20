@@ -194,7 +194,7 @@
 					mui.showLoading("删除中...", "div");
 					$.ajax({
 						type: "delete",
-						url: api + "miners/unbind/account",
+						url: api + "miners/unbind/user",
 						data: {
 							uuid: currentId
 						},
@@ -378,15 +378,16 @@
 										if (t.address){
 											cart_list +='<ul class="miner_income">' +
 											'<li>' +
-												'<h6>' + '今日收益（24h）' + '</h6>' +
-												'<p>' + t.stateData.balance + '<span>' + 'DCAR' + '</span>' + '</p>' +
+												'<h6>' + '收益（DCAR/day）' + '</h6>' +
+												'<p>' + t.stateData.balance + '</p>' +
 											'</li>' +
 											'<li>' +
 												'<h6>' + '算力值（KH/S）' + '</h6>' +
-												'<p>' + t.stateData.hashrate + '<span>' + 'DCAR' + '</span>' + '</p>' +
+												'<p>' + t.stateData.hashrate + '</p>' +
 											'</li>' +
 										'</ul>'+
-											'<p class="miner_address">' + '矿机地址' + '<span>' + t.address + '</span>' + '</p>'+
+//										    '<p class="miner_address_title">矿机地址</p>' +
+											'<p class="miner_address"><span>' + t.address + '</span>' + '</p>'+
 											'</div>' +
 												'<div class="miner_footer">' +
 													'<p class="shut_down open_box">' +
@@ -413,7 +414,7 @@
 													'</p>' +
 												'</div>' +
 											'</div>' +
-											'<div class="delete_miner high_height" uuid="'+ t.uuid +'">' +
+											'<div class="delete_miner low_height" uuid="'+ t.uuid +'">' +
 												'<i class="iconfont icon-shanchu"></i>' +
 												'<p>' + '删除' + '</p>'+
 											'</div>' +

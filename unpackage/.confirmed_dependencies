@@ -14,7 +14,8 @@
 		"refer": [
 			"users/oreManage.html",
 			"users/userInfo.html",
-			"public/login.html"
+			"public/login.html",
+			"users/tradeRecord.html"
 		]
 	},
 	"pages/property.html": {
@@ -38,6 +39,26 @@
 	"property/backup-mnemonic-word.html": {
 		"refer": [
 			"property/sure-mnemonic-word.html"
+		]
+	},
+	"public/login.html": {
+		"refer": [
+			"public/register.html"
+		]
+	},
+	"public/register.html": {
+		"refer": [
+			"public/setPassword.html"
+		]
+	},
+	"users/barcode.html": {
+		"refer": [
+			"users/binders.html"
+		]
+	},
+	"users/oreManage.html": {
+		"refer": [
+			"users/barcode.html"
 		]
 	}
 }

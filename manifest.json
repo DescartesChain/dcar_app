@@ -317,6 +317,13 @@
 					"public/resetPassword.html"
 				],
 				"priority": 0
+			},
+			"users/barcode.html": {
+				"resources": [],
+				"refer": [
+					"users/binders.html"
+				],
+				"priority": 0
 			}
 		},
 		"idle": {

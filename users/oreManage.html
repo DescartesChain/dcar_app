@@ -98,9 +98,9 @@
 		<!--开机关机弹框-->
 		<div class="mui-popover alert_box">
 			<p class="alert_title">提示</p>
-			<!--<div class="alert_body" id="close">确定要关机吗？确定之后矿机将停止挖矿</div>-->
+			<div class="alert_body" id="close">确定要关机吗？确定之后矿机将停止挖矿</div>
 			<div class="alert_body" id="delete">确定要删除吗？</div>
-			<!--<div class="alert_body" id="open">确定要开机吗？确定之后矿机将开始挖矿</div>-->
+			<div class="alert_body" id="open">确定要开机吗？确定之后矿机将开始挖矿</div>
 			<ul class="alert_operate">
 				<li class="alert_button" onclick="sureConfirm()">确定</li>
 				<li class="alert_button">取消</li>
@@ -145,12 +145,14 @@
 			});
 			// 确定 
 			function sureConfirm(){
-				if (alertState == 'delete') {
+				if (alertState == 'delete') { // 删除矿机
 					mui.showLoading("删除中...", "div");
 					$.ajax({
 						type: "delete",
-						url: api + "miners/" + currentId,
-						data: {},
+						url: api + "miners/unbind/account",
+						data: {
+							uuid: currentId
+						},
 						beforeSend: function(xhr) {
 							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
 						},
@@ -159,6 +161,30 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('删除成功');
+								loadmillList();
+							} else {
+								mui.toast(ret.msg);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					});
+				} else if (alertState == 'open') { //启动矿机
+					mui.showLoading("启动中...", "div");
+					$.ajax({
+						type: "get",
+						url: api + "miners/" + currentId + '/init',
+						data: {},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.success) {
+								mui.toast('启动成功');
 								loadmillList();
 							} else {
 								mui.toast(ret.msg);
@@ -190,10 +216,49 @@
 						mui.hideLoading();
 						if(ret.success) {
 							mui.toast('加载成功');
+							for (var b=0;b<ret.data.list.length;b++){
+								ret.data.list[b].openState = 0
+							};
 							goods = ret.data.list;
+							console.log(goods[0].openState);
 							if(goods.length > 0) {
+								for (var m=0;m<goods.length;m++){
+									console.log(m);
+									// 获取矿机状态
+									$.ajax({
+									  type: "get",    // 接口类型
+									  url: api + "miners/" + goods[m].uuid + "/status",  // 接口地址
+									  data: {},  // 参数
+									  beforeSend: function(xhr) {
+									    xhr.setRequestHeader('x-requested-with', store.get("userInfo").token); // 需要携带的头部
+									  },
+									  async: true,
+									  success: function(ret) {
+									    mui.hideLoading();
+									    if(ret.success) {
+									     console.log(m);
+									      if (parseInt(ret.data.uptime)>0){
+									      	console.log('1');
+									      	goods[m].openState = 1;
+									      } else {
+									      	goods[m].openState = 0;
+									      }
+									    } else{
+									      goods[m].openState = 0
+									    }
+									  },
+									  error: function(error) {
+									    mui.hideLoading();
+									    mui.toast(error.responseJSON.msg);
+									  }
+									})
+								}
+//								goods = ret.data.list;
+								console.log(goods[0].openState);
 								$.each(goods, function(i, t) {
-									cart_list +=
+									console.log(t.openState);
+									if (t.openState == 1) {
+										cart_list +=
 										'<div class="miner_box">' +
 											'<div class="miner">' +
 												'<div class="title">' +
@@ -202,14 +267,6 @@
 														'<img src="../img/greenPic.png" alt="" />' +
 														'挖矿中' +
 													'</p>' +
-//													'<p class="status" id="staying">' + 
-//														'<img src="../img/yellowPic.png" alt="" />' +
-//														'空闲中' +
-//													'</p>' +
-//													'<p class="status" id="closing">' + 
-//														'<img src="../img/redPic.png" alt="" />' +
-//														'关机' +
-//													'</p>' +
 												'</div>' +
 												'<div class="miner_content">' +
 													'<ul class="miner_income">' +
@@ -232,22 +289,41 @@
 														'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
 													'</p>' +
 												'</div>' +
-//												'<div class="miner_footer_two">'+
-//													'<p class="start_open open_box">'+
-//														'<i class="iconfont icon-guanjin"></i>' + '开机' +
-//													'</p>'+
-//												'</div>'+
 											'</div>' +
 											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
 												'<i class="iconfont icon-shanchu"></i>' +
 												'<p>' + '删除' + '</p>'+
 											'</div>' +
 										'</div>'
+									} else {
+										cart_list +=
+										'<div class="miner_box">' +
+											'<div class="miner">' +
+												'<div class="title">' +
+													'<h5 class="name">' + t.name + '</h5>' +
+//													'<p class="status" id="staying">' + 
+//														'<img src="../img/yellowPic.png" alt="" />' +
+//														'空闲中' +
+//													'</p>' +
+													'<p class="status" id="closing">' + 
+														'<img src="../img/redPic.png" alt="" />' +
+														'关机' +
+													'</p>' +
+												'</div>' +
+												'<div class="miner_footer_two">'+
+													'<p class="start_open open_box">'+
+														'<i class="iconfont icon-guanjin"></i>' + '开机' +
+													'</p>'+
+												'</div>'+
+											'</div>' +
+											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+												'<i class="iconfont icon-shanchu"></i>' +
+												'<p>' + '删除' + '</p>'+
+											'</div>' +
+										'</div>'
+									}
 								});
 								$('#cart_list').html(cart_list);
-								$('#doing').hide();
-								$('#staying').hide();
-								$('#closing').show();
 							}
 						} else {
 							mui.toast(ret.msg);

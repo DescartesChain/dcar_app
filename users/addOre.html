@@ -21,7 +21,7 @@
 		<div class="mui-content between">
 			<p id="miner_name"></p>
 			<div class="example">
-				<p>选择钱包地址</p>
+				<p>选择钱包</p>
 				<div class="mui-input-row">
 					<input type="text" class="mui-input-clear" placeholder="请选择钱包地址" id="showUserPicker">
 				</div>
@@ -39,7 +39,7 @@
 					<input type="text" class="mui-input-clear" placeholder="请输入矿机名称">
 				</div>
 			</div>-->
-			<button type="button" class="mui-btn mui-btn-primary">确认</button>
+			<button type="button" id="ensure" class="mui-btn mui-btn-primary">确认</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
@@ -54,9 +54,10 @@
 			var choiseItem;
 			if (arr.length > 0) {
 				for (var i=0;i<arr.length;i++) {
-					setArray.push({"value": arr[i].mnemonic,"text": arr[i].address})
+					setArray.push({"value": arr[i].mnemonic,"text": arr[i].name,"address": arr[i].address})
 				}
 			}
+			// console.log(setArray.length)
 			(function($, doc) {
 				$.init();
 				$.ready(function() {
@@ -74,7 +75,6 @@
 //						Input[2].blur();
 						userPicker.show(function(items) {
 							choiseItem = items;
-							console.log(items);
 							userResult.value = items[0].text;
 						});
 					}, false);
@@ -85,32 +85,34 @@
 				minerName = self.minerName;
 				uuid = self.uuid;
 				$("#miner_name").html("矿机名称：" + minerName);
-				mui.showLoading("加载中...", "div");
-				$.ajax({
-					type: "post",
-					url: api + "miners/bind/account",
-					data: {
-						uuid: uuid,
-						mnemonic: choiseItem[0].value,
-						address: choiseItem[0].text
-					},
-					beforeSend: function(xhr) {
-						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
-					},
-					async: true,
-					success: function(ret) {
-						mui.hideLoading();
-						if(ret.success) {
-							mui.toast('绑定成功');
-						} else {
-							mui.toast(ret.msg)
+				$("#ensure").on("tap", function(){
+					mui.showLoading("加载中...", "div");
+					$.ajax({
+						type: "post",
+						url: api + "miners/bind/account",
+						data: {
+							uuid: uuid,
+							mnemonic: choiseItem[0].value,
+							address: choiseItem[0].address
+						},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.success) {
+								mui.toast('绑定成功');
+							} else {
+								mui.toast(ret.msg)
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
 						}
-					},
-					error: function(error) {
-						mui.hideLoading();
-						mui.toast(error.responseJSON.msg);
-					}
-				});
+					});
+				})
 			})
 		</script>
 	</body>

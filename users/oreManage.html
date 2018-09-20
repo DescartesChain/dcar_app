@@ -114,6 +114,7 @@
 		<script type="text/javascript">
 			loadmillList();
 			var alertState;
+			var currentId;
 			mui.plusReady(function() {
 				$("#cart_list").on("click", ".open_box", function() {
 					mui('.alert_box').popover('show');
@@ -136,7 +137,7 @@
 				$("#cart_list").on("click", ".delete_miner", function() {
 					mui('.alert_box').popover('show');
 					alertState = 'delete';
-					var currentId = $(this).attr("uuid");
+					currentId = $(this).attr("uuid");
 					$('#delete').show();
 					$('#close').hide();
 					$('#open').hide();
@@ -158,11 +159,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('删除成功');
-								for (var i=0;i<goods.length;i++) {
-									if (goods[i].uuid == currentId) {
-										goods.splice(i, 1);
-									}
-								}
+								loadmillList();
 							} else {
 								mui.toast(ret.msg);
 							}

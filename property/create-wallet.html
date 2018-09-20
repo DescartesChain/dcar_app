@@ -23,12 +23,12 @@
 				<div class="mui-input-row info">
 					<input type="text" value="" id="purseName" class="mui-input-clear" placeholder="请输入钱包名称">
 				</div>
-				<div class="mui-input-row info">
+				<!--<div class="mui-input-row info">
 					<input type="password" value="" id="pass" class="mui-input-password" placeholder="请输入钱包密码">
 				</div>
 				<div class="mui-input-row info">
 					<input type="password" value="" id="ensurePass" class="mui-input-password" placeholder="请再次输入钱包密码">
-				</div>
+				</div>-->
 				<div class="mui-input-row mui-checkbox agreement">
 					<input name="checkbox1" id="isagree" value="Item 1" type="checkbox" checked>
 					<label>我已仔细阅读并同意<a>《用户协议》</a></label>
@@ -58,18 +58,18 @@
 					mui.toast('钱包名称不能为空');
 					return false;
 				}
-				if($("#pass").val() == "") {
-					mui.toast('密码不能为空');
-					return false;
-				}
-				if($("#ensurePass").val() == "") {
-					mui.toast('请再次输入密码');
-					return false;
-				}
-				if($("#pass").val() != $("#ensurePass").val()) {
-					mui.toast('两次密码不一致');
-					return false;
-				}
+//				if($("#pass").val() == "") {
+//					mui.toast('密码不能为空');
+//					return false;
+//				}
+//				if($("#ensurePass").val() == "") {
+//					mui.toast('请再次输入密码');
+//					return false;
+//				}
+//				if($("#pass").val() != $("#ensurePass").val()) {
+//					mui.toast('两次密码不一致');
+//					return false;
+//				}
 				if(!$("#isagree").is(":checked")) {
 					mui.toast('用户协议未勾选');
 					return false;
@@ -93,12 +93,12 @@
 							mui.hideLoading();
 							account.keystore = keystore;
 							account.name = $("#purseName").val();
+							// account.words = [];
 							var arr = store.get('dcarPurse');
 							arr.push(account);
+							console.log(arr);
 							store.set('dcarPurse', arr);
 							mui.toast('钱包创建成功');
-							plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
-							plus.webview.currentWebview().close();
 							var timer = null;
 							clearTimeout(timer);
 							timer = setTimeout(function() {

@@ -93,11 +93,11 @@
 				var purseInfo = store.get('dcarPurse');
 				$('#keyInput').val(purseInfo[purseIndex].privateKey);
 				key = purseInfo[purseIndex].privateKey;
-				var keystore = purseInfo[purseIndex].keystore;
-				if(keystore !== undefined) {
+				// var keystore = purseInfo[purseIndex].keystore;
+				if(key !== undefined) {
 					// 显示二维码
 					var qrcode = new QRCode(document.getElementById("qrcode"), {
-						text: keystore,
+						text: key,
 						width: 128,
 						height: 128,
 						colorDark: "#000000",

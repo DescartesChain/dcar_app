@@ -16,8 +16,9 @@
 		</header>
 		<div class="mui-content property_main">
 			<!--无-->
-			<div class="property_card blue_bg newact" id="creat_dcar" url="/property/create-wallet.html">
-				<span>新建DCAR钱包</span>
+			<div class="property_card blue_bg" id="creat_dcar">
+				<span class="newact" url="/property/create-wallet.html">新建DCAR</span>
+				<span class="newact" url="/property/import-dcar.html">导入DCAR</span>
 			</div>
 			<div id="dcar_purse"></div>
 			<div class="property_card black_bg" id="import_eth" onclick="import_wallet('ETH')">
@@ -91,7 +92,7 @@
 			}
 			// 显示dcar钱包
 			function showDcarPurse() {
-				var arr = store.get('dcarPurse')
+				var arr = store.get('dcarPurse');
 				if(arr == undefined || arr == null || arr == "") {
 					$("#dcar_purse").hide();
 					var dcarArray = []
@@ -102,6 +103,7 @@
 					} else {
 						var dcar = 1;
 						var item='';
+						gerAccountBalance();
 						$.each(arr, function(i, t) {
 							item+='<div class="blue_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
@@ -109,8 +111,8 @@
 										+'</div>'
 										+'<div class="mui-col-sm-6 mui-col-xs-6">'
 											+'<div>'+ t.name +'</div>'
-											+'<div>0.000DCAR</div>'
-											+'<div>&yen;0.00</div>'
+											+'<div>'+ t.money +'DCAR</div>'
+											+'<div>&yen;'+ t.money +'</div>'
 											+'<div>'+ t.address +'</div>'
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
@@ -171,6 +173,34 @@
 				}).catch(function () {
 					mui.toast('链接不到以太坊区块链网络');
 				});
+			}
+			function gerAccountBalance() {
+				var arr = store.get('dcarPurse');
+				for (var i=0;i<arr.length;i++){
+					$.ajax({
+						type: "get",
+						url: api + "dcarchain/account/" + arr[i].address + "/balance",
+						data: {},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							
+							if(ret.success) {
+								arr[i].money = ret.data;
+								console.log(ret.data);
+							} else {
+								arr[i].money = 0;
+								mui.toast(ret.msg)
+							}
+						},
+						error: function(error) {
+							arr[i].money = 0;
+							mui.toast(error.responseJSON.msg);
+						}
+					});
+				}
 			}
 		</script>
 	</body>

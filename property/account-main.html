@@ -103,6 +103,7 @@
 					$(".unit").html("DCAR");
 					$('#showAll').show();
 					$('#showHalf').hide();
+					$("#keystore").hide();
 				} else if(targetId == '2') {
 					var purseInfo = store.get('ethPurse');
 					//					$('.account_title').html('ETH-Wallet');
@@ -110,10 +111,12 @@
 					$(".unit").html("ETH");
 					$('#showAll').hide();
 					$('#showHalf').show();
+					$("#keystore").show();
 				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
 					$('#showAll').hide();
 					$('#showHalf').show();
+					$("#keystore").show();
 				}
 				$('.wallet_address').html(purseInfo[purseIndex].address);
 				$('.account_title').html(purseInfo[purseIndex].name);
@@ -137,22 +140,42 @@
 				})
 				// 导出助记词
 				$("#export").on("click", function() {
-					$("#pass").val("");
-					mui('.email_code_box').popover('toggle');
-					$('.showWord').show();
-					$('.showKey').hide();
-					$('.showKeystore').hide();
+					mui.openWindow({
+						id: "/property/backup-wallet.html",
+						url: "/property/backup-wallet.html",
+						extras: {
+							purseIndex: purseIndex,
+						},
+						waiting: {
+							autoShow: false,
+						}
+					})
+					// $("#pass").val("");
+					// mui('.email_code_box').popover('toggle');
+					// $('.showWord').show();
+					// $('.showKey').hide();
+					// $('.showKeystore').hide();
 				})
 				$("#cancel").on("click", function() {
 					mui('.email_code_box').popover('hide');
 				})
 				// 导出私钥
 				$("#key").on("click", function() {
-					$("#pass").val("");
-					$('.showWord').hide();
-					$('.showKey').show();
-					$('.showKeystore').hide();
-					mui('.email_code_box').popover('toggle');
+					mui.openWindow({
+						id: "/property/export-private-key.html",
+						url: "/property/export-private-key.html",
+						extras: {
+							purseIndex: purseIndex,
+						},
+						waiting: {
+							autoShow: false,
+						}
+					})
+					// $("#pass").val("");
+					// $('.showWord').hide();
+					// $('.showKey').show();
+					// $('.showKeystore').hide();
+					// mui('.email_code_box').popover('toggle');
 				});
 				// 导出keystore
 				$("#keystore").on("click", function() {

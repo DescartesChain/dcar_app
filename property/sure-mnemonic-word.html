@@ -20,31 +20,69 @@
 				<p class="backup_title">助记词确认</p>
 				<div class="backup_body">请按顺序点击助记词，以确认您正确备份。</div>
 				<div class="result_box">
-
 				</div>
 				<div class="choose_box">
-					<span class="word">twelve</span>
-					<span class="word">one</span>
-					<span class="word">two</span>
-					<span class="word">twelve</span>
-					<span class="word">four</span>
-					<span class="word">three</span>
-					<span class="word">twelve</span>
-					<span class="word">one</span>
-					<span class="word">twelve</span>
 				</div>
-				<div class="backup_button newact" url="/property/account-main.html">完成</div>
+				<div class="backup_button">完成</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
-			$('.word').click(function() {
+			var cart_list = "";
+			var usArray = [];
+			$('.choose_box').on("click", ".word", function() {
 				$(this).remove();
+				usArray.push($(this).attr("key"));
 				$('.result_box').append($(this));
+			})
+			$('.result_box').on("click", ".word", function(){
+				$(this).remove();
+				usArray.splice(usArray.indexOf($(this).attr("key")), 1);
+				$('.choose_box').append($(this));
+			})
+			// 生成随机数组
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview(); // 要写在mui.plusReady里面，不然会报错
+				purseIndex = self.purseIndex; // 获取传值
+				var purseInfo = store.get('dcarPurse');
+				mnemonic = (purseInfo[purseIndex].mnemonic).split(" ");
+				$.each(randArray(mnemonic), function(i, t) {
+					cart_list += '<span class="word" key="'+ t +'">' + t + '</span>'
+				});
+				$('.choose_box').html(cart_list);
+				$(".backup_button").on("tap", function(){
+					if (purseInfo[purseIndex].mnemonic == usArray.join(" ")) {
+						plus.webview.getWebviewById("/property/backup-mnemonic-word.html").evalJS("closePage()");
+					 	plus.webview.currentWebview().close();
+					} else {
+						mui.toast("助记词输入错误");
+					}					 
+				})
+				function randArray (data) {
+					//获取数组长度
+				    var arrLen = data.length;
+				    //创建数组 存放下标数
+				    var try1 = new Array();
+				    for( var i = 0 ; i < arrLen ; i++ ){
+				        try1[i] = i;
+				    }
+				    //创建数组 生成随机下标数
+				    var try2 = new Array();
+				    for( var i = 0 ; i < arrLen ; i++ ){
+				        try2[i] = try1.splice(Math.floor(Math.random() * try1.length),1);
+				    }
+				    //创建数组，生成对应随机下标数的数组
+				    var try3 = new Array();
+				    for( var i = 0 ; i < arrLen ; i++){
+				        try3[i] = data[ try2[i] ];
+				    }
+				    return try3;
+				}
 			})
 		</script>
 	</body>

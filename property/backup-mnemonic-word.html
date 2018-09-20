@@ -30,7 +30,7 @@
 					<span>one</span>
 					<span>twelve</span>-->
 				</div>
-				<div class="backup_button newact" url="/property/sure-mnemonic-word.html">下一步</div>
+				<div class="backup_button" onclick="knowAlert()">下一步</div>
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -40,26 +40,34 @@
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			mui.init()
+			var mnemonic = [];
+			var cart_list = "";
 			mui.plusReady(function(){
 				var self = plus.webview.currentWebview(); // 要写在mui.plusReady里面，不然会报错
 				purseIndex = self.purseIndex; // 获取传值
 				var purseInfo = store.get('dcarPurse');
-			});
-			var wordArray = [];
-			var cart_list = '';
-			randomWord();
-			// 生成随机汉字
-			function randomWord() {
-				for(var i = 0; i < 12; i++) {
-					eval("var word=" + '"\\u' + (Math.round(Math.random() * 20901) + 19968).toString(16) + '"');
-					wordArray.push(word);
-				}
-				console.log(wordArray);
-				$.each(wordArray, function(i, t) {
+				mnemonic = (purseInfo[purseIndex].mnemonic).split(" ");
+				$.each(mnemonic, function(i, t) {
 					cart_list += '<span>' + t + '</span>'
 				});
 				$('#cart_list').html(cart_list);
+			});
+			// 跳转到输入助记词页面
+			function knowAlert() {
+				mui.openWindow({
+					id: "/property/sure-mnemonic-word.html", // 要跳转的页面
+					url: "/property/sure-mnemonic-word.html", // 要跳转的页面
+					extras: {
+						purseIndex: purseIndex // 要传的值
+					}
+				})
 			};
+			function closePage() {
+				plus.webview.getWebviewById("/property/backup-wallet.html").evalJS("closePage()");
+				plus.webview.currentWebview().close();
+			}
+			var wordArray = [];
+			var cart_list = '';
 		</script>
 	</body>
 

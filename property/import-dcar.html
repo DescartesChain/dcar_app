@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>导入钱包</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/import.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">导入DCAR钱包</h1>
+		</header>
+		<div class="mui-content">
+			<div class="import_main">
+				<textarea id="keystoreString" value="" rows="3" placeholder="请输入助记词" class="import_input"></textarea>
+				<p class="import_alert">输入助记词，用空格分隔</p>
+				<div class="backup_button" id="leadIn" style="margin-top: 0;">开始导入</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				$("#leadIn").on("click", function(){
+					if ($("#keystoreString").val() == ''){
+						mui.toast('助记词不能为空');
+						return false;
+					}
+					mui.showLoading("加载中...", "div");
+					$.ajax({
+						type: "post",
+						url: api + "dcarchain/account/import",
+						data: {
+							"mnemonic": $("#keystoreString").val()
+						},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.success) {
+								mui.toast('导入成功');
+								var arr = store.get('dcarPurse');
+								var purseData = ret.data;
+								purseData.name = 'DCAR钱包';
+								purseData.mnemonic = $("#keystoreString").val();
+								purseData.money = 0;
+								arr.push(purseData);
+								store.set('dcarPurse', arr);
+								var timer = null;
+								clearTimeout(timer);
+								timer = setTimeout(function() {
+									plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+									plus.webview.currentWebview().close();
+								}, 1000);
+							} else {
+								mui.toast(ret.msg)
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					});
+				})
+			})
+		</script>
+	</body>
+
+</html>

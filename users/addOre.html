@@ -42,12 +42,21 @@
 			<button type="button" class="mui-btn mui-btn-primary">确认</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			var arr = store.get('dcarPurse');
+			var setArray = [];
+			var choiseItem;
+			if (arr.length > 0) {
+				for (var i=0;i<arr.length;i++) {
+					setArray.push({"value": arr[i].mnemonic,"text": arr[i].address})
+				}
+			}
 			(function($, doc) {
 				$.init();
 				$.ready(function() {
@@ -56,10 +65,7 @@
 					};
 					//普通示例
 					var userPicker = new $.PopPicker();
-					userPicker.setData([{
-						value: 'gezh', 
-						text: 'sdfafsfsfsfasfsafasfa'
-					}]);
+					userPicker.setData(setArray);
 					var showUserPickerButton = doc.getElementById('showUserPicker');
 					var userResult = doc.getElementById('showUserPicker');
 //					var Input = doc.getElementsByTagName("input");
@@ -67,6 +73,8 @@
 //						Input[1].blur();
 //						Input[2].blur();
 						userPicker.show(function(items) {
+							choiseItem = items;
+							console.log(items);
 							userResult.value = items[0].text;
 						});
 					}, false);
@@ -75,7 +83,34 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				minerName = self.minerName;
-				$("#miner_name").html("钱包名称：" + minerName);
+				uuid = self.uuid;
+				$("#miner_name").html("矿机名称：" + minerName);
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "post",
+					url: api + "miners/bind/account",
+					data: {
+						uuid: uuid,
+						mnemonic: choiseItem[0].value,
+						address: choiseItem[0].text
+					},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('绑定成功');
+						} else {
+							mui.toast(ret.msg)
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				});
 			})
 		</script>
 	</body>

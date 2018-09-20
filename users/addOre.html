@@ -116,6 +116,11 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('绑定成功');
+								var timer = null;
+								clearTimeout(timer);
+								timer = setTimeout(function() {
+									plus.webview.currentWebview().close();
+								}, 1000);
 							} else {
 								mui.toast(ret.msg)
 							}

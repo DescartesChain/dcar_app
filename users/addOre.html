@@ -52,6 +52,7 @@
 			var arr = store.get('dcarPurse');
 			var setArray = [];
 			var choiseItem;
+			var userPicker = new mui.PopPicker();
 			if (arr.length > 0) {
 				for (var i=0;i<arr.length;i++) {
 					setArray.push({"value": arr[i].mnemonic,"text": arr[i].name,"address": arr[i].address})
@@ -65,25 +66,7 @@
 						setArray.push({"value": arr[i].mnemonic,"text": arr[i].name,"address": arr[i].address})
 					}
 				}
-				(function($, doc) {
-					$.init();
-					$.ready(function() {
-						var _getParam = function(obj, param) {
-							return obj[param] || '';
-						};
-						//普通示例
-						var userPicker = new $.PopPicker();
-						userPicker.setData(setArray);
-						var showUserPickerButton = doc.getElementById('showUserPicker');
-						var userResult = doc.getElementById('showUserPicker');
-						showUserPickerButton.addEventListener('tap', function(event) {
-							userPicker.show(function(items) {
-								choiseItem = items;
-								userResult.value = items[0].text;
-							});
-						}, false);
-					});
-				})(mui, document);
+				userPicker.setData(setArray);
 			}
 			(function($, doc) {
 				$.init();
@@ -92,7 +75,6 @@
 						return obj[param] || '';
 					};
 					//普通示例
-					var userPicker = new $.PopPicker();
 					userPicker.setData(setArray);
 					var showUserPickerButton = doc.getElementById('showUserPicker');
 					var userResult = doc.getElementById('showUserPicker');

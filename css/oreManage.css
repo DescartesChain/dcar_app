@@ -152,6 +152,16 @@ body, .mui-content{
 	position: absolute;
 	left: 15%;
 }
+.deleteWallet{
+	color: #4384C5;
+	padding-left: 5%;
+	position: relative;
+}
+.deleteWallet i{
+	font-size: 20px;
+	position: absolute;
+	left: 15%;
+}
 .delete_miner{
 	width: 85px;
 	background: #fff;

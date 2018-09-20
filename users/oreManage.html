@@ -105,6 +105,7 @@
 			<div class="alert_body" id="close">确定要关机吗？确定之后矿机将停止挖矿</div>
 			<div class="alert_body" id="delete">确定要删除吗？</div>
 			<div class="alert_body" id="open">确定要开机吗？确定之后矿机将开始挖矿</div>
+			<div class="alert_body" id="deleteWallet">确定要删除钱包吗？</div>
 			<ul class="alert_operate">
 				<li class="alert_button" onclick="sureConfirm()">确定</li>
 				<li class="alert_button">取消</li>
@@ -154,6 +155,7 @@
 					$('#delete').hide();
 					$('#close').hide();
 					$('#open').show();
+					$('#deleteWallet').hide();
 				});
 				// 关机
 			    $("#cart_list").on("click", ".shut_down", function() {
@@ -163,8 +165,9 @@
 					$('#delete').hide();
 					$('#close').show();
 					$('#open').hide();
+					$('#deleteWallet').hide();
 				});
-				// 删除
+				// 删除矿机
 				$("#cart_list").on("click", ".delete_miner", function() {
 					mui('.alert_box').popover('show');
 					alertState = 'delete';
@@ -172,6 +175,17 @@
 					$('#delete').show();
 					$('#close').hide();
 					$('#open').hide();
+					$('#deleteWallet').hide();
+				}); 
+				// 删除钱包
+				$("#cart_list").on("click", ".deleteWallet", function() {
+					mui('.alert_box').popover('show');
+					alertState = 'deleteWallet';
+					currentId = $(this).attr("uuid");
+					$('#delete').hide();
+					$('#close').hide();
+					$('#open').hide();
+					$('#deleteWallet').show();
 				});
 			});
 			// 确定 
@@ -202,7 +216,9 @@
 							mui.toast(error.responseJSON.msg);
 						}
 					});
-				} else if (alertState == 'open') { //启动矿机
+					return false;
+				}
+				if (alertState == 'open') { //启动矿机
 					mui.showLoading("启动中...", "div");
 					$.ajax({
 						type: "get",
@@ -226,12 +242,43 @@
 							mui.toast(error.responseJSON.msg);
 						}
 					});
+					return false;
 				}
+				if (alertState == 'deleteWallet') { //删除钱包
+					mui.showLoading("删除中...", "div");
+					$.ajax({
+						type: "delete",
+						url: api + "miners/unbind/account",
+						data: {
+							uuid: currentId
+						},
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+						},
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.success) {
+								mui.toast('删除成功');
+								loadmillList();
+							} else {
+								mui.toast(ret.msg);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					});
+					return false;
+				}
+				
 			}
 			var goods = [];
 			var cart_list = '';
 			// 获取矿机状态列表
 			function loadStateList() {
+				balanceTotal = 0;
 				$.ajax({
 				  type: "get",    // 接口类型
 				  url: api + "miners/status",  // 接口地址
@@ -321,13 +368,15 @@
 								'<div class="miner">' +
 									'<div class="title">' +
 										'<h5 class="name">' + t.name + '</h5>' +
-										'<p class="status" id="doing">' + 
-											'<img src="../img/greenPic.png" alt="" />' +
-											'挖矿中' +
-										'</p>' +
+//										'<p class="status" id="doing">' + 
+//											'<img src="../img/greenPic.png" alt="" />' +
+//											'挖矿中' +
+//										'</p>' +
 									'</div>' +
-									'<div class="miner_content">' +
-										'<ul class="miner_income">' +
+									'<div class="miner_content">';
+		
+										if (t.address){
+											cart_list +='<ul class="miner_income">' +
 											'<li>' +
 												'<h6>' + '今日收益（24h）' + '</h6>' +
 												'<p>' + t.stateData.balance + '<span>' + 'DCAR' + '</span>' + '</p>' +
@@ -336,23 +385,40 @@
 												'<h6>' + '算力值（KH/S）' + '</h6>' +
 												'<p>' + t.stateData.hashrate + '<span>' + 'DCAR' + '</span>' + '</p>' +
 											'</li>' +
-										'</ul>' +
-										'<p class="miner_address">' + '矿机地址' + '<span>' + 'wadsfafafafasdaffdddddfafasf' + '</span>' + '</p>' +
-									'</div>' +
-									'<div class="miner_footer">' +
-										'<p class="shut_down open_box">' +
-											'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
-										'</p>' +
-										'<p class="purse" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
-											'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
-										'</p>' +
-									'</div>' +
-								'</div>' +
-								'<div class="delete_miner high_height" uuid="'+ t.uuid +'">' +
-									'<i class="iconfont icon-shanchu"></i>' +
-									'<p>' + '删除' + '</p>'+
-								'</div>' +
-							'</div>'
+										'</ul>'+
+											'<p class="miner_address">' + '矿机地址' + '<span>' + t.address + '</span>' + '</p>'+
+											'</div>' +
+												'<div class="miner_footer">' +
+													'<p class="shut_down open_box">' +
+														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
+													'</p>' +
+													'<p class="deleteWallet" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+														'<i class="iconfont icon-qianbao"></i>' + '删除钱包' +
+													'</p>' +
+												'</div>' +
+											'</div>' +
+											'<div class="delete_miner high_height" uuid="'+ t.uuid +'">' +
+												'<i class="iconfont icon-shanchu"></i>' +
+												'<p>' + '删除' + '</p>'+
+											'</div>' +
+										'</div>'
+										} else{
+											cart_list +='</div>' +
+												'<div class="miner_footer">' +
+													'<p class="shut_down open_box">' +
+														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
+													'</p>' +
+													'<p class="purse" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+														'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
+													'</p>' +
+												'</div>' +
+											'</div>' +
+											'<div class="delete_miner high_height" uuid="'+ t.uuid +'">' +
+												'<i class="iconfont icon-shanchu"></i>' +
+												'<p>' + '删除' + '</p>'+
+											'</div>' +
+										'</div>'
+										}
 						} else {
 							cart_list +=
 							'<div class="miner_box">' +
@@ -363,10 +429,10 @@
 //														'<img src="../img/yellowPic.png" alt="" />' +
 //														'空闲中' +
 //													'</p>' +
-										'<p class="status" id="closing">' + 
-											'<img src="../img/redPic.png" alt="" />' +
-											'关机' +
-										'</p>' +
+//										'<p class="status" id="closing">' + 
+//											'<img src="../img/redPic.png" alt="" />' +
+//											'关机' +
+//										'</p>' +
 									'</div>' +
 									'<div class="miner_footer_two">'+
 										'<p class="start_open open_box">'+

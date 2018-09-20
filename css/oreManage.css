@@ -154,7 +154,6 @@ body, .mui-content{
 }
 .delete_miner{
 	width: 85px;
-	height: 168px;
 	background: #fff;
 	position: absolute;
 	top: 8px;
@@ -163,7 +162,12 @@ body, .mui-content{
 	border-top-left-radius: 8px;
 	transition: .3s;
 }
-
+.high_height{
+	height: 180px;
+}
+.low_height{
+	height:120px;
+}
 .delete_miner i{
 	font-size: 25px;
 	display: block;

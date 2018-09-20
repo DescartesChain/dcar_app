@@ -22,7 +22,8 @@
 		"refer": [
 			"property/account-main.html",
 			"property/create-wallet.html",
-			"property/import-wallet.html"
+			"property/import-wallet.html",
+			"property/import-dcar.html"
 		]
 	},
 	"property/account-main.html": {
@@ -58,7 +59,13 @@
 	},
 	"users/oreManage.html": {
 		"refer": [
-			"users/barcode.html"
+			"users/barcode.html",
+			"users/addOre.html"
+		]
+	},
+	"users/addOre.html": {
+		"refer": [
+			"property/create-wallet.html"
 		]
 	}
 }

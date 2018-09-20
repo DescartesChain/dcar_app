@@ -181,7 +181,8 @@
 				"refer": [
 					"property/account-main.html",
 					"property/import-wallet.html",
-					"property/create-wallet.html"
+					"property/create-wallet.html",
+					"property/import-dcar.html"
 				],
 				"priority": 0
 			},
@@ -307,7 +308,8 @@
 			"users/oreManage.html": {
 				"resources": [],
 				"refer": [
-					"users/barcode.html"
+					"users/barcode.html",
+					"users/addOre.html"
 				],
 				"priority": 0
 			},
@@ -322,6 +324,13 @@
 				"resources": [],
 				"refer": [
 					"users/binders.html"
+				],
+				"priority": 0
+			},
+			"users/addOre.html": {
+				"resources": [],
+				"refer": [
+					"property/create-wallet.html"
 				],
 				"priority": 0
 			}

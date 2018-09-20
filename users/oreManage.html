@@ -21,10 +21,14 @@
 			<div class="mill_top">
 				<p class="first_line">总收益 (24h)</p>
 				<p class="second_line">
-					45155.00
+					<span id="balance"></span>
 					<span class="first_line">DCAR</span>
 				</p>
-				<p class="third_line">≈125666.00 CNY</p>
+				<p class="third_line">
+					=
+					<span id="balanceCNY"></span>
+					CNY
+				</p>
 			</div>
 			<div class="miner_list" id="cart_list">
 				<!--<div class="miner_box">
@@ -117,14 +121,19 @@
 			var currentId;
 			var stateList = []; //矿机状态列表
 			var millList = []; // 矿机列表
+			var balanceTotal = 0; // 收益总和
+			//定时加载
+			var timer = null;
+			clearInterval(timer);
+			timer = setInterval(function(){
+			   loadmillList(); // 获取矿机列表
+			},60000)
 			mui.plusReady(function() {
-				$("#cart_list").on("click", ".open_box", function() {
-					mui('.alert_box').popover('show');
-				});
 				$(".alert_button").on("click", function() {
 					mui('.alert_box').popover('toggle');
 				});
 				$("#cart_list").on("click", ".purse", function() {
+					clearInterval(timer);
 					mui.openWindow({
 						url: '/users/addOre.html',
 						id: '/users/addOre.html',
@@ -136,7 +145,26 @@
 							autoShow: false,
 						}
 					})
-			    })
+			    });
+			    // 开机
+			    $("#cart_list").on("click", ".start_open", function() {
+					mui('.alert_box').popover('show');
+					alertState = 'open';
+					currentId = $(this).attr("uuid");
+					$('#delete').hide();
+					$('#close').hide();
+					$('#open').show();
+				});
+				// 关机
+			    $("#cart_list").on("click", ".shut_down", function() {
+					mui('.alert_box').popover('show');
+					alertState = 'close';
+					currentId = $(this).attr("uuid");
+					$('#delete').hide();
+					$('#close').show();
+					$('#open').hide();
+				});
+				// 删除
 				$("#cart_list").on("click", ".delete_miner", function() {
 					mui('.alert_box').popover('show');
 					alertState = 'delete';
@@ -217,6 +245,11 @@
 				    if(ret.success) {
 				      mui.toast('加载成功');
 				      stateList = ret.data; // 矿机状态列表
+				      for(var b =0;b<stateList.length;b++){
+				      	balanceTotal = balanceTotal + stateList[b].balance;
+				      }
+				      $('#balance').html(balanceTotal);
+				      $('#balanceCNY').html(balanceTotal);
 				    } else{
 				      mui.toast(ret.msg);
 				    }
@@ -315,7 +348,7 @@
 										'</p>' +
 									'</div>' +
 								'</div>' +
-								'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+								'<div class="delete_miner high_height" uuid="'+ t.uuid +'">' +
 									'<i class="iconfont icon-shanchu"></i>' +
 									'<p>' + '删除' + '</p>'+
 								'</div>' +
@@ -341,7 +374,7 @@
 										'</p>'+
 									'</div>'+
 								'</div>' +
-								'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+								'<div class="delete_miner low_height" uuid="'+ t.uuid +'">' +
 									'<i class="iconfont icon-shanchu"></i>' +
 									'<p>' + '删除' + '</p>'+
 								'</div>' +

@@ -303,7 +303,7 @@
 				    mui.hideLoading();
 				    if(ret.success) {
 				      mui.toast('加载成功');
-				      stateList = ret.data; // 矿机状态列表
+				      stateList = ret.data.status; // 矿机状态列表
 				      for(var b =0;b<stateList.length;b++){
 				      	balanceTotal = balanceTotal + stateList[b].balance;
 				      }
@@ -476,7 +476,7 @@
 									    '<p class="not_start_title">您所绑定的矿机处于离线，请启动矿机并接入网络</p>' +
 									'</div>' +
 									'<div class="miner_footer_two">'+
-										'<p class="start_open open_box">'+
+										'<p class="start_open open_box" uuid="'+ t.uuid +'">'+
 											'<i class="iconfont icon-guanjin"></i>' + '启动矿机' +
 										'</p>'+
 									'</div>'+

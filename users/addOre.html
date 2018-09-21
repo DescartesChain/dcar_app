@@ -16,7 +16,7 @@
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		    <h1 class="mui-title">选择钱包</h1>
-		    <h1 class="mui-pull-right saoma_btn newact" url="/property/create-wallet.html">新建</h1>
+		    <h1 class="mui-pull-right saoma_btn" id="newBuild">新建</h1>
 		</header>
 		<div class="mui-content between">
 			<p id="miner_name"></p>
@@ -58,6 +58,15 @@
 					setArray.push({"value": arr[i].mnemonic,"text": arr[i].name,"address": arr[i].address})
 				}
 			}
+			$("#newBuild").on("click", function(){
+				mui.openWindow({
+					id: "/property/create-wallet.html",
+					url: "/property/create-wallet.html",
+					extras: {
+						status: 1
+					}
+				})
+			})
 			function getPurseName() {
 				arr = store.get('dcarPurse');
 				setArray = [];

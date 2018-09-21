@@ -21,12 +21,12 @@
 			<div class="mill_top">
 				<p class="first_line">总收益 (24h)</p>
 				<p class="second_line">
-					<span id="balance"></span>
+					<span id="balance">0</span>
 					<span class="first_line">DCAR</span>
 				</p>
 				<p class="third_line">
 					=
-					<span id="balanceCNY"></span>
+					<span id="balanceCNY">0</span>
 					CNY
 				</p>
 			</div>
@@ -118,7 +118,8 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			loadmillList(); // 获取矿机列表
+//			loadmillList(); // 获取矿机列表
+			loadStateList(); // 获取矿机状态列表
 			var alertState;
 			var currentId;
 			var stateList = []; //矿机状态列表
@@ -132,7 +133,8 @@
 			var timer = null;
 			clearInterval(timer);
 			timer = setInterval(function(){
-			   loadmillList(); // 获取矿机列表
+//			   loadmillList(); // 获取矿机列表
+			   loadStateList(); // 获取矿机状态列表
 			},60000)
 			mui.plusReady(function() {
 				$(".alert_button").on("click", function() {
@@ -218,7 +220,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('删除成功');
-								loadmillList();
+								loadStateList(); // 获取矿机状态列表
 							} else {
 								mui.toast(ret.msg);
 							}
@@ -244,7 +246,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('启动成功');
-								loadmillList();
+								loadStateList(); // 获取矿机状态列表
 							} else {
 								mui.toast(ret.msg);
 							}
@@ -272,7 +274,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('删除成功');
-								loadmillList();
+								loadStateList(); // 获取矿机状态列表
 							} else {
 								mui.toast(ret.msg);
 							}
@@ -290,7 +292,9 @@
 			var cart_list = '';
 			// 获取矿机状态列表
 			function loadStateList() {
+				cart_list = '';
 				balanceTotal = 0;
+				$('#cart_list').empty();
 				$.ajax({
 				  type: "get",    // 接口类型
 				  url: api + "miners/status",  // 接口地址
@@ -304,11 +308,12 @@
 				    if(ret.success) {
 				      mui.toast('加载成功');
 				      stateList = ret.data.status; // 矿机状态列表
-				      for(var b =0;b<stateList.length;b++){
-				      	balanceTotal = balanceTotal + stateList[b].balance;
-				      }
-				      $('#balance').html(balanceTotal);
-				      $('#balanceCNY').html(balanceTotal);
+				      complete(); // 最终合成
+//				      for(var b =0;b<stateList.length;b++){
+//				      	balanceTotal = balanceTotal + stateList[b].balance;
+//				      }
+				      $('#balance').html(ret.data.totalBalance);
+				      $('#balanceCNY').html(ret.data.totalBalance);
 				    } else{
 				      mui.toast(ret.msg);
 				    }
@@ -321,7 +326,7 @@
 			}
 			// 获取矿机列表
 			function loadmillList() {
-				loadStateList(); // 获取矿机状态列表
+//				loadStateList(); // 获取矿机状态列表
 				$('#cart_list').empty();
 				mui.showLoading("加载中...", "div");
 				$.ajax({
@@ -372,13 +377,13 @@
 			});
 			// 合成页面
 			function complete() {
-				if(millList.length > 0) {
-					$.each(millList, function(i, t) {
-						if (t.stateData.uptime >0) {
+				if(stateList.length > 0) {
+					$.each(stateList, function(i, t) {
+						if (t.uptime >0) {
 							cart_list +=
 							'<div class="miner_box">' +
 								'<div class="miner">';
-										if (t.address){
+										if (t.address) {
 											cart_list +=
 											'<div class="title">' +
 												'<h5 class="name">' + t.name + '</h5>' +
@@ -391,19 +396,19 @@
 											'<ul class="miner_income">' +
 											'<li>' +
 												'<h6>' + '收益（DCAR/day）' + '</h6>' +
-												'<p>' + t.stateData.balance + '</p>' +
+												'<p>' + t.balance + '</p>' +
 											'</li>' +
 											'<li>' +
 												'<h6>' + '算力值（KH/S）' + '</h6>' +
-												'<p>' + t.stateData.hashrate + '</p>' +
+												'<p>' + t.hashrate + '</p>' +
 											'</li>' +
 										'</ul>'+
 											'</div>' +
 												'<div class="miner_footer">' +
-													'<p class="deleteWallet">' +
+													'<p class="deleteWallet" uuid="'+ t.uuid +'">' +
 														'<i class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '删除钱包' +
 													'</p>' +
-													'<p class="seek_deatil" income="'+ t.stateData.balance +'" address="'+ t.address +'" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+													'<p class="seek_deatil" income="'+ t.balance +'" address="'+ t.address +'" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
 														'<i class="iconfont icon-xiangqing"></i>' + '查看详情' +
 													'</p>' +
 												'</div>' +
@@ -414,8 +419,7 @@
 											'</div>' +
 										'</div>'
 										} else{
-											if (t.isEntity){
-												cart_list +=
+											cart_list +=
 												'<div class="title">' +
 													'<h5 class="name">' + t.name + '</h5>' +
 													'<p class="status" id="staying">' + 
@@ -432,28 +436,7 @@
 															'<i style="left: 34%;" class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '绑定钱包' +
 														'</p>' +
 													'</div>' +
-												'</div>';
-											} else {
-												cart_list +=
-												'<div class="title">' +
-													'<h5 class="name">' + t.name + '</h5>' +
-													'<p class="status" id="staying">' + 
-														'<img src="../img/redPic.png" alt="" />' +
-														'关机' +
-													'</p>' +
 												'</div>' +
-												'<div class="miner_content">' + 
-												    '<img src="../img/ore/13.png" class="not_start_logo"/>' +
-												    '<p class="not_start_title">您所绑定的是托管矿机，首次使用需要初始化</p>' +
-												'</div>' +
-													'<div class="miner_footer_two">' +
-														'<p class="initialize start_open" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
-															'<i style="left: 34%;" class="iconfont icon-weibiaoti-zhuanhuan" style="font-size: 16px;"></i>' + '初始化矿机' +
-														'</p>' +
-													'</div>' +
-												'</div>';
-											}
-											cart_list +=
 											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
 												'<i class="iconfont icon-shanchu"></i>' +
 												'<p>' + '删除' + '</p>'+
@@ -463,7 +446,9 @@
 						} else {
 							cart_list +=
 							'<div class="miner_box">' +
-								'<div class="miner">' +
+								'<div class="miner">';
+							if (t.isEntity){
+								cart_list +=
 									'<div class="title">' +
 										'<h5 class="name">' + t.name + '</h5>' +
 										'<p class="status" id="staying">' + 
@@ -480,7 +465,28 @@
 											'<i class="iconfont icon-guanjin"></i>' + '启动矿机' +
 										'</p>'+
 									'</div>'+
+								'</div>';
+							} else {
+								cart_list +=
+								'<div class="title">' +
+									'<h5 class="name">' + t.name + '</h5>' +
+									'<p class="status" id="staying">' + 
+										'<img src="../img/redPic.png" alt="" />' +
+										'关机' +
+									'</p>' +
 								'</div>' +
+								'<div class="miner_content">' + 
+								    '<img src="../img/ore/13.png" class="not_start_logo"/>' +
+								    '<p class="not_start_title">您所绑定的是托管矿机，首次使用需要初始化</p>' +
+								'</div>' +
+									'<div class="miner_footer_two">' +
+										'<p class="initialize start_open" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+											'<i style="left: 34%;" class="iconfont icon-weibiaoti-zhuanhuan" style="font-size: 16px;"></i>' + '初始化矿机' +
+										'</p>' +
+									'</div>' +
+								'</div>';
+							}
+							cart_list +=
 								'<div class="delete_miner low_height" uuid="'+ t.uuid +'">' +
 									'<i class="iconfont icon-shanchu"></i>' +
 									'<p>' + '删除' + '</p>'+

@@ -168,6 +168,16 @@ body, .mui-content{
 	padding-left: 5%;
 	position: relative;
 }
+.seek_deatil i{
+	font-size: 20px;
+	position: absolute;
+	left: 20%;
+}
+.seek_deatil{
+	color: #4384C5;
+	padding-left: 5%;
+	position: relative;
+}
 .purse i{
 	font-size: 20px;
 	position: absolute;
@@ -195,7 +205,7 @@ body, .mui-content{
 }
 .delete_miner{
 	width: 85px;
-	height: 211px;
+	height: 181px;
 	background: #fff;
 	position: absolute;
 	top: 8px;

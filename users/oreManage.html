@@ -118,8 +118,8 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-//			loadmillList(); // 获取矿机列表
-			loadStateList(); // 获取矿机状态列表
+			loadmillList(); // 获取矿机列表
+//			loadStateList(); // 获取矿机状态列表
 			var alertState;
 			var currentId;
 			var stateList = []; //矿机状态列表
@@ -133,8 +133,8 @@
 			var timer = null;
 			clearInterval(timer);
 			timer = setInterval(function(){
-//			   loadmillList(); // 获取矿机列表
-			   loadStateList(); // 获取矿机状态列表
+			   loadmillList(); // 获取矿机列表
+//			   loadStateList(); // 获取矿机状态列表
 			},60000)
 			mui.plusReady(function() {
 				$(".alert_button").on("click", function() {
@@ -220,7 +220,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('删除成功');
-								loadStateList(); // 获取矿机状态列表
+								loadmillList(); // 获取矿机状态列表
 							} else {
 								mui.toast(ret.msg);
 							}
@@ -246,7 +246,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('启动成功');
-								loadStateList(); // 获取矿机状态列表
+								loadmillList(); // 获取矿机状态列表
 							} else {
 								mui.toast(ret.msg);
 							}
@@ -274,7 +274,7 @@
 							mui.hideLoading();
 							if(ret.success) {
 								mui.toast('删除成功');
-								loadStateList(); // 获取矿机状态列表
+								loadmillList(); // 获取矿机状态列表
 							} else {
 								mui.toast(ret.msg);
 							}
@@ -326,8 +326,8 @@
 			}
 			// 获取矿机列表
 			function loadmillList() {
-//				loadStateList(); // 获取矿机状态列表
 				$('#cart_list').empty();
+				cart_list = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
@@ -342,7 +342,12 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							millList = ret.data.list; //矿机列表
-							mergeDate(); // 合并数据
+							complete(); // 最终合成
+							for(var b =0;b<millList.length;b++){
+						      	balanceTotal += millList[b].balance;
+						    }
+							$('#balance').html(balanceTotal);
+				      		$('#balanceCNY').html(balanceTotal);
 						} else {
 							mui.toast(ret.msg);
 						}
@@ -354,17 +359,17 @@
 				})
 			};
 			// 合并数据
-			function mergeDate(){
-				cart_list = '';
-				for(var i=0;i<millList.length;i++){
-					for (var j=0;j<stateList.length;j++){
-						if (i == j){
-							millList[i].stateData = stateList[j];
-						}
-					}
-				}
-				complete(); // 最终合成
-			};
+//			function mergeDate(){
+//				cart_list = '';
+//				for(var i=0;i<millList.length;i++){
+//					for (var j=0;j<stateList.length;j++){
+//						if (i == j){
+//							millList[i].stateData = stateList[j];
+//						}
+//					}
+//				}
+//				complete(); // 最终合成
+//			};
 			$("#cart_list").on("swipeleft", ".miner", function() {
 				$(".miner_box").find(".delete_miner").css("right", "-85px")
 				$(".miner_box").find(".miner").css("margin-left", "0")
@@ -377,8 +382,8 @@
 			});
 			// 合成页面
 			function complete() {
-				if(stateList.length > 0) {
-					$.each(stateList, function(i, t) {
+				if(millList.length > 0) {
+					$.each(millList, function(i, t) {
 						if (t.uptime >0) {
 							cart_list +=
 							'<div class="miner_box">' +
@@ -455,7 +460,8 @@
 											'<img src="../img/redPic.png" alt="" />' +
 											'关机' +
 										'</p>' +
-									'</div>' +
+									'</div>' +  
+									
 									'<div class="miner_content">' + 
 									    '<img src="../img/ore/12.png" class="not_start_logo"/>' +
 									    '<p class="not_start_title">您所绑定的矿机处于离线，请启动矿机并接入网络</p>' +

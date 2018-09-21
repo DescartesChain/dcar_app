@@ -97,7 +97,7 @@
 				$("#jumpList").on("tap", function() {
 					plus.webview.currentWebview().close();
 					plus.webview.getWebviewById("/users/barcode.html").evalJS("closeBarcode()");
-					plus.webview.getWebviewById("oreManage.html").evalJS("loadStateList()");
+					plus.webview.getWebviewById("oreManage.html").evalJS("loadmillList()");
 				})
 				$(".fail_btn").on("tap", function (){
 					plus.webview.getWebviewById("/users/barcode.html").evalJS("closeBarcode()");

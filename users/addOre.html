@@ -128,7 +128,7 @@
 								var timer = null;
 								clearTimeout(timer);
 								timer = setTimeout(function() {
-									plus.webview.getWebviewById("oreManage.html").evalJS("loadStateList()");
+									plus.webview.getWebviewById("oreManage.html").evalJS("loadmillList()");
 									plus.webview.currentWebview().close();
 								}, 1000);
 							} else {

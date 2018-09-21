@@ -48,14 +48,13 @@
 									<p>452138.00<span>DCAR</span></p>
 								</li>
 							</ul>
-							<p class="miner_address">矿机地址<span>wadsfafafafasdaffdddddfafasf</span></p>
 						</div>
 						<div class="miner_footer">
-							<p class="shut_down open_box">
-								<i class="iconfont icon-guanbizhuanhuan"></i> 关机
-							</p>
 							<p class="purse">
-								<i class="iconfont icon-qianbao"></i> 钱包管理
+								<i class="iconfont icon-qianbao" style="font-size: 16px;"></i> 删除钱包
+							</p class="shut_down open_box" >
+							<p class="purse">
+								<i class="iconfont icon-xiangqing"></i> 查看详情
 							</p>
 						</div>
 					</div>
@@ -63,8 +62,8 @@
 						<i class="iconfont icon-shanchu"></i>
 						<p>删除</p>
 					</div>
-				</div>-->
-				<!--<div class="miner_box">
+				</div>
+				<div class="miner_box">-->
 					<div class="miner">
 						<div class="title">
 							<h5 class="name">矿机二</h5>
@@ -74,21 +73,12 @@
 							</p>
 						</div>
 						<div class="miner_content">
-							<ul class="miner_income">
-								<li>
-									<h6>今日收益（24h）</h6>
-									<p>452138.00<span>DCAR</span></p>
-								</li>
-								<li>
-									<h6>算力值（KH/S）</h6>
-									<p>452138.00<span>DCAR</span></p>
-								</li>
-							</ul>
-							<p class="miner_address">矿机地址<span>wadsfafafafasdaffdddddfafasf</span></p>
+							<img src="../img/ore/11.png" class="not_start_logo"/>
+							<p class="not_start_title">您还未绑定钱包，绑定之后矿机将开始挖矿</p>
 						</div>
 						<div class="miner_footer_two">
 							<p class="start_open open_box">
-								<i class="iconfont icon-guanjin"></i> 开机
+								<i class="iconfont icon-qianbao" style="font-size: 16px;"></i> 绑定钱包
 							</p>
 						</div>
 					</div>
@@ -96,7 +86,7 @@
 						<i class="iconfont icon-shanchu"></i>
 						<p>删除</p>
 					</div>
-				</div>-->
+				</div>
 			</div>
 		</div>
 		<!--开机关机弹框-->
@@ -111,6 +101,17 @@
 				<li class="alert_button">取消</li>
 			</ul>
 		</div>
+		<!--详情-->
+		<div class="mui-popover detail_box">
+			<p class="alert_title">详情</p >
+			<div class="mill_detail">
+				<p class="detail_title">收益 （DCAR/DAY）</p >
+				<div class="detail_main" id="seek_deatil_balance" style="padding-bottom: 21px;">999</div>
+				<p class="detail_title">矿机地址</p >
+				<div class="detail_main" id="seek_deatil_address">ashkdhsdhashkdhsdhkashkdhsdhkashkdhsdhkk</div>
+			</div>
+			<div class="close_btn" onclick="detailConfirm()">关闭</div>
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
@@ -123,6 +124,10 @@
 			var stateList = []; //矿机状态列表
 			var millList = []; // 矿机列表
 			var balanceTotal = 0; // 收益总和
+			// 关闭详情
+			function detailConfirm(){
+				mui('.detail_box').popover('toggle');
+			};
 			//定时加载
 			var timer = null;
 			clearInterval(timer);
@@ -147,6 +152,13 @@
 						}
 					})
 			    });
+			    // 查看详情
+			    $("#cart_list").on("click", ".seek_deatil", function() {
+			    	$("#seek_deatil_address").html($(this).attr("address"));
+			    	$("#seek_deatil_balance").html($(this).attr("income"));
+					mui('.detail_box').popover('toggle');
+					currentId = $(this).attr("uuid");
+				});
 			    // 开机
 			    $("#cart_list").on("click", ".start_open", function() {
 					mui('.alert_box').popover('show');
@@ -365,18 +377,18 @@
 						if (t.stateData.uptime >0) {
 							cart_list +=
 							'<div class="miner_box">' +
-								'<div class="miner">' +
-									'<div class="title">' +
-										'<h5 class="name">' + t.name + '</h5>' +
-//										'<p class="status" id="doing">' + 
-//											'<img src="../img/greenPic.png" alt="" />' +
-//											'挖矿中' +
-//										'</p>' +
-									'</div>' +
-									'<div class="miner_content">';
-		
+								'<div class="miner">';
 										if (t.address){
-											cart_list +='<ul class="miner_income">' +
+											cart_list +=
+											'<div class="title">' +
+												'<h5 class="name">' + t.name + '</h5>' +
+												'<p class="status" id="doing">' + 
+													'<img src="../img/greenPic.png" alt="" />' +
+													'挖矿中' +
+												'</p>' +
+											'</div>' +
+											'<div class="miner_content">' +
+											'<ul class="miner_income">' +
 											'<li>' +
 												'<h6>' + '收益（DCAR/day）' + '</h6>' +
 												'<p>' + t.stateData.balance + '</p>' +
@@ -386,35 +398,63 @@
 												'<p>' + t.stateData.hashrate + '</p>' +
 											'</li>' +
 										'</ul>'+
-//										    '<p class="miner_address_title">矿机地址</p>' +
-											'<p class="miner_address"><span>' + t.address + '</span>' + '</p>'+
 											'</div>' +
 												'<div class="miner_footer">' +
-													'<p class="shut_down open_box">' +
-														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
+													'<p class="deleteWallet">' +
+														'<i class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '删除钱包' +
 													'</p>' +
-													'<p class="deleteWallet" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
-														'<i class="iconfont icon-qianbao"></i>' + '删除钱包' +
+													'<p class="seek_deatil" income="'+ t.stateData.balance +'" address="'+ t.address +'" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+														'<i class="iconfont icon-xiangqing"></i>' + '查看详情' +
 													'</p>' +
 												'</div>' +
 											'</div>' +
-											'<div class="delete_miner high_height" uuid="'+ t.uuid +'">' +
+											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
 												'<i class="iconfont icon-shanchu"></i>' +
 												'<p>' + '删除' + '</p>'+
 											'</div>' +
 										'</div>'
 										} else{
-											cart_list +='</div>' +
-												'<div class="miner_footer">' +
-													'<p class="shut_down open_box">' +
-														'<i class="iconfont icon-guanbizhuanhuan"></i>' + '关机' +
-													'</p>' +
-													'<p class="purse" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
-														'<i class="iconfont icon-qianbao"></i>' + '添加钱包' +
+											if (t.isEntity){
+												cart_list +=
+												'<div class="title">' +
+													'<h5 class="name">' + t.name + '</h5>' +
+													'<p class="status" id="staying">' + 
+														'<img src="../img/yellowPic.png" alt="" />' +
+														'空闲中' +
 													'</p>' +
 												'</div>' +
-											'</div>' +
-											'<div class="delete_miner low_height" uuid="'+ t.uuid +'">' +
+												'<div class="miner_content">' + 
+												    '<img src="../img/ore/11.png" class="not_start_logo"/>' +
+												    '<p class="not_start_title">您还未绑定钱包，绑定之后矿机将开始挖矿</p>' +
+												'</div>' +
+													'<div class="miner_footer_two">' +
+														'<p class="purse" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+															'<i style="left: 34%;" class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '绑定钱包' +
+														'</p>' +
+													'</div>' +
+												'</div>';
+											} else {
+												cart_list +=
+												'<div class="title">' +
+													'<h5 class="name">' + t.name + '</h5>' +
+													'<p class="status" id="staying">' + 
+														'<img src="../img/redPic.png" alt="" />' +
+														'关机' +
+													'</p>' +
+												'</div>' +
+												'<div class="miner_content">' + 
+												    '<img src="../img/ore/13.png" class="not_start_logo"/>' +
+												    '<p class="not_start_title">您所绑定的是托管矿机，首次使用需要初始化</p>' +
+												'</div>' +
+													'<div class="miner_footer_two">' +
+														'<p class="initialize start_open" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+															'<i style="left: 34%;" class="iconfont icon-weibiaoti-zhuanhuan" style="font-size: 16px;"></i>' + '初始化矿机' +
+														'</p>' +
+													'</div>' +
+												'</div>';
+											}
+											cart_list +=
+											'<div class="delete_miner" uuid="'+ t.uuid +'">' +
 												'<i class="iconfont icon-shanchu"></i>' +
 												'<p>' + '删除' + '</p>'+
 											'</div>' +
@@ -426,18 +466,18 @@
 								'<div class="miner">' +
 									'<div class="title">' +
 										'<h5 class="name">' + t.name + '</h5>' +
-//													'<p class="status" id="staying">' + 
-//														'<img src="../img/yellowPic.png" alt="" />' +
-//														'空闲中' +
-//													'</p>' +
-//										'<p class="status" id="closing">' + 
-//											'<img src="../img/redPic.png" alt="" />' +
-//											'关机' +
-//										'</p>' +
+										'<p class="status" id="staying">' + 
+											'<img src="../img/redPic.png" alt="" />' +
+											'关机' +
+										'</p>' +
+									'</div>' +
+									'<div class="miner_content">' + 
+									    '<img src="../img/ore/12.png" class="not_start_logo"/>' +
+									    '<p class="not_start_title">您所绑定的矿机处于离线，请启动矿机并接入网络</p>' +
 									'</div>' +
 									'<div class="miner_footer_two">'+
 										'<p class="start_open open_box">'+
-											'<i class="iconfont icon-guanjin"></i>' + '开机' +
+											'<i class="iconfont icon-guanjin"></i>' + '启动矿机' +
 										'</p>'+
 									'</div>'+
 								'</div>' +

@@ -10,6 +10,7 @@ body, .mui-content{
 	padding-bottom:15px;
 }
 .miner_box{
+	height: 211px;
 	overflow: hidden;
 	position: relative;
 	padding: 0 15px;
@@ -36,6 +37,16 @@ body, .mui-content{
 	font-weight: 500;
 	line-height: 45px;
 }
+.not_start_logo{
+	display: block;
+	height: 40px;
+	margin: 10px auto;
+}
+.not_start_title{
+	text-align: center;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
 /*.miner .title{
 	font-size: 15px;
 	float: right;
@@ -56,6 +67,7 @@ body, .mui-content{
 	color: #3cc0fe;
 }
 .miner_content{
+	padding-top: 8px;
 	padding-bottom: 8px;
 	border-bottom: 1px solid #EFEFEF;
 }
@@ -73,13 +85,13 @@ body, .mui-content{
 	font-size: 12px;
 	color: #104981;
 	font-weight: 500;
-	padding: 4px 0;
+	padding: 8px 0 4px;
 }
 .miner_income li p{
 	text-align: center;
 	font-size: 20px;
 	color: #388ee4;
-	padding: 4px 0;
+	padding: 8px 0 4px;
 }
 .miner_income li p span{
 	margin-left: 5px;
@@ -159,7 +171,17 @@ body, .mui-content{
 .purse i{
 	font-size: 20px;
 	position: absolute;
-	left: 15%;
+	left: 20%;
+}
+.initialize{
+	color: #4384C5;
+	padding-left: 5%;
+	position: relative;
+}
+.initialize i{
+	font-size: 20px;
+	position: absolute;
+	left: 20%;
 }
 .deleteWallet{
 	color: #4384C5;
@@ -173,6 +195,7 @@ body, .mui-content{
 }
 .delete_miner{
 	width: 85px;
+	height: 211px;
 	background: #fff;
 	position: absolute;
 	top: 8px;
@@ -180,15 +203,6 @@ body, .mui-content{
 	border-bottom-left-radius: 8px;
 	border-top-left-radius: 8px;
 	transition: .3s;
-}
-.high_height{
-	height: 206px;
-}
-.low_height i{
-	margin: 20px 30px 10px !important;
-}
-.low_height{
-	height: 100px;
 }
 .delete_miner i{
 	font-size: 25px;
@@ -265,4 +279,38 @@ body, .mui-content{
 	background: #9e9b9a;
 	float: right;
 }
-
+/*新增样式*/
+.detail_box{
+	text-align: center;
+	width: 87%;
+	padding:0 28px 20px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
+.mill_detail{
+	text-align: left;
+}
+.detail_title{
+	color:#104981;
+	font-size: 12px;
+	padding-bottom: 13px;
+	word-break: break-all;
+}
+.detail_main{
+	color:#388EE4;
+	font-size: 15px;
+	word-break: break-all;
+}
+.close_btn{
+	border-radius: 5px;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
+	background: #e66d42;
+	margin-top:27px;
+}
+/*end*/

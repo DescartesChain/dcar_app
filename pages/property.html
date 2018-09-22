@@ -196,10 +196,8 @@
 						data: {},
 						async: true,
 						success: function(ret) {
-							
 							if(ret.success) {
 								arr[i].money = ret.data;
-								console.log(ret.data);
 							} else {
 								arr[i].money = 0;
 								mui.toast(ret.msg)

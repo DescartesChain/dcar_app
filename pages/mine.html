@@ -54,7 +54,7 @@
 					<p>关于我们</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
-				<li id="cleanCach">
+				<li onclick="showHide()">
 					<i class="iconfont icon-delete_rubbish"></i>
 					<p>清理缓存</p>
 				</li>
@@ -63,6 +63,15 @@
 					<p>意见反馈</p>
 					<span class="mui-icon mui-icon-arrowright"></span>
 				</li>
+			</ul>
+		</div>
+		<!--开机关机弹框-->
+		<div class="mui-popover alert_box">
+			<p class="alert_title">提示</p>
+			<div class="alert_body">确定要清除吗？清除后将没有钱包数据</div>
+			<ul class="alert_operate">
+				<li class="alert_button" id="sureConfirm">确定</li>
+				<li class="alert_button" onclick="showHide()">取消</li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -131,8 +140,12 @@
 					}
 				})
 			}
+			function showHide () {
+				mui('.alert_box').popover('toggle');
+			}
 			mui.plusReady(function(){
-				$("#cleanCach").on("click", function() {
+				$("#sureConfirm").on("click", function() {
+					mui('.alert_box').popover('toggle');
 					store.remove("dcarPurse");
 					store.remove("ethPurse");
 					plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");

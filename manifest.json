@@ -160,7 +160,9 @@
 				"priority": 0
 			},
 			"pages/home.html": {
-				"resources": [],
+				"resources": [
+					"img/home/list_icon.png"
+				],
 				"refer": [
 					"public/notice.html",
 					"public/login.html"
@@ -177,7 +179,9 @@
 				"priority": 0
 			},
 			"pages/property.html": {
-				"resources": [],
+				"resources": [
+					"img/property/wallet.png"
+				],
 				"refer": [
 					"property/account-main.html",
 					"property/import-wallet.html",

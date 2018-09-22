@@ -63,6 +63,10 @@
 			showDcarPurse();
 			showEthPurse();
 			$("#createDcar").on("click", function(){
+				if (!store.get("userInfo")) {
+					mui.toast('请先登录');
+					return false;
+				}
 				mui.openWindow({
 					id: "/property/create-wallet.html",
 					url: "/property/create-wallet.html",
@@ -190,9 +194,6 @@
 						type: "get",
 						url: api + "dcarchain/account/" + arr[i].address + "/balance",
 						data: {},
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
-						},
 						async: true,
 						success: function(ret) {
 							

@@ -17,6 +17,7 @@
  	position: absolute;
  	top:11px;
  	left:170px;
+ 	font-size: 14px;
 }
 .mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
 	left: 0;

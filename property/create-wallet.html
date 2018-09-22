@@ -52,7 +52,7 @@
 			<div class="popover_content alert_body">
 				<div class="mui-table-view" style="height: 280px;">
 					<div class="mui-scroll-wrapper">
-						<div class="popover-box" style="overflow-y: scroll;height: 280px;" id="preview">
+						<div class="popover-box" id="preview">
 						</div>
 					</div>
 				</div>
@@ -68,6 +68,7 @@
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+			mui('.mui-scroll-wrapper').scroll();
 			// 弹出使用协议
 			$('.agreementDetail').on("click", function(event) {
 				event.preventDefault(); 

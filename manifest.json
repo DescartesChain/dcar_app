@@ -139,12 +139,12 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "D:/dabao/Dcar-Icon-Store 13项/LaunchImage-800-667h@2x.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "D:/dabao/Dcar-Icon-Store 13项/LaunchImage-800-667h@2x.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "D:/dabao/Dcar-Icon-Store 13项/LaunchImage-800-667h@2x.png"
+					"hdpi": "//192.168.1.195/workspace/Projects/20180701_DCAR/UI/App/App  icon/LaunchImage-800-667h@2x.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "//192.168.1.195/workspace/Projects/20180701_DCAR/UI/App/App  icon/LaunchImage-800-667h@2x.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "//192.168.1.195/workspace/Projects/20180701_DCAR/UI/App/App  icon/LaunchImage-800-667h@2x.png"
 				}
 			}
-		},"adid":"120379230408"
+		}
 	},
 	"dependencies": {
 		"pages": {

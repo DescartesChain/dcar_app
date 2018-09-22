@@ -10,9 +10,13 @@
 }
 .agreement{
 	/*padding-top:20px;*/
+	position: relative;
 }
-.agreement label a{
+.agreement a{
  	color: #4384c5;
+ 	position: absolute;
+ 	top:11px;
+ 	left:170px;
 }
 .mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{
 	left: 0;
@@ -54,4 +58,43 @@
 }
 .cannot{
 	background: #bfd7ee;
+}
+.alert_box {
+	text-align: center;
+	width: 87%;
+	padding:0 20px 20px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
+
+.alert_title {
+	color: #333;
+	font-size: 24px;
+	font-weight: bold;
+	padding-top: 30px;
+	padding-bottom: 23px;
+}
+
+.alert_body {
+	color: #333;
+	font-size: 15px;
+	margin: 5px 0;
+	max-height: 280px;
+	/*overflow-x:hidden;*/
+	overflow-y:scroll;
+	text-align: left;
+	/*overflow:auto*/
+	/*word-break:break-all;*/
+}
+.close_btn{
+	border-radius: 5px;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
+	background: #e66d42;
+	margin-top:27px;
 }

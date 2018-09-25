@@ -85,8 +85,27 @@
 		        selection.addRange(range);
 		        document.execCommand('copy');
 		        mui.toast('复制钱包地址成功');
-		  }
-		   document.getElementById('copyAddress').addEventListener('click', copyArticle, false);
+		    }
+		    var value1 = document.getElementById('addressBox').value;
+			var btn = document.getElementById('copyAddress');
+			
+			//获取剪贴板数据方法
+			function getClipboardText(event){
+			    var clipboardData = event.clipboardData || window.clipboardData;
+			    return clipboardData.getData("text");
+			};
+			//设置剪贴板数据
+			function setClipboardText(event, value){
+			    if(event.clipboardData){
+			        return event.clipboardData.setData("text/plain", value);
+			    }else if(window.clipboardData){
+			        return window.clipboardData.setData("text", value);
+			    }
+			};
+			btn.onclick = function(){
+			    mui.toast('复制钱包地址成功');
+			    setClipboardText(event, value1);
+			};
 //			$('#copyAddress').click(function() {
 //				const el = document.createElement('input');
 //				const btn = document.getElementById('copyAddress');

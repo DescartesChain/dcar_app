@@ -33,7 +33,7 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/clipboard/clipboard.min.js"></script>
+		<script src="../js/clipboard/clipboard.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
 			var address;
@@ -61,51 +61,17 @@
 				}
 			})
 			// 复制地址 
-			//			var clipboard = new ClipboardJS('#copyAddress');
-			//
-			//			clipboard.on('success', function(e) {
-			//				mui.toast('复制钱包地址成功', {
-			//					duration: 2000,
-			//					type: 'div'
-			//				})
-			//			});
-			//
-			//			clipboard.on('error', function(e) {
-			//				mui.toast('复制失败', {
-			//					duration: 2000,
-			//					type: 'div'
-			//				})
-			//			});
-			function copyArticle(event) {
-		        const range = document.createRange();
-		        range.selectNode(document.getElementById('addressBox'));
-		
-		        const selection = window.getSelection();
-		        if(selection.rangeCount > 0) selection.removeAllRanges();
-		        selection.addRange(range);
-		        document.execCommand('copy');
-		        mui.toast('复制钱包地址成功');
-		    }
-		    var value1 = document.getElementById('addressBox').value;
-			var btn = document.getElementById('copyAddress');
-			
-			//获取剪贴板数据方法
-			function getClipboardText(event){
-			    var clipboardData = event.clipboardData || window.clipboardData;
-			    return clipboardData.getData("text");
-			};
-			//设置剪贴板数据
-			function setClipboardText(event, value){
-			    if(event.clipboardData){
-			        return event.clipboardData.setData("text/plain", value);
-			    }else if(window.clipboardData){
-			        return window.clipboardData.setData("text", value);
-			    }
-			};
-			btn.onclick = function(){
-			    mui.toast('复制钱包地址成功');
-			    setClipboardText(event, value1);
-			};
+			$(document).ready(function(){
+				var fooText=$("#addressBox").val();
+	        	var clipboard = new Clipboard('#copyAddress');
+	            clipboard.on('success', function(e) {
+		            console.info('Action:', e.action);
+		            console.info('Text:', e.text);
+		            console.info('Trigger:', e.trigger);
+		            mui.toast('复制钱包地址成功');
+		            e.clearSelection();
+	            });
+			})
 //			$('#copyAddress').click(function() {
 //				const el = document.createElement('input');
 //				const btn = document.getElementById('copyAddress');

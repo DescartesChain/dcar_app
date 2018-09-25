@@ -51,7 +51,7 @@
 						</div>
 						<div class="miner_footer">
 							<p class="purse">
-								<i class="iconfont icon-qianbao" style="font-size: 16px;"></i> 删除钱包
+								<i class="iconfont icon-qianbao" style="font-size: 16px;"></i> 解绑钱包
 							</p class="shut_down open_box" >
 							<p class="purse">
 								<i class="iconfont icon-xiangqing"></i> 查看详情
@@ -95,7 +95,7 @@
 			<div class="alert_body" id="close">确定要关机吗？确定之后矿机将停止挖矿</div>
 			<div class="alert_body" id="delete">确定要删除吗？</div>
 			<div class="alert_body" id="open">确定要开机吗？确定之后矿机将开始挖矿</div>
-			<div class="alert_body" id="deleteWallet">确定要删除钱包吗？</div>
+			<div class="alert_body" id="deleteWallet">确定要解绑钱包吗？</div>
 			<ul class="alert_operate">
 				<li class="alert_button" onclick="sureConfirm()">确定</li>
 				<li class="alert_button">取消</li>
@@ -191,7 +191,7 @@
 					$('#open').hide();
 					$('#deleteWallet').hide();
 				}); 
-				// 删除钱包
+				// 解绑钱包
 				$("#cart_list").on("click", ".deleteWallet", function() {
 					mui('.alert_box').popover('show');
 					alertState = 'deleteWallet';
@@ -258,7 +258,7 @@
 					});
 					return false;
 				}
-				if (alertState == 'deleteWallet') { //删除钱包
+				if (alertState == 'deleteWallet') { //解绑钱包
 					mui.showLoading("删除中...", "div");
 					$.ajax({
 						type: "delete",
@@ -411,7 +411,7 @@
 											'</div>' +
 												'<div class="miner_footer">' +
 													'<p class="deleteWallet" uuid="'+ t.uuid +'">' +
-														'<i class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '删除钱包' +
+														'<i class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '解绑钱包' +
 													'</p>' +
 													'<p class="seek_deatil" income="'+ t.balance +'" address="'+ t.address +'" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
 														'<i class="iconfont icon-xiangqing"></i>' + '查看详情' +

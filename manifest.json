@@ -186,7 +186,8 @@
 					"property/account-main.html",
 					"property/import-wallet.html",
 					"property/create-wallet.html",
-					"property/import-dcar.html"
+					"property/import-dcar.html",
+					"users/transfer.html"
 				],
 				"priority": 0
 			},
@@ -335,6 +336,13 @@
 				"resources": [],
 				"refer": [
 					"property/create-wallet.html"
+				],
+				"priority": 0
+			},
+			"users/transfer.html": {
+				"resources": [],
+				"refer": [
+					"users/barcodeAddress.html"
 				],
 				"priority": 0
 			}

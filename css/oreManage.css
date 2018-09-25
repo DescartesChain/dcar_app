@@ -37,6 +37,10 @@ body, .mui-content{
 	font-weight: 500;
 	line-height: 45px;
 }
+.icon-xiugai1{
+	color:#4384C5 !important;
+	margin-left:10px;
+}
 .not_start_logo{
 	display: block;
 	height: 40px;
@@ -252,6 +256,15 @@ body, .mui-content{
 	top: 50%;
 	transform: translate(-50%, -50%)
 }
+.alter_box{
+	text-align: center;
+	width: 87%;
+	padding-bottom: 10px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%)
+}
 
 .alert_title {
 	color: #333;
@@ -266,11 +279,15 @@ body, .mui-content{
 	font-size: 15px;
 	margin: 5px 0;
 }
+.alter_main{
+	width: 85%;
+	margin:0 auto;
+}
 
 .alert_operate{
 	overflow: hidden;
 	width:85%;
-	margin:40px auto 30px;
+	margin:20px auto 30px;
 }
 .alert_operate>li{
 	width:45%;
@@ -324,3 +341,11 @@ body, .mui-content{
 	margin-top:27px;
 }
 /*end*/
+.loading_box{
+	text-align: center;
+}
+.loading{
+	margin:0 auto;
+	padding:8px 20px;
+	margin-bottom:30px;
+}

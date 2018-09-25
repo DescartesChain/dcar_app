@@ -76,33 +76,44 @@
 			//					type: 'div'
 			//				})
 			//			});
-			$('#copyAddress').click(function() {
-				const el = document.createElement('input');
-				const btn = document.getElementById('copyAddress');
-				el.value = address;
-				el.style.opacity = '0';
-				document.body.appendChild(el);
-				const editable = el.contentEditable;
-				const readOnly = el.readOnly;
-				el.contentEditable = true;
-				el.readOnly = false;
-				const range = document.createRange();
-				range.selectNodeContents(el);
-				const sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				el.setSelectionRange(0, 999999);
-				el.contentEditable = editable;
-				el.readOnly = readOnly;
-				const ret = document.execCommand('copy');
-				el.blur();
-				btn.text = ret;
-				if(btn.text) {
-					mui.toast('复制钱包地址成功');
-				} else{
-					mui.toast('复制失败');
-				}
-			})
+			function copyArticle(event) {
+		        const range = document.createRange();
+		        range.selectNode(document.getElementById('addressBox'));
+		
+		        const selection = window.getSelection();
+		        if(selection.rangeCount > 0) selection.removeAllRanges();
+		        selection.addRange(range);
+		        document.execCommand('copy');
+		        mui.toast('复制钱包地址成功');
+		  }
+		   document.getElementById('copyAddress').addEventListener('click', copyArticle, false);
+//			$('#copyAddress').click(function() {
+//				const el = document.createElement('input');
+//				const btn = document.getElementById('copyAddress');
+//				el.value = address;
+//				el.style.opacity = '0';
+//				document.body.appendChild(el);
+//				const editable = el.contentEditable;
+//				const readOnly = el.readOnly;
+//				el.contentEditable = true;
+//				el.readOnly = false;
+//				const range = document.createRange();
+//				range.selectNodeContents(el);
+//				const sel = window.getSelection();
+//				sel.removeAllRanges();
+//				sel.addRange(range);
+//				el.setSelectionRange(0, 999999);
+//				el.contentEditable = editable;
+//				el.readOnly = readOnly;
+//				const ret = document.execCommand('copy');
+//				el.blur();
+//				btn.text = ret;
+//				if(btn.text) {
+//					mui.toast('复制钱包地址成功');
+//				} else{
+//					mui.toast('复制失败');
+//				}
+//			})
 		</script>
 	</body>
 

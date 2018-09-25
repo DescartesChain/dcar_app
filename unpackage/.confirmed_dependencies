@@ -1,80 +1,80 @@
 {
-	"index.html": {
-		"resources": [
-			"pages/home.html"
-		],
-		"refer": [
-			"pages/property.html",
-			"pages/mine.html",
-			"pages/home.html",
-			"pages/market.html"
-		]
-	},
-	"pages/mine.html": {
-		"refer": [
-			"users/oreManage.html",
-			"users/userInfo.html",
-			"public/login.html",
-			"users/tradeRecord.html"
-		]
-	},
-	"pages/property.html": {
-		"refer": [
-			"property/account-main.html",
-			"property/create-wallet.html",
-			"property/import-wallet.html",
-			"property/import-dcar.html"
-		],
-		"resources": [
-			"img/property/wallet.png"
-		]
-	},
-	"property/account-main.html": {
-		"refer": [
-			"property/backup-wallet.html",
-			"property/export-private-key.html"
-		]
-	},
-	"property/backup-wallet.html": {
-		"refer": [
-			"property/backup-mnemonic-word.html"
-		]
-	},
-	"property/backup-mnemonic-word.html": {
-		"refer": [
-			"property/sure-mnemonic-word.html"
-		]
-	},
-	"public/login.html": {
-		"refer": [
-			"public/register.html",
-			"public/setPassword.html"
-		]
-	},
-	"public/register.html": {
-		"refer": [
-			"public/setPassword.html"
-		]
-	},
-	"users/barcode.html": {
-		"refer": [
-			"users/binders.html"
-		]
-	},
-	"users/oreManage.html": {
-		"refer": [
-			"users/barcode.html",
-			"users/addOre.html"
-		]
-	},
-	"users/addOre.html": {
-		"refer": [
-			"property/create-wallet.html"
-		]
-	},
-	"pages/home.html": {
-		"resources": [
-			"img/home/list_icon.png"
-		]
-	}
+  "index.html": {
+    "resources": [
+      "pages/home.html"
+    ],
+    "refer": [
+      "pages/property.html",
+      "pages/mine.html",
+      "pages/home.html",
+      "pages/market.html"
+    ]
+  },
+  "pages/mine.html": {
+    "refer": [
+      "users/oreManage.html",
+      "users/userInfo.html",
+      "public/login.html",
+      "users/tradeRecord.html"
+    ]
+  },
+  "pages/property.html": {
+    "refer": [
+      "property/account-main.html",
+      "property/create-wallet.html",
+      "property/import-wallet.html",
+      "property/import-dcar.html"
+    ],
+    "resources": [
+      "img/property/wallet.png"
+    ]
+  },
+  "property/account-main.html": {
+    "refer": [
+      "property/backup-wallet.html",
+      "property/export-private-key.html"
+    ]
+  },
+  "property/backup-wallet.html": {
+    "refer": [
+      "property/backup-mnemonic-word.html"
+    ]
+  },
+  "property/backup-mnemonic-word.html": {
+    "refer": [
+      "property/sure-mnemonic-word.html"
+    ]
+  },
+  "public/login.html": {
+    "refer": [
+      "public/register.html",
+      "public/setPassword.html"
+    ]
+  },
+  "public/register.html": {
+    "refer": [
+      "public/setPassword.html"
+    ]
+  },
+  "users/barcode.html": {
+    "refer": [
+      "users/binders.html"
+    ]
+  },
+  "users/oreManage.html": {
+    "refer": [
+      "users/barcode.html",
+      "users/addOre.html"
+    ]
+  },
+  "users/addOre.html": {
+    "refer": [
+      "property/create-wallet.html"
+    ]
+  },
+  "pages/home.html": {
+    "resources": [
+      "img/home/list_icon.png"
+    ]
+  }
 }

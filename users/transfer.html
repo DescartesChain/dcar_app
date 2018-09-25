@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>转账</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/transfer.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">转账</h1>
+		</header>
+		<div class="mui-content">
+			<div class="transfer_main">
+				<div class="info">
+					<h5>当前账户</h5>
+					<div class="detail info_detail">
+						<p id="userName"></p>
+						<p id="userAddress"></p>
+					</div>
+				</div>
+				<div class="info">
+					<h5>转入账户</h5>
+					<div class="detail">
+						<div class="addressMain" style="position: relative;border: 1px solid rgba(0,0,0,.2);border-radius: 3px;margin-bottom: 15px;">
+							<input style="width: 80%;border: 0;margin-bottom:0;" type="text" id="toaddress" class="mui-input-clear" placeholder="请输入钱包地址" style="padding-right: 34px;">
+							<i class="iconfont icon-saoma" id="saoma"></i>
+						</div>
+					</div>
+				</div>
+				<div class="info">
+					<h5>转入金额</h5>
+					<div class="detail">
+						<div class="mui-input-row">
+							<input type="number" class="mui-input-clear" placeholder="请输入转入金额">
+						</div>
+					</div>
+				</div>
+				<div class="info">
+					<h5>手续费</h5>
+					<div class="detail">
+						<div class="mui-input-row">
+							<input type="text" disabled="disabled" class="mui-input-clear" value="0">
+						</div>
+					</div>
+				</div>
+				<button id="submit">确认</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/markdown.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript">
+			getUserInfo();
+			// 根据用户id获取用户信息
+			function getUserInfo() {
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: api + "user/" + store.get("userInfo").id,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							$("#userName").html(ret.data.name);
+						} else{
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			}
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				address = self.address;
+				$("#userAddress").html(address);
+				$("#saoma").on("tap", function(){
+					mui.openWindow({
+						url: '/users/barcodeAddress.html',
+						id: '/users/barcodeAddress.html',
+						waiting: {
+							autoShow: false,
+						}
+					});
+				})
+			})
+			function getResult() {
+				if(store.get("toAddress") != undefined || store.get("toAddress") != null) {
+					$("#toaddress").val(store.get("toAddress"));
+					store.remove("toAddress");
+				}
+			}
+		</script>
+	</body>
+
+</html>

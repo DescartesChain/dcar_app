@@ -13,7 +13,7 @@
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">扫一扫</h1>
+			<h1 class="mui-title">扫描钱包地址</h1>
 			<a class="complete_btn" onclick="scanPicture()">相册</a>
 		</header>
 		<div id="bcid">
@@ -21,15 +21,11 @@
 			<p class="tip">载入中...</p>
 		</div>
 		<script src="../js/mui.min.js"></script>
-		<script src="../js/jquery-2.1.1.min.js"></script>
-		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/qrcode.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var ws = null,
-				wo = null,
-				way = null;
+				wo = null;
 			var scan = null,
 				domready = false;
 			// H5 plus事件处理
@@ -39,7 +35,6 @@
 				}
 				// 获取窗口对象
 				ws = plus.webview.currentWebview();
-				way = plus.webview.getWebviewById("../property/import-wallet.html");
 				wo = ws.opener();
 				// 开始扫描
 				ws.addEventListener('show', function() {
@@ -84,11 +79,11 @@
 				}
 				result = result.replace(/\r\n/g, '');
 				wo.evalJS("scaned('" + type + "','" + result + "','" + file + "');");
-				mui.toast('扫描二维码成功');
-				store.set("result", result);
-				way.evalJS("getResult()")
 				back();
-		}
+				mui.toast('扫描二维码成功');
+				store.set("toAddress", result);
+				plus.webview.getWebviewById("/users/transfer.html").evalJS("getResult()");
+			}
 			// 从相册中选择二维码图片 
 			function scanPicture() {
 				plus.gallery.pick(function(path) {
@@ -98,6 +93,9 @@
 				}, function(err) {
 					console.log('Failed: ' + err.message);
 				});
+			}
+			function closeBarcode() {
+				plus.webview.currentWebview().close();
 			}
 		</script>
 	</body>

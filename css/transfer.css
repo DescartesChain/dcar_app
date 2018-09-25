@@ -1,0 +1,52 @@
+.transfer_main{
+	padding:20px 30px;
+}
+.info{
+	overflow: hidden;
+}
+.info:first-child h5{
+	padding: 12px 0;
+}
+.info h5{
+	width: 25%;
+	float: left;
+	padding: 20px 0;
+	font-size: 14px;
+	font-weight: 500;
+}
+.detail{
+	width: 75%;
+	float: left;
+	margin: 8px 0;
+}
+.detail i{
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	font-size: 24px;
+}
+.detail_info{
+	border: 1px solid #f6f6f6;
+	padding: 10px 15px;
+	border-radius: 4px;
+}
+.info_detail p{
+	word-break: break-all;
+	padding: 4px 0;
+	font-size: 14px;
+}
+.info_detail input{
+	border: 0;
+}
+#submit{
+	color: #fff;
+    height: 40px;
+    width: 100%;
+    line-height: 40px;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 30px;
+	background: #4384c5;
+	border: 0;
+}

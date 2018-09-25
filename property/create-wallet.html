@@ -145,7 +145,7 @@
 							success: function(ret) {
 								mui.hideLoading();
 								if(ret.success) {
-									mui.toast('创建成功');
+									mui.toast('创建成功，请在钱包详情保存助记词');
 									var arr = store.get('dcarPurse');
 									var purseData = ret.data;
 									purseData.name = $("#purseName").val();

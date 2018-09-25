@@ -127,6 +127,7 @@
 			function getResult() {
 				if(store.get("result") != undefined || store.get("result") != null) {
 					$("#keystoreString").val(store.get("result"));
+					store.remove("result");
 				}
 			}
 		</script>

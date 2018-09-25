@@ -118,11 +118,11 @@
 						var item='';
 						gerAccountBalance();
 						$.each(arr, function(i, t) {
-							item+='<div class="blue_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
-										+'<div class="mui-col-sm-3 mui-col-xs-3">'
+							item+='<div class="blue_bg card_one mui-row">'
+										+'<div class="mui-col-sm-3 mui-col-xs-3" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<img src="../img/property/wallet.png" alt="" />'
 										+'</div>'
-										+'<div class="mui-col-sm-6 mui-col-xs-6">'
+										+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<div>'+ t.name +'</div>'
 											+'<div>'+ t.money +'DCAR</div>'
 											+'<div>&yen;'+ t.money +'</div>'
@@ -133,7 +133,7 @@
 												+'<span>买入</span>'
 											+'</p >'
 											+'<p>'
-												+'<span>卖出</span>'
+												+'<span address = "'+ t.address +'" class="send">转账</span>'
 											+'</p >'
 										+'</div>'
 									+'</div>'
@@ -143,6 +143,19 @@
 					}
 				}
 			}
+			$(".blue_bg").on("click", ".send", function(){
+				if (!store.get("userInfo")) {
+					mui.toast('请先登录');
+					return false;
+				}
+				mui.openWindow({
+					id: "/users/transfer.html",
+					url: "/users/transfer.html",
+					extras: {
+						address: $(this).attr("address")
+					}
+				})
+			})
 			// 显示ETH钱包
 			function showEthPurse(){
 				var eth = store.get('ethPurse')
@@ -156,7 +169,6 @@
 						$("#eth_purse").hide();
 						$("#import_eth").show();
 					} else {
-						console.log(eth)
 						this.ethBalance(eth[0].address, '.eth_money');
 						$("#import_eth").hide();
 						var dcar = 2;

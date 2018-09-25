@@ -14,6 +14,9 @@
 	color: #fff;
 	border: 1px solid #fff;
 	font-size: 17px;
+	/*width: 80%;
+	margin: 0 auto;
+	display: block;*/
 }
 
 .property_card {
@@ -97,4 +100,16 @@
 }
 #btc_purse{
 	display: none;
+}
+#creat_dcar{
+	line-height: 30px;
+	overflow: hidden;
+}
+#creat_dcar span{
+	display: inline-block;
+	margin: 0 auto;
+}
+#creat_dcar span:first-child{
+	margin-top: 14px;
+	margin-bottom: 10px;
 }

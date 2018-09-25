@@ -60,46 +60,50 @@
 					});
 				}
 			})
-			alert(navigator.userAgent.toLowerCase());
-			// 复制地址 
-			$(document).ready(function(){
-				var fooText=$("#addressBox").val();
-	        	var clipboard = new Clipboard('#copyAddress');
-	            clipboard.on('success', function(e) {
-		            console.info('Action:', e.action);
-		            console.info('Text:', e.text);
-		            console.info('Trigger:', e.trigger);
-		            mui.toast('复制钱包地址成功');
-		            e.clearSelection();
-	            });
-			})
-//			$('#copyAddress').click(function() {
-//				const el = document.createElement('input');
-//				const btn = document.getElementById('copyAddress');
-//				el.value = address;
-//				el.style.opacity = '0';
-//				document.body.appendChild(el);
-//				const editable = el.contentEditable;
-//				const readOnly = el.readOnly;
-//				el.contentEditable = true;
-//				el.readOnly = false;
-//				const range = document.createRange();
-//				range.selectNodeContents(el);
-//				const sel = window.getSelection();
-//				sel.removeAllRanges();
-//				sel.addRange(range);
-//				el.setSelectionRange(0, 999999);
-//				el.contentEditable = editable;
-//				el.readOnly = readOnly;
-//				const ret = document.execCommand('copy');
-//				el.blur();
-//				btn.text = ret;
-//				if(btn.text) {
-//					mui.toast('复制钱包地址成功');
-//				} else{
-//					mui.toast('复制失败');
-//				}
-//			})
+			if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+				alert('android');
+				// 复制地址 
+				$(document).ready(function(){
+					var fooText=$("#addressBox").val();
+		        	var clipboard = new ClipboardJS('#copyAddress');
+		            clipboard.on('success', function(e) {
+			            mui.toast('复制钱包地址成功');
+			            e.clearSelection();
+		            });
+		            clipboard.on('error', function(e) {
+					    mui.toast('复制失败');
+					});
+				})
+			} else {
+				alert('ios');
+				$('#copyAddress').click(function() {
+					const el = document.createElement('input');
+					const btn = document.getElementById('copyAddress');
+					el.value = address;
+					el.style.opacity = '0';
+					document.body.appendChild(el);
+					const editable = el.contentEditable;
+					const readOnly = el.readOnly;
+					el.contentEditable = true;
+					el.readOnly = false;
+					const range = document.createRange();
+					range.selectNodeContents(el);
+					const sel = window.getSelection();
+					sel.removeAllRanges();
+					sel.addRange(range);
+					el.setSelectionRange(0, 999999);
+					el.contentEditable = editable;
+					el.readOnly = readOnly;
+					const ret = document.execCommand('copy');
+					el.blur();
+					btn.text = ret;
+					if(btn.text) {
+						mui.toast('复制钱包地址成功');
+					} else{
+						mui.toast('复制失败');
+					}
+				})
+			}
 		</script>
 	</body>
 

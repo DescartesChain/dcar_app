@@ -38,7 +38,7 @@
 					<h5>转入金额</h5>
 					<div class="detail">
 						<div class="mui-input-row">
-							<input type="number" class="mui-input-clear" placeholder="请输入转入金额">
+							<input id="cash" value="" type="number" class="mui-input-clear" placeholder="请输入转入金额">
 						</div>
 					</div>
 				</div>
@@ -46,7 +46,15 @@
 					<h5>手续费</h5>
 					<div class="detail">
 						<div class="mui-input-row">
-							<input type="text" disabled="disabled" class="mui-input-clear" value="0">
+							<input id="routine" type="number" class="mui-input-clear" value="0">
+						</div>
+					</div>
+				</div>
+				<div class="info">
+					<h5>钱包密码</h5>
+					<div class="detail">
+						<div class="mui-input-row">
+							<input id="pass" type="password" placeholder="请输入钱包密码" class="mui-input-clear" value="">
 						</div>
 					</div>
 				</div>
@@ -59,7 +67,21 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bignumber.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			var web3 = new Web3(DCARapi);
+			var purseInfo = store.get('dcarPurse');
+			// 获取转账手续费
+//			function whetherSuccess() {
+//				web3.eth.getHashrate().then(function (result){
+//					// var process = new Big
+//					$("#routine").val(result);
+//				}).catch(function () {
+//					mui.toast('链接不到以太坊区块链网络');
+//				});
+//			}
+//		    whetherSuccess();
 			getUserInfo();
 			// 根据用户id获取用户信息
 			function getUserInfo() {
@@ -90,6 +112,8 @@
 			mui.plusReady(function(){
 				var self = plus.webview.currentWebview();
 				address = self.address;
+				purseIndex = self.purseIndex;
+				// console.log(purseInfo[purseIndex].privateKey);
 				$("#userAddress").html(address);
 				$("#saoma").on("tap", function(){
 					mui.openWindow({
@@ -100,6 +124,181 @@
 						}
 					});
 				})
+				$("#submit").on("tap", function(){
+					if ($("#toaddress").val() == "") {
+						mui.toast('转入账户不能为空');
+						return false;
+					}
+					if ($("#cash").val() == "") {
+						mui.toast('转入金额不能为空');
+						return false;
+					}
+					if ($("#pass").val() == "") {
+						mui.toast('密码不能为空');
+						return false;
+					}
+					if ($("#pass").val() != purseInfo[purseIndex].password) {
+						mui.toast('密码输入错误');
+						return false;
+					}
+					mui.showLoading("加载中...", "div");
+					var count = parseInt($("#cash").val());
+					var toSize = $("#toaddress").val();
+					var currentKey = purseInfo[purseIndex].privateKey;
+					web3.eth.accounts.signTransaction({
+					    to: toSize.replace(toSize.substr(0, 2), '0x'),
+					    gas: $("#routine").val(),
+					    value: $("#cash").val() * 100000000
+					}, currentKey.replace(currentKey.substr(0, 2), '0x')).then(function(result){
+						mui.hideLoading();
+						beginWhether(result.rawTransaction);
+					}).catch(function (error) {
+						mui.hideLoading();
+						mui.toast(error);
+					});
+				})
+				getRoutine();
+//				$("#submit").on("tap", function(){
+//					var count = parseInt($("#cash").val());
+//					var toSize = $("#toaddress").val();
+//					var data = {
+//						"jsonrpc":"2.0",
+//						"method":"eth_sendTransaction",
+//						"params":[{
+//							"from": address.replace(address.substr(0, 2), '0x'),
+//							"to":  toSize.replace(toSize.substr(0, 2), '0x'),
+//							"value": "0x" + count.toString(16)
+//						}],
+//						"id":1
+//					};
+//					mui.showLoading("加载中...", "div");
+//					$.ajax({
+//						type: "post",
+//						url: DCARapi,
+//						beforeSend: function(xhr) {
+//							xhr.setRequestHeader('Content-Type', "application/json");
+//						},
+//						data: JSON.stringify(data),
+//						async: true,
+//						success: function(ret) {
+//							mui.hideLoading();
+//							if(ret.result) {
+//								mui.toast('加载成功');
+//								whetherSuccess(ret.result);
+//								return false;
+//							}
+//							if(ret.error) {
+//								mui.toast(ret.error.message);
+//							}
+//						},
+//						error: function(error) {
+//							mui.hideLoading();
+//							mui.toast(error.responseJSON.msg);
+//						}
+//					})
+//				});
+				// 开始转账
+				function beginWhether(RawTransaction) {
+					var data = {
+						"jsonrpc":"2.0",
+						"method":"eth_sendRawTransaction",
+						"params":[RawTransaction],
+						"id":1
+					};
+					mui.showLoading("交易中...", "div");
+					$.ajax({
+						type: "post",
+						url: DCARapi,
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('Content-Type', "application/json");
+						},
+						data: JSON.stringify(data),
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.result) {
+								mui.toast('交易请求已发送');
+								whetherSuccess(ret.result);
+								return false;
+							}
+							if(ret.error) {
+								mui.toast(ret.error.message);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					})
+				}
+				// 验证是否转账成功
+//				function whetherSuccess(result) {
+//					var data = {
+//						"jsonrpc":"2.0",
+//						"method":"eth_getTransactionReceipt",
+//						"params":[result],
+//						"id":1
+//					};
+//					mui.showLoading("转账中...", "div");
+//					$.ajax({
+//						type: "post",
+//						url: DCARapi,
+//						beforeSend: function(xhr) {
+//							xhr.setRequestHeader('Content-Type', "application/json");
+//						},
+//						data: JSON.stringify(data),
+//						async: true,
+//						success: function(ret) {
+//							mui.hideLoading();
+//							if(ret.result) {
+//								mui.toast('转账成功');
+//								return false;
+//							}
+//							if(ret.error){
+//								mui.toast(ret.error.message);
+//							}
+//						},
+//						error: function(error) {
+//							mui.hideLoading();
+//							mui.toast(error.responseJSON.msg);
+//						}
+//					})
+//				}
+				// 获取转账手续费
+				function getRoutine() {
+					var data = {
+						"jsonrpc":"2.0",
+						"method":"eth_gasPrice",
+						"params":[],
+						"id":73
+					}
+					// mui.showLoading("加载中...", "div");
+					$.ajax({
+						type: "post",
+						url: DCARapi,
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('Content-Type', "application/json");
+						},
+						data: JSON.stringify(data),
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.result) {
+								// mui.toast('手续费加载成功');
+								var process = new BigNumber(ret.result);
+								$("#routine").val(process.c[0]);
+								return false;
+							}
+							if(ret.error){
+								mui.toast(ret.error.message);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					})
+				}
 			})
 			function getResult() {
 				if(store.get("toAddress") != undefined || store.get("toAddress") != null) {

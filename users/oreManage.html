@@ -177,6 +177,7 @@
 			var millList = []; // 矿机列表
 			var balanceTotal = 0; // 收益总和
 			var millName;// 矿机名称
+			var loadingList = "";
 			// 关闭详情
 			function detailConfirm(){
 				mui('.detail_box').popover('toggle');
@@ -221,6 +222,7 @@
 			var timer = null;
 			clearInterval(timer);
 			timer = setInterval(function(){
+			   page = 1;
 			   loadmillList(); // 获取矿机列表
 //			   loadStateList(); // 获取矿机状态列表
 			},60000)
@@ -232,8 +234,10 @@
 						mui.toast('已加载全部内容');
 						return false;
 					}
-					pageSize = pageSize +4;
-					loadmillList(); // 获取矿机列表
+					page ++;
+					loadingMore();
+					// pageSize = pageSize +4;
+					// loadmillList(); // 获取矿机列表
 					$('.loading').html('加载中...');
 				});
 				// 关闭提示框
@@ -312,6 +316,111 @@
 					$('#deleteWallet').show();
 				});
 			});
+			// 加载更多方法
+			function loadingMore() {
+				loadingList = '';
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: api + "miners",
+					data: {
+						page: page,
+						pageSize : pageSize 
+					},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							if ($(".miner_box").length > ret.data.count){
+								$('.loading').html('加载完成');
+							} else {
+								$('.loading').html('加载更多');
+							}
+							$.each(ret.data.list, function(i, t) {
+								if (t.status == 5 || t.status == 11){
+									loadingList +=
+									'<div class="miner_box">' +
+										'<div class="miner">' +
+											'<div class="title">' +
+												'<h5 class="name">' + t.name + '<i class="iconfont icon-xiugai1 alter_name" uuid="'+ t.uuid +'"></i>'+'</h5>' +
+												'<p class="status" id="doing">' + 
+													'<img src="../img/greenPic.png" alt="" />' +
+													'空闲中' +
+												'</p>' +
+											'</div>' +
+											'<div class="miner_content">' + 
+											    '<img src="../img/ore/11.png" class="not_start_logo"/>' +
+											    '<p class="not_start_title">您还未绑定钱包，绑定之后矿机将开始挖矿</p>' +
+											'</div>' +
+											'<div class="miner_footer_two">' +
+												'<p class="purse" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+													'<i style="left: 34%;" class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '绑定钱包' +
+												'</p>' +
+											'</div>' +
+										'</div>' +
+										'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+											'<i class="iconfont icon-shanchu"></i>' +
+											'<p>' + '删除' + '</p>'+
+										'</div>' +
+									'</div>';
+								} else if(t.status == 8){
+									loadingList +=
+									'<div class="miner_box">' +
+										'<div class="miner">' +
+											'<div class="title">' +
+												'<h5 class="name">' + t.name + '<i class="iconfont icon-xiugai1 alter_name" uuid="'+ t.uuid +'"></i>'+'</h5>' +
+												'<p class="status" id="doing">' + 
+													'<img src="../img/greenPic.png" alt="" />' +
+													'挖矿中' +
+												'</p>' +
+											'</div>' +
+											'<div class="miner_content">' +
+												'<ul class="miner_income">' +
+													'<li>' +
+														'<h6>' + '收益（DCAR/day）' + '</h6>' +
+														'<p>' + t.balance + '</p>' +
+													'</li>' +
+													'<li>' +
+														'<h6>' + '算力值（KH/S）' + '</h6>' +
+														'<p>' + t.hashrate + '</p>' +
+													'</li>' +
+												'</ul>'+
+											'</div>' +
+											'<div class="miner_footer">' +
+												'<p class="deleteWallet" uuid="'+ t.uuid +'">' +
+													'<i class="iconfont icon-qianbao" style="font-size: 16px;"></i>' + '解绑钱包' +
+												'</p>' +
+												'<p class="seek_deatil" income="'+ t.balance +'" address="'+ t.address +'" name="'+ t.name +'" uuid="'+ t.uuid +'">' +
+													'<i class="iconfont icon-xiangqing"></i>' + '查看详情' +
+												'</p>' +
+											'</div>' +
+										'</div>' +
+										'<div class="delete_miner" uuid="'+ t.uuid +'">' +
+											'<i class="iconfont icon-shanchu"></i>' +
+											'<p>' + '删除' + '</p>'+
+										'</div>' +
+									'</div>';
+								}
+							});
+							var minerList = document.body.querySelector('#cart_list');
+							var Div = document.createElement('div');
+							// Div.className = 'mui-table-view-cell';
+							Div.innerHTML = loadingList;
+							minerList.appendChild(Div);
+						} else {
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			};
 			// 确定 
 			function sureConfirm(){
 				if (alertState == 'delete') { // 删除矿机

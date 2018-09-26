@@ -151,10 +151,10 @@
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
 											+'<p>'
-												+'<span index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
+												+'<span onclick="freshen(' + i + ')" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
 											+'</p >'
 											+'<p>'
-												+'<span index = "'+i+'" address = "'+ t.address +'" class="send">转账</span>'
+												+'<span onclick="send(' + i + ')" index = "'+i+'" address = "'+ t.address +'" class="send">转账</span>'
 											+'</p>'
 										+'</div>'
 									+'</div>'
@@ -164,7 +164,8 @@
 					}
 				}
 			}
-			$(".blue_bg").on("click", ".send", function(){
+			function send (index) {
+				var arr = store.get('dcarPurse');
 				if (!store.get("userInfo")) {
 					mui.toast('请先登录');
 					return false;
@@ -173,14 +174,14 @@
 					id: "/users/transfer.html",
 					url: "/users/transfer.html",
 					extras: {
-						address: $(this).attr("address"),
-						purseIndex: $(this).attr("index")
+						address: arr[index].address,
+						purseIndex: index
 					}
 				})
-			})
-			$(".blue_bg").on("click", ".freshen", function(){
+			}
+			function freshen(index){
 				var arr = store.get('dcarPurse');
-				var address = $(this).attr("address");
+				var address = arr[index].address;
 				var Dom = $(this);
 				address = address.replace(address.substr(0, 2), '0x');
 				var web3 = new Web3(DCARapi);
@@ -190,7 +191,34 @@
 				}).catch(function () {
 					mui.toast('链接不到笛卡尔融云链网络');
 				});
-			})
+			}
+//			$(".blue_bg").on("click", ".send", function(){
+//				if (!store.get("userInfo")) {
+//					mui.toast('请先登录');
+//					return false;
+//				}
+//				mui.openWindow({
+//					id: "/users/transfer.html",
+//					url: "/users/transfer.html",
+//					extras: {
+//						address: $(this).attr("address"),
+//						purseIndex: $(this).attr("index")
+//					}
+//				})
+//			})
+//			$(".blue_bg").on("click", ".freshen", function(){
+//				// var arr = store.get('dcarPurse');
+//				var address = $(this).attr("address");
+//				var Dom = $(this);
+//				address = address.replace(address.substr(0, 2), '0x');
+//				var web3 = new Web3(DCARapi);
+//				web3.eth.getBalance(address).then(function (result) {
+//					Dom.parent().parent().parent().find(".newMoney").html(Math.floor(web3.utils.fromWei(result, 'ether')));
+//					mui.toast('刷新成功');
+//				}).catch(function () {
+//					mui.toast('链接不到笛卡尔融云链网络');
+//				});
+//			})
 			// 显示ETH钱包
 			function showEthPurse(){
 				var eth = store.get('ethPurse')

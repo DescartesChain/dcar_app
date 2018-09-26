@@ -80,6 +80,9 @@
 	"pages/home.html": {
 		"resources": [
 			"img/home/list_icon.png"
+		],
+		"refer": [
+			"public/notice.html"
 		]
 	},
 	"users/transfer.html": {

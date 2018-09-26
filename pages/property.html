@@ -209,7 +209,10 @@
 			// 查看账户余额
 			function gerAccountBalance() {
 				var arr = store.get('dcarPurse');
+//				alert(arr[0].money);
 				for (var i=0;i<arr.length;i++){
+//					arr[i].index = i;
+//					alert(i);
 					// 方法一：web3.js获取余额
 					address = arr[i].address;
 					address = address.replace(address.substr(0, 2), '0x');
@@ -246,14 +249,17 @@
 //							mui.hideLoading();
 //							if(ret.error) {
 //								mui.toast('获取余额失败');
-//								arr[i].money = 0;
+//								arr[this.index].money = 0;
 //							} else {
+//								mui.toast('成功');
 //								balance = new BigNumber(ret.result);
 //								balance = balance.c[0];
+//								console.log(balance);
 //							}
 //						},
 //					});
-//					arr[i].money = balance;
+////					alert(index);
+////					arr[index].money = balance;
 					// 方法二end
 					
 					// 方法三：接口获取账户余额--弃用

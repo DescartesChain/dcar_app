@@ -26,7 +26,7 @@
 				</div>
 				<span class="mui-tab-label">行情</span>
 			</a>
-			<a id="gongqiu" class="mui-tab-item" href="pages/property.html">
+			<a id="gongqiu" class="mui-tab-item">
 				<div class="img_box">
 					<i class="iconfont icon-zichan"></i>
 				</div>
@@ -81,6 +81,16 @@
 					self.append(sub)
 				}
 				plus.webview.show(subPages[0])
+				$("#gongqiu").on("tap", function(){
+					mui.openWindow({
+						url: 'pages/property.html',
+						id: 'pages/property.html',
+						waiting: {
+							autoShow: false,
+						}
+					});
+					plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+				})
 			});
 			mui(".mui-bar-tab").on("tap", "a", function(e) {
 				var tapPage = this.getAttribute("href");

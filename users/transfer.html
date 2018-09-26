@@ -26,7 +26,7 @@
 					</div>
 				</div>
 				<div class="info">
-					<h5>转入账户</h5>
+					<h5>收款账户</h5>
 					<div class="detail">
 						<div class="addressMain" style="position: relative;border: 1px solid rgba(0,0,0,.2);border-radius: 3px;margin-bottom: 15px;">
 							<input style="width: 80%;border: 0;margin-bottom:0;" type="text" id="toaddress" class="mui-input-clear" placeholder="请输入钱包地址" style="padding-right: 34px;">
@@ -35,18 +35,20 @@
 					</div>
 				</div>
 				<div class="info">
-					<h5>转入金额</h5>
+					<h5>转账金额</h5>
 					<div class="detail">
-						<div class="mui-input-row">
-							<input id="cash" value="" type="number" class="mui-input-clear" placeholder="请输入转入金额">
+						<div style="position: relative;">
+							<input style="padding-right: 50px;" id="cash" value="" type="number" class="mui-input-clear" placeholder="请输入转入金额">
+							<span>DCAR</span>
 						</div>
 					</div>
 				</div>
 				<div class="info">
 					<h5>手续费</h5>
 					<div class="detail">
-						<div class="mui-input-row">
-							<input id="routine" type="number" class="mui-input-clear" value="0">
+						<div style="position: relative;">
+							<input style="padding-right: 50px;" id="routine" value="25000" type="number" class="mui-input-clear" value="0">
+							<span>聪</span>
 						</div>
 					</div>
 				</div>
@@ -78,7 +80,7 @@
 //					// var process = new Big
 //					$("#routine").val(result);
 //				}).catch(function () {
-//					mui.toast('链接不到以太坊区块链网络');
+//					mui.toast('链接不到笛卡尔融云链网络');
 //				});
 //			}
 //		    whetherSuccess();
@@ -157,7 +159,7 @@
 						mui.toast(error);
 					});
 				})
-				getRoutine();
+//				getRoutine();
 //				$("#submit").on("tap", function(){
 //					var count = parseInt($("#cash").val());
 //					var toSize = $("#toaddress").val();

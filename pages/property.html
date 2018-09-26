@@ -130,13 +130,12 @@
 								address = address.replace(address.substr(0, 2), '0x');
 								var web3 = new Web3(DCARapi);
 								web3.eth.getBalance(address).then(function (result) {
-									console.log(Index);
 									arr[Index].money = web3.utils.fromWei(result, 'ether');
 //									mui.toast('成功');
 									store.set('dcarPurse', arr);
 								}).catch(function () {
 									state = false;
-									mui.toast('链接不到以太坊区块链网络');
+									mui.toast('链接不到笛卡尔融云链网络');
 								});
 							})(i)
 						}
@@ -147,8 +146,8 @@
 										+'</div>'
 										+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<div>'+ t.name +'</div>'
-											+'<div>'+ Math.floor(t.money) +'DCAR</div>'
-											+'<div>&yen;'+ Math.floor(t.money) +'</div>'
+											+'<div>'+ Math.floor(t.money * 10000000000) +'DCAR</div>'
+											+'<div>&yen;'+ Math.floor(t.money * 10000000000) +'</div>'
 											+'<div>'+ t.address +'</div>'
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
@@ -220,7 +219,7 @@
 				.then(function (result) {
 					$(cas).html(web3.utils.fromWei(result, 'ether') + 'ETH');
 				}).catch(function () {
-					mui.toast('链接不到以太坊区块链网络');
+					mui.toast('链接不到笛卡尔融云链网络');
 				});
 			}
 			// 查看账户余额
@@ -234,13 +233,12 @@
 						address = address.replace(address.substr(0, 2), '0x');
 						var web3 = new Web3(DCARapi);
 						web3.eth.getBalance(address).then(function (result) {
-							console.log(Index);
 							arr[Index].money = web3.utils.fromWei(result, 'ether');
 							mui.toast('成功');
 							store.set('dcarPurse', arr);
 						}).catch(function () {
 							state = false;
-							mui.toast('链接不到以太坊区块链网络');
+							mui.toast('链接不到笛卡尔融云链网络');
 						});
 					})(i)
 //					if (state == true){

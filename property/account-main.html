@@ -130,13 +130,13 @@
 					address = purseInfo[purseIndex].address;
 					// 方法二web3.js
 					address = address.replace(address.substr(0, 2), '0x');
-					console.log(address);
 					var web3 = new Web3(DCARapi);
 					web3.eth.getBalance(address)
 					.then(function (result) {
-						$('#dcarBalance').html(web3.utils.fromWei(result, 'ether'));
+						var balanceM = web3.utils.fromWei(result, 'ether') * 10000000000;
+						$('#dcarBalance').html(balanceM);
 					}).catch(function () {
-						mui.toast('链接不到以太坊区块链网络');
+						mui.toast('链接不到笛卡尔融云链网络');
 					});
 					// 方法二end
 					// 方法一

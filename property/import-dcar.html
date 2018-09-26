@@ -20,6 +20,15 @@
 			<div class="import_main">
 				<textarea id="keystoreString" value="" rows="3" placeholder="请输入助记词" class="import_input"></textarea>
 				<p class="import_alert">输入助记词，用空格分隔</p>
+				<div class="create_alert">
+					<p>密码用于保护私钥和交易授权，我们不储存密码，也无法帮您找回，请务必牢记。</p>
+				</div>
+				<div class="mui-input-row info">
+					<input type="password" value="" id="pass" class="mui-input-password" placeholder="请输入钱包密码">
+				</div>
+				<div class="mui-input-row info">
+					<input type="password" value="" id="ensurePass" class="mui-input-password" placeholder="请再次输入钱包密码">
+				</div>
 				<div class="backup_button" id="leadIn" style="margin-top: 0;">开始导入</div>
 			</div>
 		</div>
@@ -34,6 +43,18 @@
 				$("#leadIn").on("click", function(){
 					if ($("#keystoreString").val() == ''){
 						mui.toast('助记词不能为空');
+						return false;
+					}
+					if($("#pass").val() == "") {
+						mui.toast('密码不能为空');
+						return false;
+					}
+					if($("#ensurePass").val() == "") {
+						mui.toast('请再次输入密码');
+						return false;
+					}
+					if($("#ensurePass").val() != $("#pass").val()) {
+						mui.toast('两次密码不一致');
 						return false;
 					}
 					mui.showLoading("加载中...", "div");
@@ -55,6 +76,7 @@
 								var purseData = ret.data;
 								purseData.name = 'DCAR钱包';
 								purseData.mnemonic = $("#keystoreString").val();
+								purseData.password = $("#pass").val();
 								purseData.money = 0;
 								arr.push(purseData);
 								store.set('dcarPurse', arr);

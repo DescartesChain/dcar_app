@@ -128,11 +128,11 @@
 				})
 				$("#submit").on("tap", function(){
 					if ($("#toaddress").val() == "") {
-						mui.toast('转入账户不能为空');
+						mui.toast('收款账户不能为空');
 						return false;
 					}
 					if ($("#cash").val() == "") {
-						mui.toast('转入金额不能为空');
+						mui.toast('转账金额不能为空');
 						return false;
 					}
 					if ($("#pass").val() == "") {
@@ -150,7 +150,7 @@
 					web3.eth.accounts.signTransaction({
 					    to: toSize.replace(toSize.substr(0, 2), '0x'),
 					    gas: $("#routine").val(),
-					    value: $("#cash").val() * 100000000
+					    value: web3.utils.toWei($("#cash").val(), 'ether')
 					}, currentKey.replace(currentKey.substr(0, 2), '0x')).then(function(result){
 						mui.hideLoading();
 						beginWhether(result.rawTransaction);
@@ -220,14 +220,21 @@
 							mui.hideLoading();
 							if(ret.result) {
 								mui.toast('交易请求已发送');
-								whetherSuccess(ret.result);
+								var tiner = null;
+								clearTimeout(tiner);
+								tiner = setTimeout(function() {
+									plus.webview.currentWebview().close();
+								}, 500)
+								// whetherSuccess(ret.result);
 								return false;
 							}
 							if(ret.error) {
+								console.log(ret.error.message);
 								mui.toast(ret.error.message);
 							}
 						},
 						error: function(error) {
+							alert('false');
 							mui.hideLoading();
 							mui.toast(error.responseJSON.msg);
 						}

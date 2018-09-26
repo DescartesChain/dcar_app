@@ -146,8 +146,8 @@
 										+'</div>'
 										+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<div>'+ t.name +'</div>'
-											+'<div>'+ Math.floor(t.money * 10000000000) +'DCAR</div>'
-											+'<div>&yen;'+ Math.floor(t.money * 10000000000) +'</div>'
+											+'<div>'+ Math.floor(t.money) +'DCAR</div>'
+											+'<div>&yen;'+ Math.floor(t.money) +'</div>'
 											+'<div>'+ t.address +'</div>'
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
@@ -170,6 +170,7 @@
 					mui.toast('请先登录');
 					return false;
 				}
+				// alert(0);
 				mui.openWindow({
 					id: "/users/transfer.html",
 					url: "/users/transfer.html",

@@ -20,6 +20,7 @@
 				<span url="/property/create-wallet.html" id="createDcar">新建DCAR钱包</span>
 				<span class="newact" url="/property/import-dcar.html">导入DCAR钱包</span>
 			</div>
+			<!--已创建或导入的钱包-->
 			<div id="dcar_purse"></div>
 			<div class="property_card black_bg" id="import_eth" onclick="import_wallet('ETH')">
 				<span>导入ETH钱包</span>
@@ -58,8 +59,12 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bignumber.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+			var address; // 钱包地址
+			var balance;// 账户余额
+			var state;//获取账户是否成功
 			showDcarPurse();
 			showEthPurse();
 			$("#createDcar").on("click", function(){
@@ -116,6 +121,7 @@
 					} else {
 						var dcar = 1;
 						var item='';
+//						this.ethBalance(eth[0].address, '.eth_money');
 						gerAccountBalance();
 						$.each(arr, function(i, t) {
 							item+='<div class="blue_bg card_one mui-row">'
@@ -133,8 +139,8 @@
 												+'<span>买入</span>'
 											+'</p >'
 											+'<p>'
-												+'<span address = "'+ t.address +'" class="send">转账</span>'
-											+'</p >'
+												+'<span index = "'+i+'" address = "'+ t.address +'" class="send">转账</span>'
+											+'</p>'
 										+'</div>'
 									+'</div>'
 						});
@@ -152,7 +158,8 @@
 					id: "/users/transfer.html",
 					url: "/users/transfer.html",
 					extras: {
-						address: $(this).attr("address")
+						address: $(this).attr("address"),
+						purseIndex: $(this).attr("index")
 					}
 				})
 			})
@@ -191,7 +198,7 @@
 				}
 			}
 			function ethBalance (address, cas) {
-				var web3 = new Web3(ethProvider);
+				var web3 = new Web3(DCARapi);
 				web3.eth.getBalance(address)
 				.then(function (result) {
 					$(cas).html(web3.utils.fromWei(result, 'ether') + 'ETH');
@@ -199,27 +206,76 @@
 					mui.toast('链接不到以太坊区块链网络');
 				});
 			}
+			// 查看账户余额
 			function gerAccountBalance() {
 				var arr = store.get('dcarPurse');
 				for (var i=0;i<arr.length;i++){
-					$.ajax({
-						type: "get",
-						url: api + "dcarchain/account/" + arr[i].address + "/balance",
-						data: {},
-						async: true,
-						success: function(ret) {
-							if(ret.success) {
-								arr[i].money = ret.data;
-							} else {
-								arr[i].money = 0;
-								mui.toast(ret.msg)
-							}
-						},
-						error: function(error) {
-							arr[i].money = 0;
-							mui.toast(error.responseJSON.msg);
-						}
+					// 方法一：web3.js获取余额
+					address = arr[i].address;
+					address = address.replace(address.substr(0, 2), '0x');
+					console.log(address);
+					var web3 = new Web3(DCARapi);
+					web3.eth.getBalance(address)
+					.then(function (result) {
+						state = true;
+					}).catch(function () {
+						state = false;
+						mui.toast('链接不到以太坊区块链网络');
 					});
+					if (state == true){
+						arr[i].money = web3.utils.fromWei(result, 'ether');
+					}
+					// 方法一 end
+					
+					// 方法二 
+//					address = arr[i].address;
+//					var data = {
+//						"jsonrpc": "2.0",
+//						"method": "eth_getBalance",
+//						"params": [address.replace(address.substr(0, 2), '0x'), "latest"],
+//						"id": 1
+//					};
+//					$.ajax({
+//						type: "post", // 接口类型
+//						url: DCARapi, // 接口地址
+//						contentType: "application/json;charset=utf-8;",
+//						dataType: 'json',
+//						data: JSON.stringify(data),
+//						async: true,
+//						success: function(ret) {
+//							mui.hideLoading();
+//							if(ret.error) {
+//								mui.toast('获取余额失败');
+//								arr[i].money = 0;
+//							} else {
+//								balance = new BigNumber(ret.result);
+//								balance = balance.c[0];
+//							}
+//						},
+//					});
+//					arr[i].money = balance;
+					// 方法二end
+					
+					// 方法三：接口获取账户余额--弃用
+//					$.ajax({
+//						type: "get",
+//						url: api + "dcarchain/account/" + arr[i].address + "/balance",
+//						data: {},
+//						async: true,
+//						success: function(ret) {
+//							if(ret.success) {
+//								arr[i].money = ret.data;
+//							} else {
+//								arr[i].money = 0;
+//								mui.toast(ret.msg)
+//							}
+//						},
+//						error: function(error) {
+//							arr[i].money = 0;
+//							mui.toast(error.responseJSON.msg);
+//						}
+//					});
+					// 方法三end
 				}
 			}
 		</script>

@@ -23,11 +23,11 @@
 			<div class="wallet_address"></div>
 			<div class="mui-row dcar_money" id="showAll">
 				<div class="mui-col-sm-12 mui-col-xs-12">
-					当前余额：<span class="orange_text ">0.00</span> <span class="unit">DCAR</span>
+					当前余额：<span class="orange_text" id="dcarBalance">0</span> <span class="unit">DCAR</span>
 				</div>
-				<div class="mui-col-sm-12 mui-col-xs-12" style="padding-top:10px;">
-					矿收：<span class="green_text">0</span> <span class="unit">DCAR</span>
-				</div>
+				<!--<div class="mui-col-sm-12 mui-col-xs-12" style="padding-top:10px;">
+					矿收：<span class="green_text" id="mineBalance">0</span> <span class="unit">DCAR</span>
+				</div>-->
 			</div>
 			<div class="dcar_money" id="showHalf">
 				当前余额：<span class="orange_text">0</span> <span class="unit">DCAR</span>
@@ -83,10 +83,13 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bignumber.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
 			var targetId;
 			var purseIndex;
+			var address; // 钱包地址
+			var balance; // 账户余额
 
 			function init() {
 				var self = plus.webview.currentWebview();
@@ -122,6 +125,46 @@
 				}
 				$('.wallet_address').html(purseInfo[purseIndex].address);
 				$('.account_title').html(purseInfo[purseIndex].name);
+				// 获取账户余额
+				if(targetId == '1'){
+					address = purseInfo[purseIndex].address;
+					// 方法二web3.js
+					address = address.replace(address.substr(0, 2), '0x');
+					console.log(address);
+					var web3 = new Web3(DCARapi);
+					web3.eth.getBalance(address)
+					.then(function (result) {
+						$('#dcarBalance').html(web3.utils.fromWei(result, 'ether'));
+					}).catch(function () {
+						mui.toast('链接不到以太坊区块链网络');
+					});
+					// 方法二end
+					// 方法一
+//					var data = {
+//						"jsonrpc": "2.0",
+//						"method": "eth_getBalance",
+//						"params": [address.replace(address.substr(0, 2), '0x'), "latest"],
+//						"id": 1
+//					};
+//					$.ajax({
+//						type: "post", // 接口类型
+//						url: DCARapi, // 接口地址
+//						contentType: "application/json;charset=utf-8;",
+//						dataType: 'json',
+//						data: JSON.stringify(data),
+//						async: true,
+//						success: function(ret) {
+//							mui.hideLoading();
+//							if(ret.error) {
+//								mui.toast('获取余额失败');
+//							} else {
+//								balance = new BigNumber(ret.result);
+//								$('#dcarBalance').html(balance.c[0]); // 账户余额
+//							}
+//						},
+//					});
+					// 方法一end
+				};
 				// 判断密码是否为空
 				$("#pass").keyup(function() {
 					if($("#pass").val() == '') {
@@ -142,7 +185,6 @@
 				})
 				// 导出助记词
 				$("#export").on("click", function() {
-					alert(purseInfo[purseIndex].address);
 					//					mui.openWindow({
 					//						id: "/property/backup-wallet.html",
 					//						url: "/property/backup-wallet.html",
@@ -190,7 +232,7 @@
 				})
 				// 导出助记词
 				$("#ensure").on("click", function() {
-					if ($("#pass").val() == "") {
+					if($("#pass").val() == "") {
 						mui.toast('密码不能为空');
 						return false;
 					}
@@ -243,7 +285,7 @@
 
 				// 导出私钥
 				$("#ensureImport").on("click", function() {
-					if ($("#pass").val() == "") {
+					if($("#pass").val() == "") {
 						mui.toast('密码不能为空');
 						return false;
 					}

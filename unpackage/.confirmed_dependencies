@@ -35,7 +35,9 @@
 		"refer": [
 			"property/backup-wallet.html",
 			"property/export-private-key.html",
-			"property/wallet-address.html"
+			"property/wallet-address.html",
+			"property/account-info.html",
+			"users/tradeRecord.html"
 		]
 	},
 	"property/backup-wallet.html": {

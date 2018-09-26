@@ -131,7 +131,6 @@
 								var web3 = new Web3(DCARapi);
 								web3.eth.getBalance(address).then(function (result) {
 									arr[Index].money = web3.utils.fromWei(result, 'ether');
-//									mui.toast('成功');
 									store.set('dcarPurse', arr);
 								}).catch(function () {
 									state = false;
@@ -146,13 +145,13 @@
 										+'</div>'
 										+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<div>'+ t.name +'</div>'
-											+'<div>'+ Math.floor(t.money) +'DCAR</div>'
-											+'<div>&yen;'+ Math.floor(t.money) +'</div>'
+											+'<div><span class="newMoney">'+ Math.floor(t.money) +'</span>DCAR</div>'
+											+'<div>&yen;<span class="newMoney">'+ Math.floor(t.money) +'</span></div>'
 											+'<div>'+ t.address +'</div>'
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
 											+'<p>'
-												+'<span>买入</span>'
+												+'<span index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
 											+'</p >'
 											+'<p>'
 												+'<span index = "'+i+'" address = "'+ t.address +'" class="send">转账</span>'
@@ -170,7 +169,6 @@
 					mui.toast('请先登录');
 					return false;
 				}
-				// alert(0);
 				mui.openWindow({
 					id: "/users/transfer.html",
 					url: "/users/transfer.html",
@@ -179,6 +177,19 @@
 						purseIndex: $(this).attr("index")
 					}
 				})
+			})
+			$(".blue_bg").on("click", ".freshen", function(){
+				var arr = store.get('dcarPurse');
+				var address = $(this).attr("address");
+				var Dom = $(this);
+				address = address.replace(address.substr(0, 2), '0x');
+				var web3 = new Web3(DCARapi);
+				web3.eth.getBalance(address).then(function (result) {
+					Dom.parent().parent().parent().find(".newMoney").html(Math.floor(web3.utils.fromWei(result, 'ether')));
+					mui.toast('刷新成功');
+				}).catch(function () {
+					mui.toast('链接不到笛卡尔融云链网络');
+				});
 			})
 			// 显示ETH钱包
 			function showEthPurse(){

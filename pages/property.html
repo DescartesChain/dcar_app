@@ -132,7 +132,7 @@
 								web3.eth.getBalance(address).then(function (result) {
 									console.log(Index);
 									arr[Index].money = web3.utils.fromWei(result, 'ether');
-									mui.toast('成功');
+//									mui.toast('成功');
 									store.set('dcarPurse', arr);
 								}).catch(function () {
 									state = false;

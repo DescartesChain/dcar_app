@@ -211,7 +211,7 @@
 				var arr = store.get('dcarPurse');
 //				alert(arr[0].money);
 				for (var i=0;i<arr.length;i++){
-//					arr[i].index = i;
+					arr[i].index = i;
 //					alert(i);
 					// 方法一：web3.js获取余额
 					address = arr[i].address;
@@ -220,14 +220,17 @@
 					var web3 = new Web3(DCARapi);
 					web3.eth.getBalance(address)
 					.then(function (result) {
-						state = true;
+						var index = this.index;
+						alert(index);
+						mui.toast('成功');
+//						state = true;
 					}).catch(function () {
 						state = false;
 						mui.toast('链接不到以太坊区块链网络');
 					});
-					if (state == true){
-						arr[i].money = web3.utils.fromWei(result, 'ether');
-					}
+//					if (state == true){
+//						arr[i].money = web3.utils.fromWei(result, 'ether');
+//					}
 					// 方法一 end
 					
 					// 方法二 

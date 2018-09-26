@@ -18,17 +18,17 @@
 		<div class="mui-content">
 			<div class="create_main">
 				<div class="create_alert">
-					创建DCAR钱包
+					<p>密码用于保护私钥和交易授权，我们不储存密码，也无法帮您找回，请务必牢记。</p>
 				</div>
 				<div class="mui-input-row info">
 					<input type="text" value="" id="purseName" class="mui-input-clear" placeholder="请输入钱包名称">
 				</div>
-				<!--<div class="mui-input-row info">
+				<div class="mui-input-row info">
 					<input type="password" value="" id="pass" class="mui-input-password" placeholder="请输入钱包密码">
 				</div>
 				<div class="mui-input-row info">
 					<input type="password" value="" id="ensurePass" class="mui-input-password" placeholder="请再次输入钱包密码">
-				</div>-->
+				</div>
 				<div class="mui-input-row mui-checkbox agreement">
 					<input name="checkbox1" id="isagree" value="Item 1" type="checkbox">
 					<label>我已仔细阅读并同意</label>
@@ -125,6 +125,18 @@
 						mui.toast('钱包名称不能为空');
 						return false;
 					}
+					if($("#pass").val() == "") {
+						mui.toast('密码不能为空');
+						return false;
+					}
+					if($("#ensurePass").val() == "") {
+						mui.toast('请再次输入密码');
+						return false;
+					}
+					if($("#ensurePass").val() != $("#pass").val()) {
+						mui.toast('两次密码不一致');
+						return false;
+					}
 					if(!$("#isagree").is(":checked")) {
 						mui.toast('用户协议未勾选');
 						return false;
@@ -150,6 +162,7 @@
 									var purseData = ret.data;
 									purseData.name = $("#purseName").val();
 									purseData.money = 0;
+									purseData.password = $("#pass").val();
 									arr.push(purseData);
 									store.set('dcarPurse', arr);
 									var timer = null;

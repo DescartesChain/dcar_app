@@ -17,7 +17,7 @@
 		</header>
 		<div class="mui-content">
 			<div class="img_box" onclick="account_info()">
-				<img src="../img/property/wallet.png" alt="" id="headPort"/>
+				<img src="../img/property/wallet.png" alt="" id="headPort" />
 			</div>
 			<div class="wallet_title account_title"></div>
 			<div class="wallet_address"></div>
@@ -85,6 +85,8 @@
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
+			var targetId;
+			var purseIndex;
 
 			function init() {
 				var self = plus.webview.currentWebview();
@@ -140,42 +142,42 @@
 				})
 				// 导出助记词
 				$("#export").on("click", function() {
-					mui.openWindow({
-						id: "/property/backup-wallet.html",
-						url: "/property/backup-wallet.html",
-						extras: {
-							purseIndex: purseIndex,
-						},
-						waiting: {
-							autoShow: false,
-						}
-					})
-					// $("#pass").val("");
-					// mui('.email_code_box').popover('toggle');
-					// $('.showWord').show();
-					// $('.showKey').hide();
-					// $('.showKeystore').hide();
+					//					mui.openWindow({
+					//						id: "/property/backup-wallet.html",
+					//						url: "/property/backup-wallet.html",
+					//						extras: {
+					//							purseIndex: purseIndex,
+					//						},
+					//						waiting: {
+					//							autoShow: false,
+					//						}
+					//					})
+					$("#pass").val("");
+					mui('.email_code_box').popover('toggle');
+					$('.showWord').show();
+					$('.showKey').hide();
+					$('.showKeystore').hide();
 				})
 				$("#cancel").on("click", function() {
 					mui('.email_code_box').popover('hide');
 				})
 				// 导出私钥
 				$("#key").on("click", function() {
-					mui.openWindow({
-						id: "/property/export-private-key.html",
-						url: "/property/export-private-key.html",
-						extras: {
-							purseIndex: purseIndex,
-						},
-						waiting: {
-							autoShow: false,
-						}
-					})
-					// $("#pass").val("");
-					// $('.showWord').hide();
-					// $('.showKey').show();
-					// $('.showKeystore').hide();
-					// mui('.email_code_box').popover('toggle');
+					//					mui.openWindow({
+					//						id: "/property/export-private-key.html",
+					//						url: "/property/export-private-key.html",
+					//						extras: {
+					//							purseIndex: purseIndex,
+					//						},
+					//						waiting: {
+					//							autoShow: false,
+					//						}
+					//					})
+					$("#pass").val("");
+					$('.showWord').hide();
+					$('.showKey').show();
+					$('.showKeystore').hide();
+					mui('.email_code_box').popover('toggle');
 				});
 				// 导出keystore
 				$("#keystore").on("click", function() {
@@ -185,139 +187,174 @@
 					$('.showKeystore').show();
 					mui('.email_code_box').popover('toggle');
 				})
+				// 导出助记词
+				$("#ensure").on("click", function() {
+					if ($("#pass").val() == "") {
+						mui.toast('密码不能为空');
+						return false;
+					}
+					$("input").blur();
+					var timer = null;
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						mui.showLoading("加载中...", "div");
+						var tiner = null;
+						clearTimeout(tiner);
+						tiner = setTimeout(function() {
+							mui.hideLoading();
+							if(purseInfo[purseIndex].password == $("#pass").val()) {
+								mui.openWindow({
+									id: "/property/backup-wallet.html",
+									url: "/property/backup-wallet.html",
+									extras: {
+										purseIndex: purseIndex,
+									},
+									waiting: {
+										autoShow: false,
+									}
+								})
+							} else {
+								mui.toast('密码输入错误');
+							}
+							//						var web3 = new Web3();
+							//						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+							//						var keystoreJsonV3 = JSON.parse(keystoreString)
+							//						var password = $("#pass").val();
+							//						try {
+							//							// 读取 钱包地址
+							//							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+							//							mui.openWindow({
+							//								id: "/property/backup-wallet.html",
+							//								url: "/property/backup-wallet.html",
+							//								extras: {
+							//									purseIndex: purseIndex,
+							//								},
+							//								waiting: {
+							//									autoShow: false,
+							//								}
+							//							})
+							//						} catch(err) {
+							//							mui.toast('密码输入错误');
+							//						}
+						}, 100)
+					}, 1000)
+				});
+
+				// 导出私钥
+				$("#ensureImport").on("click", function() {
+					if ($("#pass").val() == "") {
+						mui.toast('密码不能为空');
+						return false;
+					}
+					$("input").blur();
+					var timer = null;
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						mui.showLoading("加载中...", "div");
+						var tiner = null;
+						clearTimeout(tiner);
+						tiner = setTimeout(function() {
+							mui.hideLoading();
+							if(purseInfo[purseIndex].password == $("#pass").val()) {
+								mui.openWindow({
+									id: "/property/export-private-key.html",
+									url: "/property/export-private-key.html",
+									extras: {
+										purseIndex: purseIndex,
+									},
+									waiting: {
+										autoShow: false,
+									}
+								})
+							} else {
+								mui.toast('密码输入错误');
+							}
+							//						var web3 = new Web3();
+							//						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+							//						var keystoreJsonV3 = JSON.parse(keystoreString)
+							//						var password = $("#pass").val();
+							//						try {
+							//							// 读取 钱包地址
+							//							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+							//							mui.openWindow({
+							//								id: "/property/export-private-key.html",
+							//								url: "/property/export-private-key.html",
+							//								extras: {
+							//									purseIndex: purseIndex,
+							//								},
+							//								waiting: {
+							//									autoShow: false,
+							//								}
+							//							})
+							//							console.log(wallet.address)
+							//							console.log(wallet.privateKey)
+							//						} catch(err) {
+							//							mui.toast('密码输入错误');
+							//						}
+						}, 100)
+					}, 1000)
+					//				mui.showLoading("加载中...", "div");
+					//				var web3 = new Web3();
+					//				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+					//				var keystoreJsonV3 = JSON.parse(keystoreString)
+					//				var password = $("#pass").val();
+					//				try {
+					//					// 读取 钱包地址
+					//					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+					//					mui.openWindow({
+					//						id: "/property/export-private-key.html",
+					//						url: "/property/export-private-key.html",
+					//						extras: {
+					//							purseIndex: purseIndex,
+					//						},
+					//						waiting: {
+					//							autoShow: false,
+					//						}
+					//					})
+					//					console.log(wallet.address)
+					//					console.log(wallet.privateKey)
+					//				} catch(err) {
+					//					mui.toast('密码输入错误');
+					//				}
+				});
+
+				// 导出keystore
+				$("#sureKeystore").on("click", function() {
+					$("input").blur();
+					var timer = null;
+					clearTimeout(timer);
+					timer = setTimeout(function() {
+						mui.showLoading("加载中...", "div");
+						var tiner = null;
+						clearTimeout(tiner);
+						tiner = setTimeout(function() {
+							mui.hideLoading();
+							var web3 = new Web3();
+							var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+							var keystoreJsonV3 = JSON.parse(keystoreString)
+							var password = $("#pass").val();
+							try {
+								// 读取 钱包地址
+								var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+								mui.openWindow({
+									id: "/property/export-keystore.html",
+									url: "/property/export-keystore.html",
+									extras: {
+										purseIndex: purseIndex,
+									},
+									waiting: {
+										autoShow: false,
+									}
+								})
+								console.log(wallet.address)
+								console.log(wallet.privateKey)
+							} catch(err) {
+								mui.toast('密码输入错误');
+							}
+						}, 100)
+					}, 1000)
+				});
 			})
-			
-			// 导出助记词
-			$("#ensure").on("click",function(){
-				$("input").blur();
-				var timer = null;
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					mui.showLoading("加载中...", "div");
-					var tiner = null;
-					clearTimeout(tiner);
-					tiner = setTimeout(function() {
-						mui.hideLoading();
-						var web3 = new Web3();
-						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-						var keystoreJsonV3 = JSON.parse(keystoreString)
-						var password = $("#pass").val();
-						try {
-							// 读取 钱包地址
-							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-							mui.openWindow({
-								id: "/property/backup-wallet.html",
-								url: "/property/backup-wallet.html",
-								extras: {
-									purseIndex: purseIndex,
-								},
-								waiting: {
-									autoShow: false,
-								}
-							})
-						} catch(err) {
-							mui.toast('密码输入错误');
-						}
-					}, 100)
-				}, 1000)
-			});
-
-			// 导出私钥
-			$("#ensureImport").on("click", function() {
-				$("input").blur();
-				var timer = null;
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					mui.showLoading("加载中...", "div");
-					var tiner = null;
-					clearTimeout(tiner);
-					tiner = setTimeout(function() {
-						mui.hideLoading();
-						var web3 = new Web3();
-						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-						var keystoreJsonV3 = JSON.parse(keystoreString)
-						var password = $("#pass").val();
-						try {
-							// 读取 钱包地址
-							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-							mui.openWindow({
-								id: "/property/export-private-key.html",
-								url: "/property/export-private-key.html",
-								extras: {
-									purseIndex: purseIndex,
-								},
-								waiting: {
-									autoShow: false,
-								}
-							})
-							console.log(wallet.address)
-							console.log(wallet.privateKey)
-						} catch(err) {
-							mui.toast('密码输入错误');
-						}
-					}, 100)
-				}, 1000)
-				//				mui.showLoading("加载中...", "div");
-				//				var web3 = new Web3();
-				//				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-				//				var keystoreJsonV3 = JSON.parse(keystoreString)
-				//				var password = $("#pass").val();
-				//				try {
-				//					// 读取 钱包地址
-				//					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-				//					mui.openWindow({
-				//						id: "/property/export-private-key.html",
-				//						url: "/property/export-private-key.html",
-				//						extras: {
-				//							purseIndex: purseIndex,
-				//						},
-				//						waiting: {
-				//							autoShow: false,
-				//						}
-				//					})
-				//					console.log(wallet.address)
-				//					console.log(wallet.privateKey)
-				//				} catch(err) {
-				//					mui.toast('密码输入错误');
-				//				}
-			});
-
-			// 导出keystore
-			$("#sureKeystore").on("click", function() {
-				$("input").blur();
-				var timer = null;
-				clearTimeout(timer);
-				timer = setTimeout(function() {
-					mui.showLoading("加载中...", "div");
-					var tiner = null;
-					clearTimeout(tiner);
-					tiner = setTimeout(function() {
-						mui.hideLoading();
-						var web3 = new Web3();
-						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-						var keystoreJsonV3 = JSON.parse(keystoreString)
-						var password = $("#pass").val();
-						try {
-							// 读取 钱包地址
-							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-							mui.openWindow({
-								id: "/property/export-keystore.html",
-								url: "/property/export-keystore.html",
-								extras: {
-									purseIndex: purseIndex,
-								},
-								waiting: {
-									autoShow: false,
-								}
-							})
-							console.log(wallet.address)
-							console.log(wallet.privateKey)
-						} catch(err) {
-							mui.toast('密码输入错误');
-						}
-					}, 100)
-				}, 1000)
-			});
 
 			// 点击头像跳转到账户信息
 			function account_info() {

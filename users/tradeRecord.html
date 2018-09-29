@@ -29,7 +29,7 @@
 							<span>交易Hash:</span>
 							0ssxs...
 						</div>
-						<div class="trade_date">2018-03-03 13:00</div>
+						<!--<div class="trade_date">2018-03-03 13:00</div>-->
 					</div>
 					<!--右侧-->
 					<div class="right_trade">
@@ -43,9 +43,9 @@
 						<!--<div class="trade_state">交易关闭</div>-->
 					</div>
 				</div>
-				<div class="loading_box">
-					<button class="loading">加载更多</button>
-				</div>
+			</div>
+			<div class="loading_box">
+				<button class="loading">加载更多</button>
 			</div>
 			<!--<div class="record newact" url="/users/tradeDetail.html"/>
 				<h5 class="time">2018-06-30 15:00</h5>
@@ -89,12 +89,23 @@
 		<script type="text/javascript">
 			mui.init()
 			var page = 1; //第几页
-			var pageSize = 2; // 每页显示条数   -1：不分页
-			var tradeList = []; // 交易列表
+			var pageSize = 20; // 每页显示条数   -1：不分页
 			var urlApi;
 			var address;
-			var tradeList = ''; 
+			var tradeData = []; 
+			var tradeList = '';
 			mui.plusReady(function() {
+				$('.loading').html('加载中...');
+				// 点击加载更多
+				$('.loading_box').on("click",function(){
+					if($('.loading').html() == '已加载全部'){
+						mui.toast('已加载全部内容');
+						return false;
+					}
+					page ++;
+					loadingMore();
+					$('.loading').html('加载中...');
+				});
 				var self = plus.webview.currentWebview();
 				tradeState = self.tradeState; // all/each
 				if (tradeState == 'all'){
@@ -104,6 +115,17 @@
 					urlApi = api + "txs/" + 'Dc883bcc285aae9fe0cb0e5a2af586ed27cfdae693' + "?page="+ page + '&pageSize=' + pageSize;
 				}
 				loadTradeLisy();
+				// 跳转到详情
+			    $("#tadeMain").on("click", ".each_trade", function() {
+					mui.openWindow({
+						id: "../users/tradeDetail.html",
+						url: "../users/tradeDetail.html",
+						extras: {
+							detailData: $(this).attr("data"),
+							address: address
+						}
+					})
+				});
 			});
 			// 根据用户信息查看交易列表
 			function loadTradeLisy() {
@@ -121,28 +143,45 @@
 						mui.hideLoading();
 						if(ret.success) {
 							mui.toast('加载成功');
-//							tradeList = ret.data.list; // 交易列表
-							$.each(ret.data.list, function(i, t) {
+							tradeData = ret.data.list; // 交易列表
+							for(var i = 0;i<ret.data.list.length;i++){
+								ret.data.list[i].hash = (ret.data.list[i].hash).substr(0,6) + '...';
+								ret.data.list[i].value = Math.round(ret.data.list[i].value/1000000000000000000 * 100)/100;
+							}
+							if(ret.data.list.length > 0) {
+								$.each(ret.data.list, function(i, t) {
 								tradeList += 
-									'<div class="each_trade" data="'+t+'"/>' + 
+									'<div class="each_trade" data="'+t+'">' + 
 										'<div class="left_trade">' +
-											'<span>' + 25 + '</span>' +
+											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
 										'</div>'+
 										'<div class="middle_trade">'+
 											'<div class="hash_num">'+
-												'<span>'+ 交易Hash: + '</span>'+
-												'0ssxs...' +
+												'<span>'+'交易Hash:' + '</span>'+
+												t.hash +
 											'</div>'+
-											'<div class="trade_date">' + 2018-03-03 13:00 +'</div>' + 
+//											'<div class="trade_date">' + '2018-03-03 13:00' +'</div>' + 
 										'</div>'+
-										'<div class="right_trade">'+
-											'<div class="success_add"'> + '+100.00DCAR' + '</div>'+
-											'<div class="orange_into">' + '-10.00 DCAR' + '</div>'+
-											'<div class="failure_trade">' + '-10.00DCAR' + '</div>'+
+										'<div class="right_trade">';
+									if(address == t.from){
+										tradeList += 
+										'<div class="orange_into">' + '-' + (t.value) + ' DCAR' + '</div>';
+									} else {
+										tradeList += 
+										'<div class="success_add">' + '+' + (t.value) + ' DCAR' + '</div>';
+									}
+									tradeList += 
 											'<div class="trade_state">' + '交易成功' + '</div>'+
 										'</div>'+
 									'</div>'
-							})
+								})
+								$('#tadeMain').html(tradeList);
+							}
+							if ($(".miner_box").length >= tradeList.count){
+								$('.loading').html('已加载全部');
+							} else {
+								$('.loading').html('加载更多');
+							}
 						} else{
 							mui.toast(ret.msg);
 						}
@@ -153,16 +192,75 @@
 					}
 				})
 			}
-			// 跳转到详情
-		    $("#tadeMain").on("click", ".each_trade", function() {
-				mui.openWindow({
-					id: "../users/tradeDetail.html",
-					url: "../users/tradeDetail.html",
-					extras: {
-						detailData: $(this).attr("data")
+			
+			// 加载更多
+			function loadingMore() {
+				tradeList = '';
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: urlApi,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							tradeData = ret.data.list; // 交易列表
+							for(var i = 0;i<ret.data.list.length;i++){
+								ret.data.list[i].hash = ret.data.list[i].hash.substr(0,6) + '...';
+							}
+							if(ret.data.list.length > 0) {
+								$.each(ret.data.list, function(i, t) {
+								tradeList += 
+									'<div class="each_trade" data="'+t+'">' + 
+										'<div class="left_trade">' +
+											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
+										'</div>'+
+										'<div class="middle_trade">'+
+											'<div class="hash_num">'+
+												'<span>'+'交易Hash:' + '</span>'+
+												t.hash +
+											'</div>'+
+//											'<div class="trade_date">' + '2018-03-03 13:00' +'</div>' + 
+										'</div>'+
+										'<div class="right_trade">';
+									if(address == t.from){
+										tradeList += 
+										'<div class="orange_into">' + '-' + (t.value/1000000000000000000) + 'DCAR' + '</div>';
+									} else {
+										tradeList += 
+										'<div class="success_add">' + '+' + (t.value/1000000000000000000) + 'DCAR' + '</div>';
+									}
+									tradeList += 
+											'<div class="trade_state">' + '交易成功' + '</div>'+
+										'</div>'+
+									'</div>'
+								})
+							}
+							var minerList = document.body.querySelector('#tadeMain');
+							var Div = document.createElement('div');
+							// Div.className = 'mui-table-view-cell';
+							Div.innerHTML = tradeList;
+							minerList.appendChild(Div);
+							if ($(".miner_box").length >= ret.data.count){
+								$('.loading').html('已加载全部');
+							} else {
+								$('.loading').html('加载更多');
+							}
+						} else{
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
 					}
 				})
-			});
+			}
 		</script>
 	</body>
 

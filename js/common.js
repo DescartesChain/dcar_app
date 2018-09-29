@@ -3,7 +3,7 @@
 //var api = "https://www.dcar.xyz/api/";
 var DCARapi = "https://apiserchain.dcar.xyz";
 var api = "https://www.dcardev.com/api/";
-var VERSION = "1.0.14";
+var VERSION = "1.2.1";
 //var ethProvider = 'HTTP://127.0.0.1:7545';
 var log = console.log.bind(console);
 function check_login() { 

@@ -61,3 +61,4 @@ typings/
 .next
 manifest.json
 unpackage/.confirmed_dependencies
+*.apk

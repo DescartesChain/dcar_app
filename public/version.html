@@ -25,8 +25,7 @@
 			<!--<p class="introduce newest">
 				<span>您当前已是最新版本</span>
 			</p>-->
-			<input type="button" onclick="openWin()" value="openWin"/>
-			<!--<button type="button" onclick="openWin()" class="mui-btn mui-btn-primary">下载并安装</button>-->
+			<button type="button" onclick="download()" class="mui-btn mui-btn-primary">下载并安装</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/markdown.js"></script>
@@ -35,15 +34,12 @@
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
 			// $('#versionInfo').html(markdown.toHTML(ret.data.content));
-			function openWin() {
-                api.openWin({
-					name : 'win_show2',
-					url : 'http://www.baidu.com',
-					rect : {
-                        x : 0,
-                        y : 0
-                    }
-				})
+			function download() {
+                Intent intent= new Intent();       
+				intent.setAction("android.intent.action.VIEW");   
+				Uri url = Uri.parse("http://www.baidu.com");  
+				intent.setData(url); 
+				startActivity(intent);
             }
 		</script>
 	</body>

@@ -90,9 +90,9 @@
 				status = self.status;
 				// alert(detailData)
 				if (status == 0) {
-					$("#price").html("+" + detailData.value);
+					$("#price").html("+" + detailData.value/1000000000000000000);
 				} else if (status == 1) {
-					$("#price").html("-" + detailData.value);
+					$("#price").html("-" + detailData.value/1000000000000000000);
 				}
 				$("#tradeHash").html(detailData.blockHash);
 				$("#outAccount").html(detailData.from);

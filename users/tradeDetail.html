@@ -84,14 +84,17 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			Math.round(104.54564 * 100)/100
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				detailData = self.detailData;
 				address = self.address;
+				var money = detailData.value/1000000000000000000;
+				money = Math.round(money * 100)/100
 				if (address == detailData.from) {
-					$("#price").html("-" + detailData.value/1000000000000000000);
+					$("#price").html("-" + money);
 				} else {
-					$("#price").html("+" + detailData.value/1000000000000000000);
+					$("#price").html("+" + money);
 				}
 				$("#tradeHash").html(detailData.blockHash);
 				$("#outAccount").html(detailData.from);

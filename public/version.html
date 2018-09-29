@@ -25,7 +25,7 @@
 			<!--<p class="introduce newest">
 				<span>您当前已是最新版本</span>
 			</p>-->
-			<button type="button" onclick="download()" class="mui-btn mui-btn-primary">下载并安装</button>
+			<button type="button" id="download" class="mui-btn mui-btn-primary">下载并安装</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/markdown.js"></script>
@@ -33,14 +33,41 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
+			mui.showLoading("加载中...", "div");
+			$.ajax({
+				type: "get",
+				url: api + "dcarapp/latest",
+				data: {},
+				async: true,
+				success: function(ret) {
+					mui.hideLoading();
+					alert(ret.data.version)
+					if(ret.success) {
+						// alert(ret.data.version)
+					} else {
+						mui.toast(ret.msg)
+					}
+				},
+				error: function(error) {
+					mui.hideLoading();
+					mui.toast(error.responseJSON.msg);
+				}
+			});
+			$("#download").on("click", function(){
+				final Intent intent = new Intent();
+				intent.setAction(Intent.ACTION_VIEW);、intent.setData(Uri.parse("http://www.baidu.com"));
+				// 注意此处的判断intent.resolveActivity()可以返回显示该Intent的Activity对应的组件名
+				// 官方解释 : Name of the component implementing an activity that can display the intent
+				if (intent.resolveActivity(getPackageManager()) != null) {    
+				  final ComponentName componentName = intent.resolveActivity(getPackageManager()); 
+				  // 打印Log   ComponentName到底是什么
+				  Log.e(TAG, "componentName = " + componentName.getClassName());
+				  startActivity(Intent.createChooser(intent, "请选择浏览器"));
+				} else {    
+				  Toast.makeText(getApplicationContext(), "没有匹配的程序", Toast.LENGTH_SHORT).show();
+				}
+			})
 			// $('#versionInfo').html(markdown.toHTML(ret.data.content));
-			function download() {
-                Intent intent= new Intent();       
-				intent.setAction("android.intent.action.VIEW");   
-				Uri url = Uri.parse("http://www.baidu.com");  
-				intent.setData(url); 
-				startActivity(intent);
-            }
 		</script>
 	</body>
 

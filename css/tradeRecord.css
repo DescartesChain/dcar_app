@@ -115,3 +115,12 @@
 	color:#999;
 	padding:70px 0;
 }
+
+.loading_box{
+	text-align: center;
+}
+.loading{
+	margin:0 auto;
+	padding:8px 20px;
+	margin-bottom:30px;
+}

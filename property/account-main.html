@@ -53,8 +53,8 @@
 						导出Keystore
 					</a>
 				</li>
-				<li class="mui-table-view-cell newact" url="/users/tradeRecord.html">
-					<a class="mui-navigate-right ">
+				<li class="mui-table-view-cell" url="/users/tradeRecord.html" id="tradeDetail">
+					<a class="mui-navigate-right">
 						交易记录
 					</a>
 				</li>
@@ -102,6 +102,18 @@
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
 				purseIndex = self.purseIndex;
+				// 跳转到交易记录
+				$('#tradeDetail').on("click",function(){
+					var purseInfo = store.get('dcarPurse');
+					mui.openWindow({
+						id: "../users/tradeRecord.html",
+						url: "../users/tradeRecord.html",
+						extras: {
+							tradeState: 'each',
+							address:purseInfo[purseIndex].address
+						}
+					})
+				});
 				// 判断钱包类型  1 dcar   2  ETH  3 BTC
 				if(targetId == '1') {
 					var purseInfo = store.get('dcarPurse');

@@ -17,7 +17,7 @@
 		</header>
 		<div class="mui-content">
 			<!--<div class="no_data">暂无交易记录</div>-->
-			<div class="trade_body">
+			<div class="trade_body" id="tadeMain">
 				<div class="each_trade newact" url="/users/tradeDetail.html"/>
 					<!--左侧序号-->
 					<div class="left_trade">
@@ -43,30 +43,8 @@
 						<!--<div class="trade_state">交易关闭</div>-->
 					</div>
 				</div>
-				<div class="each_trade">
-					<!--左侧序号-->
-					<div class="left_trade">
-						<span>25</span>
-					</div>
-					<!--中间-->
-					<div class="middle_trade">
-						<div class="hash_num">
-							<span>交易Hash:</span>
-							0ssxs...
-						</div>
-						<div class="trade_date">2018-03-03 13:00</div>
-					</div>
-					<!--右侧--> 
-					<div class="right_trade">
-						<!--绿色--转出成功-->
-						<!--<div class="success_add">+100.00DCAR</div>-->
-						<!--橙色--转入成功-->
-						<div class="orange_into">-10.00 DCAR</div>
-						<!--红色--交易失败-->
-						<!--<div class="failure_trade">-10.00DCAR</div>-->
-						<div class="trade_state">交易成功</div>
-						<!--<div class="trade_state">交易关闭</div>-->
-					</div>
+				<div class="loading_box">
+					<button class="loading">加载更多</button>
 				</div>
 			</div>
 			<!--<div class="record newact" url="/users/tradeDetail.html"/>
@@ -107,8 +85,84 @@
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
+			var page = 1; //第几页
+			var pageSize = 2; // 每页显示条数   -1：不分页
+			var tradeList = []; // 交易列表
+			var urlApi;
+			var address;
+			var tradeList = ''; 
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				tradeState = self.tradeState; // all/each
+				if (tradeState == 'all'){
+					urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
+				} else{
+					address = self.address; // all/each
+					urlApi = api + "txs/" + 'Dc883bcc285aae9fe0cb0e5a2af586ed27cfdae693' + "?page="+ page + '&pageSize=' + pageSize;
+				}
+				loadTradeLisy();
+			});
+			// 根据用户信息查看交易列表
+			function loadTradeLisy() {
+				tradeList = '';
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: urlApi,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+//							tradeList = ret.data.list; // 交易列表
+							$.each(ret.data.list, function(i, t) {
+								tradeList += 
+									'<div class="each_trade" data="'+t+'"/>' + 
+										'<div class="left_trade">' +
+											'<span>' + 25 + '</span>' +
+										'</div>'+
+										'<div class="middle_trade">'+
+											'<div class="hash_num">'+
+												'<span>'+ 交易Hash: + '</span>'+
+												'0ssxs...' +
+											'</div>'+
+											'<div class="trade_date">' + 2018-03-03 13:00 +'</div>' + 
+										'</div>'+
+										'<div class="right_trade">'+
+											'<div class="success_add"'> + '+100.00DCAR' + '</div>'+
+											'<div class="orange_into">' + '-10.00 DCAR' + '</div>'+
+											'<div class="failure_trade">' + '-10.00DCAR' + '</div>'+
+											'<div class="trade_state">' + '交易成功' + '</div>'+
+										'</div>'+
+									'</div>'
+							})
+						} else{
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			}
+			// 跳转到详情
+		    $("#tadeMain").on("click", ".each_trade", function() {
+				mui.openWindow({
+					id: "../users/tradeDetail.html",
+					url: "../users/tradeDetail.html",
+					extras: {
+						detailData: $(this).attr("data")
+					}
+				})
+			});
 		</script>
 	</body>
 

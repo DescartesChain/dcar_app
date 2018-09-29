@@ -6,16 +6,16 @@
 		<title>我的</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/mine.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mine.css" />
 	</head>
 
 	<body>
 		<div class="header">
 			<div class="portrait">
-				<img src="../img/mine/icon_Sign.png" class="newact not" url="/public/login.html"/>
-				<img src="../img/mine/touxiang.jpg" class="newact already" url="/users/userInfo.html"/>
+				<img src="../img/mine/icon_Sign.png" class="newact not" url="/public/login.html" />
+				<img src="../img/mine/touxiang.jpg" class="newact already" url="/users/userInfo.html" />
 			</div>
 			<p class="newact not" url="/public/login.html">登录与注册</p>
 			<p class="already newact" id="userName" url="/users/userInfo.html"></p>
@@ -93,7 +93,7 @@
 			// store.clearAll()
 			// 判断是否登录
 			function detection() {
-				if (store.get("userInfo") == undefined) {
+				if(store.get("userInfo") == undefined) {
 					$(".not").show();
 					$(".already").hide();
 					mui.toast('您还未登录，请先登录');
@@ -105,18 +105,21 @@
 			}
 			// 跳转页面 --交易记录/矿机管理
 			function go_detail(state) {
-//				if (store.get("userInfo") == undefined) {
-//					$(".not").show();
-//					$(".already").hide();
-//					mui.toast('您还未登录，请先登录');
-//					return false;
-//				}
-				if (state == 'tradeRecord') { // 跳转到交易记录
+				//				if (store.get("userInfo") == undefined) {
+				//					$(".not").show();
+				//					$(".already").hide();
+				//					mui.toast('您还未登录，请先登录');
+				//					return false;
+				//				}
+				if(state == 'tradeRecord') { // 跳转到交易记录
 					mui.openWindow({
-						id: "tradeRecord.html",
+						id: "../users/tradeRecord.html",
 						url: "../users/tradeRecord.html",
+						extras: {
+							tradeState: 'all'
+						}
 					})
-				} else if (state == 'oreManage') { // 跳转到矿机管理
+				} else if(state == 'oreManage') { // 跳转到矿机管理
 					mui.openWindow({
 						id: "oreManage.html",
 						url: "../users/oreManage.html",
@@ -139,7 +142,7 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							$("#userName").html(ret.data.name);
-						} else{
+						} else {
 							mui.toast(ret.msg);
 						}
 					},
@@ -149,10 +152,11 @@
 					}
 				})
 			}
-			function showHide () {
+
+			function showHide() {
 				mui('.alert_box').popover('toggle');
 			}
-			mui.plusReady(function(){
+			mui.plusReady(function() {
 				$("#sureConfirm").on("click", function() {
 					mui('.alert_box').popover('toggle');
 					store.remove("dcarPurse");

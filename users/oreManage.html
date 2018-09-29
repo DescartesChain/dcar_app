@@ -547,11 +547,8 @@
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
-					url: api + "miners",
-					data: {
-						page:page,
-						pageSize : pageSize 
-					},
+					url: api + "miners?page=" + page + '&pageSize=' + pageSize,
+					data: {},
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
 					},

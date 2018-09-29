@@ -112,3 +112,11 @@
 	width:12px;
 	margin:0 30px 22px 30px;
 }
+.loading_box{
+	text-align: center;
+}
+.loading{
+	margin:0 auto;
+	padding:8px 20px;
+	margin-bottom:30px;
+}

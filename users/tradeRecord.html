@@ -117,11 +117,13 @@
 				loadTradeLisy();
 				// 跳转到详情
 			    $("#tadeMain").on("click", ".each_trade", function() {
+			    	// alert(this)
+			    	// store.set("tadeDetail", $(this).attr("data"));
 					mui.openWindow({
 						id: "../users/tradeDetail.html",
 						url: "../users/tradeDetail.html",
 						extras: {
-							detailData: $(this).attr("data"),
+							// detailData: $(this).attr("data"),
 							address: address
 						}
 					})

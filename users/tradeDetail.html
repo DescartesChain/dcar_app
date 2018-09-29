@@ -6,21 +6,21 @@
 		<title>交易详情</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
-		<link rel="stylesheet" type="text/css" href="../css/style.css"/>
-		<link rel="stylesheet" type="text/css" href="../css/tradeDetail.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/tradeDetail.css" />
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav header">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-		    <h1 class="mui-title">交易详情</h1>
+			<h1 class="mui-title">交易详情</h1>
 		</header>
 		<div class="mui-content">
 			<div class="detail_body">
 				<div class="img_box">
-					<img src="../img/left_man.png" alt="" class="left_img"/>
-					<img src="../img/arrow.png" alt="" class="middle_img"/>
-					<img src="../img/right_man.png" alt="" class="right_img"/>
+					<img src="../img/left_man.png" alt="" class="left_img" />
+					<img src="../img/arrow.png" alt="" class="middle_img" />
+					<img src="../img/right_man.png" alt="" class="right_img" />
 				</div>
 				<!--数字-->
 				<p class="trade_num"><span id="price">加载中...</span> DCAR</p>
@@ -80,18 +80,21 @@
 			</div>-->
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			Math.round(104.54564 * 100)/100
+			Math.round(104.54564 * 100) / 100
 			mui.plusReady(function() {
+				var tradeData = store.get("tadeDetail");
 				var self = plus.webview.currentWebview();
 				detailData = self.detailData;
+				alert(tradeData.to)
 				address = self.address;
-				var money = detailData.value/1000000000000000000;
-				money = Math.round(money * 100)/100
-				if (address == detailData.from) {
+				var money = detailData.value / 1000000000000000000;
+				money = Math.round(money * 100) / 100
+				if(address == detailData.from) {
 					$("#price").html("-" + money);
 				} else {
 					$("#price").html("+" + money);

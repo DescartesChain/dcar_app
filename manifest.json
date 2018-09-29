@@ -212,7 +212,8 @@
 					"users/opinion.html",
 					"public/about.html",
 					"users/oreManage.html",
-					"users/tradeRecord.html"
+					"users/tradeRecord.html",
+					"public/version.html"
 				],
 				"priority": 0
 			},

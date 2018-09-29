@@ -1,4 +1,4 @@
-.record{
+/*.record{
 	padding: 0 15px;
 	border-bottom: 1px solid #e5e5e5;
 }
@@ -12,7 +12,7 @@
 }
 .detail p{
 	font-size: 15px;
-	color: #333;
+	color: #333; 
 }
 .detail p:first-child{
 	float: left;
@@ -34,15 +34,84 @@
 .deal p:last-child{
 	float: right;
 }
-/*买入*/
 .purchase{
 	color: #08c087 !important;
 }
-/*卖出*/
 .sellout{
 	color: #e66d42 !important;
 }
-/*矿收*/
 .ore{
 	color: #4384c5 !important;
+}*/
+.trade_body{
+	padding:0 15px;
+}
+.each_trade{
+	overflow: hidden;
+	border-bottom: 1px solid #eee;
+	padding:19px 0;
+}
+.left_trade{
+	float: left;
+	width:20%;
+	text-align: center;
+}
+.left_trade>span{
+	background-color:#efeff4;
+	color:#4384C5;
+	display: inline-block;
+	height:40px;
+	width: 40px;
+	border-radius: 50%;
+	line-height: 40px;
+	font-size: 15px;
+	font-weight: bold;
+}
+.middle_trade{
+	float: left;
+	width:45%;
+}
+.right_trade{
+	float: right;
+	width: 35%;
+	text-align: right;
+}
+.hash_num{
+	color: #333;
+	font-size: 16px;
+	font-weight: bold;
+	padding-bottom: 7px;
+}
+.hash_num>span{
+	font-size: 13px;
+}
+.trade_date{
+	color:#999;
+	font-size: 13px;
+}
+.success_add{
+	color:#08c087;
+	font-size: 16px;
+	font-weight: bold;
+}
+.orange_into{
+	color:#ef6d3f;
+	font-size: 16px;
+	font-weight: bold;
+}
+.failure_trade{
+	color:#ff1711;
+	font-size: 16px;
+	font-weight: bold;
+}
+.trade_state{
+	color:#999;
+	font-size: 13px;
+	padding-top:7px;
+}
+.no_data{
+	text-align: center;
+	font-size: 15px;
+	color:#999;
+	padding:70px 0;
 }

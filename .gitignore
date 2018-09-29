@@ -62,3 +62,4 @@ typings/
 manifest.json
 unpackage/.confirmed_dependencies
 *.apk
+manifest.json

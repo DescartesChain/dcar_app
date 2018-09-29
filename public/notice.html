@@ -29,6 +29,7 @@
 		</div>
 	</div>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/markdown.js"></script>
 	<script src="../js/jquery-2.1.1.min.js"></script>
 	<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -58,7 +59,8 @@
 							postInfo = ret.data.list[purseIndex];
 							console.log(postInfo);
 							$('#title').html(postInfo.title);
-							$('#content').html(postInfo.content);
+							$('#content').html(markdown.toHTML(postInfo.content));
+							// $('#content').html(postInfo.content);
 							$('#date').html(postInfo.createdAt);
 						} else {
 							mui.toast(ret.msg);

@@ -16,18 +16,34 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title account_title">版本详情</h1>
 		</header>
-		<div class="mui-content">
+		<div class="mui-content between">
 			<div class="logo">
 				<i class="iconfont icon-shezhigengxin"></i>
 				<p>版本 : 1.0.0</p>
 			</div>
-			<p class="introduce">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+			<p class="introduce" id="versionInfo">啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊</p>
+			<!--<p class="introduce newest">
+				<span>您当前已是最新版本</span>
+			</p>-->
+			<button type="button" onclick="openWin()" class="mui-btn mui-btn-primary">下载并安装</button>
 		</div>
 		<script src="../js/mui.min.js"></script>
+		<script src="../js/markdown.js"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script type="text/javascript">
+			// $('#versionInfo').html(markdown.toHTML(ret.data.content));
+			function openWin() {
+                api.openWin({
+					name : 'win_show2',
+					url : 'http://www.baidu.com',
+					rect : {
+                        x : 0,
+                        y : 0
+                    }
+				})
+            }
 		</script>
 	</body>
 

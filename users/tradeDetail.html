@@ -85,23 +85,16 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			Math.round(104.54564 * 100) / 100
 			mui.plusReady(function() {
-				var tradeData = store.get("tadeDetail");
 				var self = plus.webview.currentWebview();
-				detailData = self.detailData;
-				alert(tradeData.to)
-				address = self.address;
-				var money = detailData.value / 1000000000000000000;
-				money = Math.round(money * 100) / 100
-				if(address == detailData.from) {
-					$("#price").html("-" + money);
+				if(self.address == self.from) {
+					$("#price").html("-" + self.tvalue);
 				} else {
-					$("#price").html("+" + money);
+					$("#price").html("+" + self.tvalue);
 				}
-				$("#tradeHash").html(detailData.blockHash);
-				$("#outAccount").html(detailData.from);
-				$("#enterAccount").html(detailData.to);
+				$("#tradeHash").html(self.thash);
+				$("#outAccount").html(self.tfrom);
+				$("#enterAccount").html(self.tto);
 			})
 		</script>
 	</body>

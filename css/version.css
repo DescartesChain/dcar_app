@@ -1,0 +1,17 @@
+.logo{
+	margin-bottom: 25px;
+}
+.logo i{
+	font-size: 100px;
+	display: block;
+	text-align: center;
+	margin: 25px 0 10px;
+}
+.logo p{
+	font-size: 16px;
+	text-align: center;
+	color: #323232;
+}
+.introduce{
+	color: #323232;
+}

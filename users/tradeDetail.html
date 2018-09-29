@@ -23,30 +23,30 @@
 					<img src="../img/right_man.png" alt="" class="right_img"/>
 				</div>
 				<!--数字-->
-				<p class="trade_num">-100.00 DCAR</p>
+				<p class="trade_num"><span id="price">加载中...</span> DCAR</p>
 				<!--交易状态-->
 				<p class="trade_state">交易成功</p>
-				<div class="each_detail">
+				<!--<div class="each_detail">
 					<div class="left_detail">交易时间</div>
 					<div class="right_detail">
 						2018-02-22 15:00
 					</div>
-				</div>
+				</div>-->
 				<div class="each_detail">
 					<div class="left_detail">交易Hash</div>
-					<div class="right_detail">
+					<div class="right_detail" id="tradeHash">
 						2xjdadkya1357467da7sdssefhkwehfiuwyeicj56c5467687candskjhc
 					</div>
 				</div>
 				<div class="each_detail">
 					<div class="left_detail">转账账户</div>
-					<div class="right_detail">
+					<div class="right_detail" id="outAccount">
 						2xjdadkya1357467da7sdssefhkwehfiuwyeicj56c5467687
 					</div>
 				</div>
 				<div class="each_detail">
 					<div class="left_detail">收款账户</div>
-					<div class="right_detail">
+					<div class="right_detail" id="enterAccount">
 						2xjdadkya1357467da7sdssefhkwehfiuwyeicj56c5467687
 					</div>
 				</div>
@@ -84,7 +84,20 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				detailData = self.detailData;
+				status = self.status;
+				// alert(detailData)
+				if (status == 0) {
+					$("#price").html("+" + detailData.value);
+				} else if (status == 1) {
+					$("#price").html("-" + detailData.value);
+				}
+				$("#tradeHash").html(detailData.blockHash);
+				$("#outAccount").html(detailData.from);
+				$("#enterAccount").html(detailData.to);
+			})
 		</script>
 	</body>
 

@@ -332,6 +332,10 @@
 						mui.hideLoading();
 						if(ret.success) {
 							mui.toast('加载成功');
+							for(var b =0;b<ret.data.list.length;b++){
+						      	balanceTotal += ret.data.list[b].balance;
+						    }
+							$('#balance').html(balanceTotal);
 							$.each(ret.data.list, function(i, t) {
 								if (t.status == 5 || t.status == 11){
 									loadingList +=

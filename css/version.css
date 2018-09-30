@@ -13,7 +13,7 @@
 	color: #323232;
 }
 .between{
-	margin: 0 20px;
+	/*margin: 0 20px;*/
 	min-height: 100vh;
 	position: relative;
 }
@@ -36,18 +36,65 @@
 }
 .newest{
 	text-indent: 0em;
-}
-.newest span{
-	background: #EAEAEA;
-	border-radius: 11px;
-	padding: 0 20px;
 	position: absolute;
 	bottom: 50px;
 	left: 50%;
 	text-align: center;
 	margin-left: -100px;
 	width: 210px;
+	background: #EAEAEA;
+	border-radius: 11px;
+	padding:0 20px;
+}
+.copy_box{
+	position: absolute;
+	bottom: 150px;
+	width:100%;
+	left: 50%;
+	margin-left: -50%;
 }
 #versionInfo{
-	padding-bottom: 100px;
+	padding:0 20px 300px;
+	word-break: break-all;
+}
+.address_box {
+	border: 1px solid #eaeaea;
+	border-radius: 5px;
+	width: 90%;
+	margin: 0 auto;
+	padding: 10px 40px;
+	text-align: center;
+	font-size: 14px;
+	overflow: hidden;
+	margin-bottom:20px;
+	margin-top: 10px;
+}
+
+#addressBox {
+	font-size: 14px;
+	border: none;
+	line-height: 20px;
+	text-align: center;
+}
+
+.copy_btn {
+	height: 40px;
+	line-height: 40px;
+	font-size: 16px;
+	color: #fff;
+	margin-top: 10px;
+	border: 0;
+	background: #4384c5;
+	text-align: center;
+	letter-spacing: 2px;
+	width: 90%;
+	margin: 0 auto;
+	border-radius: 5px;
+}
+.version_state{
+	position: fixed;
+	bottom:0px;
+	height:150px;
+	width:100%;
+	background: #EAEAEA;
 }

@@ -21,7 +21,20 @@
 				<i class="iconfont icon-shezhigengxin"></i>
 				<p>版本 : <span id="version">加载中...</span></p>
 			</div>
+			<!--描述-->
 			<p class="introduce" id="versionInfo">加载中...</p>
+			<!--复制地址去更新新版本---有新版本时-->
+			<div class="copy_box">
+				<div class="address_box">
+					<input readonly="readonly" id="addressBox" value="www.dcar.xyz"/>
+				</div>
+				<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制官网地址</div>
+			</div>
+
+			<!--版本状态-->
+			<!--<div class="version_state">
+				222
+			</div>-->
 			<p class="introduce newest">
 				<span id="download">加载中...</span>
 			</p>
@@ -32,6 +45,7 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/clipboard/clipboard.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.showLoading("加载中...", "div");
 			$.ajax({
@@ -47,7 +61,9 @@
 						var before = VERSION.split('.').join('');
 						var current = (ret.data.version).split('.').join('');
 						if (current > before) {
-							$("#download").html("请前往官网下载最新版本");
+//							$("#download").html("请前往官网下载最新版本");
+							$("#download").html("请复制官网地址并到浏览器下载最新版本");
+							$('#addressBox').val("https://www.dcar.xyz");
 						} else {
 							$("#download").html("您当前已是最新版本");
 						}
@@ -60,6 +76,51 @@
 					mui.toast(error.responseJSON.msg);
 				}
 			});
+			//复制官网链接
+			if (navigator.userAgent.toLowerCase().indexOf("android") > -1) {
+//				alert('android');
+				// 复制地址 
+				$(document).ready(function(){
+					var fooText=$("#addressBox").val();
+		        	var clipboard = new ClipboardJS('#copyAddress');
+		            clipboard.on('success', function(e) {
+			            mui.toast('复制地址成功');
+			            e.clearSelection();
+		            });
+		            clipboard.on('error', function(e) {
+					    mui.toast('复制失败');
+					});
+				})
+			} else {
+//				alert('ios');
+				$('#copyAddress').click(function() {
+					const el = document.createElement('input');
+					const btn = document.getElementById('copyAddress');
+					el.value = address;
+					el.style.opacity = '0';
+					document.body.appendChild(el);
+					const editable = el.contentEditable;
+					const readOnly = el.readOnly;
+					el.contentEditable = true;
+					el.readOnly = false;
+					const range = document.createRange();
+					range.selectNodeContents(el);
+					const sel = window.getSelection();
+					sel.removeAllRanges();
+					sel.addRange(range);
+					el.setSelectionRange(0, 999999);
+					el.contentEditable = editable;
+					el.readOnly = readOnly;
+					const ret = document.execCommand('copy');
+					el.blur();
+					btn.text = ret;
+					if(btn.text) {
+						mui.toast('复制地址成功');
+					} else{
+						mui.toast('复制失败');
+					}
+				})
+			}
 //			$("#download").on("click", function(){
 //				final Intent intent = new Intent();
 //				intent.setAction(Intent.ACTION_VIEW);、intent.setData(Uri.parse("http://www.baidu.com"));

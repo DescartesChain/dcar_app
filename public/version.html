@@ -26,9 +26,11 @@
 			<!--复制地址去更新新版本---有新版本时-->
 			<div class="copy_box">
 				<div class="address_box">
-					<input readonly="readonly" id="addressBox" value="www.dcar.xyz"/>
+					<div class="addressBox">https://www.dcar.xyz/downloads/index.html</div>
+					<input readonly="readonly" id="addressBox" value="https://www.dcar.xyz/downloads/index.html"/>
+					<!--<textarea readonly="readonly" id="addressBox" value="https://www.dcar.xyz/downloads/index.html"></textarea>-->
 				</div>
-				<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制官网地址</div>
+				<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制地址</div>
 			</div>
 
 			<!--版本状态-->
@@ -62,8 +64,8 @@
 						var current = (ret.data.version).split('.').join('');
 						if (current > before) {
 //							$("#download").html("请前往官网下载最新版本");
-							$("#download").html("请复制官网地址并到浏览器下载最新版本");
-							$('#addressBox').val("https://www.dcar.xyz");
+							$("#download").html("请复制地址并到浏览器下载最新版本");
+							$('#addressBox').val("https://www.dcar.xyz/downloads/index.html");
 						} else {
 							$("#download").html("您当前已是最新版本");
 						}
@@ -96,7 +98,7 @@
 				$('#copyAddress').click(function() {
 					const el = document.createElement('input');
 					const btn = document.getElementById('copyAddress');
-					el.value = address;
+					el.value = $('#addressBox').val();
 					el.style.opacity = '0';
 					document.body.appendChild(el);
 					const editable = el.contentEditable;

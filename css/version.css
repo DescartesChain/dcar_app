@@ -62,7 +62,7 @@
 	border-radius: 5px;
 	width: 90%;
 	margin: 0 auto;
-	padding: 10px 40px;
+	padding: 10px 0;
 	text-align: center;
 	font-size: 14px;
 	overflow: hidden;
@@ -70,11 +70,23 @@
 	margin-top: 10px;
 }
 
+.addressBox {
+	font-size: 14px;
+	border: none;
+	line-height: 20px;
+	text-align: center;
+	word-break: break-all;
+	width:100%;
+	padding: 0 15px;
+}
 #addressBox {
 	font-size: 14px;
 	border: none;
 	line-height: 20px;
 	text-align: center;
+	word-break: break-all;
+	width:100%;
+	display: none;
 }
 
 .copy_btn {

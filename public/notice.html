@@ -59,8 +59,8 @@
 							postInfo = ret.data.list[purseIndex];
 							console.log(postInfo);
 							$('#title').html(postInfo.title);
-							$('#content').html(markdown.toHTML(postInfo.content));
-							// $('#content').html(postInfo.content);
+//							$('#content').html(markdown.toHTML(postInfo.content));
+							 $('#content').html(postInfo.content);
 							$('#date').html(postInfo.createdAt);
 						} else {
 							mui.toast(ret.msg);

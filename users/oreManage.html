@@ -185,7 +185,7 @@
 			// 确定修改矿机名称
 			function sureAlter(){
 				mui.showLoading("保存中...", "div");
-				// 矿机名称
+				// 矿机名称 
 				millName = $('#millName').val();
 				if (millName == '' || millName == undefined) {
 					mui.toast('矿机名称不能为空');
@@ -195,7 +195,7 @@
 				  type: "put",    // 接口类型
 				  url: api + "miners/" + currentId,  // 接口地址
 				  data: {
-				  	name:millName
+		 		  	name:millName
 				  },  // 参数
 				  beforeSend: function(xhr) {
 				    xhr.setRequestHeader('x-requested-with', store.get("userInfo").token); // 需要携带的头部
@@ -332,10 +332,10 @@
 						mui.hideLoading();
 						if(ret.success) {
 							mui.toast('加载成功');
-							for(var b =0;b<ret.data.list.length;b++){
-						      	balanceTotal += ret.data.list[b].balance;
-						    }
-							$('#balance').html(balanceTotal);
+//							for(var b =0;b<ret.data.list.length;b++){
+//						      	balanceTotal += ret.data.list[b].balance;
+//						    }
+//							$('#balance').html(balanceTotal);
 							$.each(ret.data.list, function(i, t) {
 								if (t.status == 5 || t.status == 11){
 									loadingList +=
@@ -562,17 +562,19 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							millList = ret.data; //矿机列表
-//							if (millList.length < pageSize){
+							balanceTotal = ret.data.totalProfit; // 总收益
+							$('#balance').html(balanceTotal);
+							complete(); // 最终合成
+							//							if (millList.length < pageSize){
 //								$('.loading').html('已加载全部');
 //							} else {
 //								$('.loading').html('加载更多');
 //							}
 //							console.log(millList.length);
-							complete(); // 最终合成
-							for(var b =0;b<millList.list.length;b++){
-						      	balanceTotal += millList.list[b].balance;
-						    }
-							$('#balance').html(balanceTotal);
+//							for(var b =0;b<millList.list.length;b++){
+//						      	balanceTotal += millList.list[b].balance;
+//						    }
+//							$('#balance').html(balanceTotal);
 //				      		$('#balanceCNY').html(balanceTotal);
 						} else {
 							mui.toast(ret.msg);

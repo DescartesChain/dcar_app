@@ -104,6 +104,10 @@
 				purseIndex = self.purseIndex;
 				// 跳转到交易记录
 				$('#tradeDetail').on("click",function(){
+					if (store.get("userInfo") == undefined) {
+						mui.toast('您还未登录，请先登录');
+						return false;
+					}
 					var purseInfo = store.get('dcarPurse');
 					mui.openWindow({
 						id: "../users/tradeRecord.html",

@@ -105,12 +105,12 @@
 			}
 			// 跳转页面 --交易记录/矿机管理
 			function go_detail(state) {
-				//				if (store.get("userInfo") == undefined) {
-				//					$(".not").show();
-				//					$(".already").hide();
-				//					mui.toast('您还未登录，请先登录');
-				//					return false;
-				//				}
+				if (store.get("userInfo") == undefined) {
+					$(".not").show();
+					$(".already").hide();
+					mui.toast('您还未登录，请先登录');
+					return false;
+				}
 				if(state == 'tradeRecord') { // 跳转到交易记录
 					mui.openWindow({
 						id: "../users/tradeRecord.html",

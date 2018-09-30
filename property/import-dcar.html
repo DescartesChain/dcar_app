@@ -38,6 +38,7 @@
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/english.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.plusReady(function() {
 				$("#leadIn").on("click", function(){
@@ -56,6 +57,15 @@
 					if($("#ensurePass").val() != $("#pass").val()) {
 						mui.toast('两次密码不一致');
 						return false;
+					}
+					const WORDS_ARRAY = new Set(MEMOR_WORD);
+					var word_array = ($("#keystoreString").val()).split(" ");
+					for (var i=0;i<word_array.length;i++){
+						alert(WORDS_ARRAY.has(word_array[i]));
+						if (WORDS_ARRAY.has(word_array[i]) == false){
+							mui.toast('助记词输入错误');
+						    return false;
+						}
 					}
 					mui.showLoading("加载中...", "div");
 					$.ajax({

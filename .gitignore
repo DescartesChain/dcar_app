@@ -63,3 +63,5 @@ manifest.json
 unpackage/.confirmed_dependencies
 *.apk
 manifest.json
+unpackage/release/dcar-app0930.ipa
+manifest.json

@@ -67,8 +67,10 @@
 //							$("#download").html("请前往官网下载最新版本");
 							$("#download").html("请复制地址并到浏览器下载最新版本");
 							$('#addressBox').val("https://www.dcar.xyz/downloads/index.html");
+							$('.copy_box').show();
 						} else {
 							$("#download").html("您当前已是最新版本");
+							$('.copy_box').hide();
 						}
 					} else {
 						mui.toast(ret.msg)

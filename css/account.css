@@ -255,3 +255,49 @@ input[type=password],input[type=text]{
 	margin-top:5px;
 	margin-bottom:5px;
 }
+.alert_box {
+	text-align: center;
+	width: 87%;
+	padding-bottom: 10px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.alert_title {
+	color: #333;
+	font-size: 24px;
+	font-weight: bold;
+	padding-top: 30px;
+	padding-bottom: 23px;
+}
+
+.alert_body {
+	color: #333;
+	font-size: 15px;
+	margin: 5px 0;
+}
+
+.alert_operate{
+	overflow: hidden;
+	width:85%;
+	margin:40px auto 30px;
+}
+.alert_operate>li{
+	width:45%;
+	border-radius: 5px;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
+}
+.alert_operate>li:nth-child(1){
+	background: #E66D42;
+	float: left;
+}
+.alert_operate>li:nth-child(2){
+	background: #9e9b9a;
+	float: right;
+}

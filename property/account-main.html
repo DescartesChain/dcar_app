@@ -58,6 +58,11 @@
 						交易记录
 					</a>
 				</li>
+				<li class="mui-table-view-cell" onclick="showHide()">
+					<a class="mui-navigate-right">
+						删除钱包
+					</a>
+				</li>
 			</ul>
 		</div>
 		<div class="mui-popover email_code_box">
@@ -76,6 +81,15 @@
 					<button type="button" class="mui-btn mui-btn-primary cannot showKeystore" id="sureKeystore">确定</button>
 				</div>
 			</div>
+		</div>
+		<!--删除钱包弹框-->
+		<div class="mui-popover alert_box">
+			<p class="alert_title">提示</p>
+			<div class="alert_body">确定要删除吗？</div>
+			<ul class="alert_operate">
+				<li class="alert_button" id="sureConfirm">确定</li>
+				<li class="alert_button" onclick="showHide()">取消</li>
+			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
@@ -96,6 +110,10 @@
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
 				$('.account_title').html(purseInfo[purseIndex].name);
+			}
+			
+			function showHide() {
+				mui('.alert_box').popover('toggle');
 			}
 
 			mui.plusReady(function() {
@@ -413,6 +431,20 @@
 						}, 100)
 					}, 1000)
 				});
+				// 删除钱包
+				$("#sureConfirm").on("tap", function() {
+					var arr = store.get('dcarPurse');
+					mui('.alert_box').popover('toggle');
+					arr.splice(purseIndex, 1);
+					store.set('dcarPurse', arr);
+					mui.toast('删除成功');
+					var tiner = null;
+					clearTimeout(tiner);
+					tiner = setTimeout(function() {
+						plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+						plus.webview.currentWebview().close();
+					},500)
+				})
 			})
 
 			// 点击头像跳转到账户信息

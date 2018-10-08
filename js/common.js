@@ -4,6 +4,7 @@
 var DCARapi = "https://apiserchain.dcar.xyz";
 var api = "https://www.dcardev.com/api/";
 var VERSION = "1.2.2";
+var bourseApi = 'http://api.bzx.com/api/';
 //var ethProvider = 'HTTP://127.0.0.1:7545';
 var log = console.log.bind(console);
 function check_login() { 

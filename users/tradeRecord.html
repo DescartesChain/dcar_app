@@ -39,7 +39,7 @@
 				</div>-->
 			</div>
 			<div class="loading_box" id="loading_box">
-				<button class="loading">加载更多</button>
+				<button class="loading"></button>
 			</div>
 			<!--<div class="record newact" url="/users/tradeDetail.html"/>
 				<h5 class="time">2018-06-30 15:00</h5>
@@ -106,7 +106,8 @@
 					urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
 				} else{
 					address = self.address; // all/each
-					urlApi = api + "txs/" + address + "?page="+ page + '&pageSize=' + pageSize;
+					urlApi = api + "txs/" + 'address' + "?page="+ page + '&pageSize=' + pageSize;
+//					urlApi = api + "txs/" + 'Dc79c49ae89848caed5bc545a1aeccd21df63ca5e4' + "?page="+ page + '&pageSize=' + pageSize;
 				}
 				loadTradeLisy();
 				// 跳转到详情
@@ -126,7 +127,7 @@
 			});
 			// 根据用户信息查看交易列表
 			function loadTradeLisy() {
-				// tradeData = [];
+				tradeData = [];
 				tradeList = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({
@@ -186,7 +187,7 @@
 								$("#loading_box").hide();
 								$("#no_data").show();
 							}
-							if ($(".miner_box").length >= tradeList.count){
+							if ($(".each_trade").length >= ret.data.count){
 								$('.loading').html('已加载全部');
 							} else {
 								$('.loading').html('加载更多');
@@ -208,6 +209,7 @@
 			
 			// 加载更多
 			function loadingMore() {
+				tradeData = [];
 				tradeList = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({
@@ -266,7 +268,7 @@
 							// Div.className = 'mui-table-view-cell';
 							Div.innerHTML = tradeList;
 							minerList.appendChild(Div);
-							if ($(".miner_box").length >= ret.data.count){
+							if ($(".each_trade").length >= ret.data.count){
 								$('.loading').html('已加载全部');
 							} else {
 								$('.loading').html('加载更多');

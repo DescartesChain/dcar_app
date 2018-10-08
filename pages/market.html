@@ -23,7 +23,7 @@
 			<!--内容-->
 			<div class="no_data" id="no_data">暂无行情</div>
 			<div id="coin_content">
-				<ul class="market_body newact" url="/public/echarts.html"> 
+				<!--<ul class="market_body newact" url="/public/echarts.html"> 
 					<li>
 						<div class="grey_text">DCAR</div>
 						<div class="public_text">ETH</div>
@@ -48,7 +48,7 @@
 					<li>
 						<span class="orange_block">- 39.47%</span>
 					</li>
-				</ul>
+				</ul>-->
 			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -62,7 +62,15 @@
 			var retInfo;
 			var coinArray = [];//币种行情（数组）
 			mui.plusReady(function(){
-				
+				$("#coin_content").on("click", ".market_body", function() {
+					mui.openWindow({
+						id: "../public/market_detail.html",
+						url: "../public/market_detail.html",
+						extras: {
+							title: $(this).attr("title")
+						}
+					})
+				});
 			});
 			// 获取所有币种行情
 			function getAllCoin(){
@@ -82,7 +90,7 @@
 							$("#no_data").hide();
 							for(var i in retInfo.data){
 								coinContentList += 
-									'<ul class="market_body">'+
+									'<ul class="market_body" title="'+i+'">'+
 										'<li>'+
 											'<div class="grey_text">' + 'DCAR' + '</div>'+
 											'<div class="public_text">'+ i + '</div>'+

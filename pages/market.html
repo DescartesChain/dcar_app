@@ -21,39 +21,101 @@
 				<li>涨跌幅</li>
 			</ul>
 			<!--内容-->
-			<ul class="market_body newact" url="/public/echarts.html"> 
-				<li>
-					<div class="grey_text">DCAR</div>
-					<div class="public_text">ETH</div>
-				</li>
-				<li>
-					<div class="grey_text">&yen;50</div>
-					<div class="public_text">0.03861004</div>
-				</li>
-				<li>
-					<span class="green_block">+ 39.47%</span>
-				</li>
-			</ul>
-			<!--<ul class="market_body newact" url="/public/echarts.html">
-				<li>
-					<div class="grey_text">DCAR</div>
-					<div class="public_text">ETH</div>
-				</li>
-				<li>
-					<div class="grey_text">&yen;50</div>
-					<div class="public_text">0.000112000</div>
-				</li>
-				<li>
-					<span class="orange_block">- 39.47%</span>
-				</li>
-			</ul>-->
+			<div class="no_data" id="no_data">暂无行情</div>
+			<div id="coin_content">
+				<ul class="market_body newact" url="/public/echarts.html"> 
+					<li>
+						<div class="grey_text">DCAR</div>
+						<div class="public_text">ETH</div>
+					</li>
+					<li>
+						<div class="grey_text">&yen;50</div>
+						<div class="public_text">0.03861004</div>
+					</li>
+					<li>
+						<span class="green_block">+ 39.47%</span>
+					</li>
+				</ul>
+				<ul class="market_body newact" url="/public/echarts.html">
+					<li>
+						<div class="grey_text">DCAR</div>
+						<div class="public_text">ETH</div>
+					</li>
+					<li>
+						<div class="grey_text">&yen;50</div>
+						<div class="public_text">0.000112000</div>
+					</li>
+					<li>
+						<span class="orange_block">- 39.47%</span>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
+			getAllCoin(); // 获取所有币种行情
+			var coinContentList = ''; // 币种行情
+			var retInfo;
+			var coinArray = [];//币种行情（数组）
+			mui.plusReady(function(){
+				
+			});
+			// 获取所有币种行情
+			function getAllCoin(){
+				coinContentList = '';
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: bourseApi + 'ticker/getAllCoin',
+					data: {},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						retInfo = JSON.parse(ret);
+						if(retInfo.error == "0") {
+							$("#no_data").hide();
+							mui.toast('加载成功');
+							$("#no_data").hide();
+							for(var i in retInfo.data){
+								coinContentList += 
+									'<ul class="market_body">'+
+										'<li>'+
+											'<div class="grey_text">' + 'DCAR' + '</div>'+
+											'<div class="public_text">'+ i + '</div>'+
+										'</li>'+
+										'<li>'+
+											'<div class="grey_text">' + '&yen;50' + '</div>'+
+											'<div class="public_text">' + retInfo.data[i].last + '</div>'+
+										'</li>'+
+										'<li>';
+								if (retInfo.data[i].change >= 0){
+									coinContentList += 
+										'<span class="green_block">' + '+' + retInfo.data[i].change + '%' + '</span>';
+								} else if (retInfo.data[i].change < 0){
+									coinContentList += 
+										'<span class="orange_block">' + retInfo.data[i].change + '%' + '</span>';
+								}
+								coinContentList += 
+										'</li>' +
+									'</ul>'
+							}
+							$('#coin_content').html(coinContentList);
+						} else{
+							$("#no_data").show();
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						$("#no_data").show();
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			};
 		</script>
 	</body>
 

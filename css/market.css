@@ -79,3 +79,9 @@
 	padding: 8px 6px 7px 6px;
 	display: inline-block;
 }
+.no_data{
+	text-align: center;
+	font-size: 15px;
+	color:#999;
+	padding:70px 0;
+}

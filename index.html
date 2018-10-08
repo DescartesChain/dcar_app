@@ -20,13 +20,13 @@
 				</div>
 				<span class="mui-tab-label">首页</span>
 			</a>
-			<a id="shangxueyuan" class="mui-tab-item" href="pages/market.html">
+			<a id="market" class="mui-tab-item">
 				<div class="img_box">
 					<i class="iconfont icon-hangqing"></i>
 				</div>
 				<span class="mui-tab-label">行情</span>
 			</a>
-			<a id="gongqiu" class="mui-tab-item">
+			<a id="property" class="mui-tab-item">
 				<div class="img_box">
 					<i class="iconfont icon-zichan"></i>
 				</div>
@@ -80,8 +80,20 @@
 					sub.hide();
 					self.append(sub)
 				}
-				plus.webview.show(subPages[0])
-				$("#gongqiu").on("tap", function(){
+				plus.webview.show(subPages[0]);
+				// 行情
+				$("#market").on("tap", function(){
+					mui.openWindow({
+						url: 'pages/market.html',
+						id: 'pages/market.html',
+						waiting: {
+							autoShow: false,
+						}
+					});
+					plus.webview.getWebviewById("pages/market.html").evalJS("getAllCoin()");
+				});
+				// 资产
+				$("#property").on("tap", function(){
 					mui.openWindow({
 						url: 'pages/property.html',
 						id: 'pages/property.html',

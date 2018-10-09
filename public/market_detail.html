@@ -7,53 +7,132 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
-		<link rel="stylesheet" type="text/css" href="../css/market.css" />
+		<link rel="stylesheet" type="text/css" href="../css/market_detail.css" />
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<h1 class="mui-title">行情</h1>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">ETH/USDT</h1>
 		</header>
-		<div class="mui-content">
-			<ul class="title_line">
-				<li>资产名称</li>
-				<li>最新价</li>
-				<li>涨跌幅</li>
+		<div class="mui-content between">
+			<div class="currency">
+				<div class="name">
+					<div class="logo" id="logo">
+						<img src="../img/property/btn-ethereum.png"/>
+					</div>
+					<h5 class="red">
+						<span id="riseFall">0%</span>
+						<p>日涨跌</p>
+					</h5>
+				</div>
+				<div class="other_info">
+					<ul>
+						<li>
+							<p>最新价</p>
+							<p id="newest">0</p>
+						</li>
+						<li>
+							<p>最高价</p>
+							<p id="max">0</p>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<p>最低价</p>
+							<p id="min">0</p>
+						</li>
+						<li>
+							<p>买一价</p>
+							<p id="buy">0</p>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<p>卖一价</p>
+							<p id="sell">0</p>
+						</li>
+						<li>
+							<p>成交量</p>
+							<p id="volume">0</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<ul class="tab">
+				<li>
+					<span class="active">最新成交</span>
+				</li>
+				<li>
+					<span>卖出</span>
+				</li>
+				<li>
+					<span>买入</span>
+				</li>
 			</ul>
-			<!--内容-->
-			<ul class="market_body newact" url="/public/echarts.html"> 
-				<li>
-					<div class="grey_text">DCAR</div>
-					<div class="public_text">ETH</div>
-				</li>
-				<li>
-					<div class="grey_text">&yen;50</div>
-					<div class="public_text">0.03861004</div>
-				</li>
-				<li>
-					<span class="green_block">+ 39.47%</span>
-				</li>
-			</ul>
-			<!--<ul class="market_body newact" url="/public/echarts.html">
-				<li>
-					<div class="grey_text">DCAR</div>
-					<div class="public_text">ETH</div>
-				</li>
-				<li>
-					<div class="grey_text">&yen;50</div>
-					<div class="public_text">0.000112000</div>
-				</li>
-				<li>
-					<span class="orange_block">- 39.47%</span>
-				</li>
-			</ul>-->
+			<div class="deal">
+				<table>
+					<tr>
+						<th>价格</th>
+						<th>数量</th>
+						<th>时间</th>
+					</tr>
+					<tr>
+						<td>13333</td>
+						<td>233333</td>
+						<td>3333</td>
+					</tr>
+					<tr>
+						<td>43333</td>
+						<td>53333</td>
+						<td>6333</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/jquery-2.1.1.min.js"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			
+			var retInfo;
+			$(".tab li").on("click", function(){
+				$(".tab li span").removeClass("active");
+				$(this).find("span").addClass("active");
+			})
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				title = self.title;
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: bourseApi + "ticker/getTicker?market=" + title,
+					data: {},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						retInfo = JSON.parse(ret);
+						if (retInfo.data[title].change>=0) {
+							$("#riseFall").parent().attr("class", "green");
+							$("#riseFall").html('+' + retInfo.data[title].change + '%');
+						} else {
+							$("#riseFall").parent().attr("class", "red");
+							$("#riseFall").html('-' + retInfo.data[title].change + '%');
+						}
+						$("#logo").find("img").attr("src", retInfo.data[title].img);
+						$("#newest").html(retInfo.data[title].last);
+						$("#max").html(retInfo.data[title].max);
+						$("#min").html(retInfo.data[title].min);
+						$("#buy").html(retInfo.data[title].buy);
+						$("#sell").html(retInfo.data[title].sell);
+						$("#volume").html(retInfo.data[title].volume);
+					},
+					error: function(error) {
+						mui.hideLoading();
+						// mui.toast(error.responseJSON.msg);
+					}
+				});
+			})
 		</script>
 	</body>
 

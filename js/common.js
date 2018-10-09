@@ -2,11 +2,17 @@
 //var DCARapi = "http://192.168.1.232:8545";
 //var api = "https://www.dcar.xyz/api/";
 var DCARapi = "https://apiserchain.dcar.xyz";
-var api = "https://www.dcardev.com/api/";
+var api = "";
 var VERSION = "1.2.2";
 var bourseApi = 'http://api.bzx.com/api/';
 //var ethProvider = 'HTTP://127.0.0.1:7545';
-var log = console.log.bind(console);
+(function(){
+	if (store.get("api") == undefined) {
+		api = "https://www.dcardev.com/api/";
+	} else {
+		api = store.get("api");
+	}
+})()
 function check_login() { 
 	
 	var userId = localStorage.getItem("userId");

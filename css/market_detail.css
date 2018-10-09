@@ -1,0 +1,109 @@
+.currency{
+	overflow: hidden;
+	padding: 0 15px;
+	border-bottom: 12px solid #E5E5E5;
+}
+.name{
+	width: 35%;
+	float: left;
+}
+.name .logo{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	margin: 30px auto 28px;
+}
+.name .logo img{
+	width: 60px;
+	height: 60px;
+}
+.name h5{
+	font-size: 26px;
+	/*padding: 70px 0;*/
+	font-weight: 500;
+	text-align: center;
+}
+.currency h5 p{
+	padding: 6px 0;
+}
+.green{
+	color: #08bfb6;
+}
+.red{
+	color: #e66d42;
+}
+.other_info{
+	float: right;
+	width: 65%;
+	padding: 20px 0;
+}
+.other_info ul{
+	overflow: hidden;
+	width: 100%;
+	padding: 4px 10px;
+}
+.other_info ul li{
+	float: left;
+	width: 50%;
+	text-align: center;
+	font-size: 14px;
+}
+.other_info ul li p{
+	padding: 4px 0;
+}
+.other_info ul li p:first-child{
+	font-weight: 500;
+}
+.other_info ul li p:last-child{
+	color: #333;
+	font-weight: 500;
+	color: #08bfb6;
+}
+.tab{
+	overflow: hidden;
+	/*padding: 0 15px;*/
+	border-bottom: 1px solid #EAEAEA;
+}
+.tab li{
+	width: 33.3%;
+	text-align: center;
+	float: left;
+	padding: 15px 0;
+	font-size: 16px;
+}
+.active{
+	color: #4384c5;
+	font-weight: 500;
+	padding-bottom: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-bottom: 3px solid #4384c5;
+}
+.deal{
+	width: 100%;
+	/*padding: 0 15px;*/
+}
+.deal table{
+	width: 100%;
+}
+.deal table tr{
+	width: 100%;
+}
+.deal table tr:first-child{
+	background: #EDF0F0;
+	/*border-bottom: 1px solid #ccc;*/
+}
+.deal table th,td{
+	width: 33.3%;
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px 0;
+}
+.deal table th{
+	color: #929292;
+	font-size: 12px;
+}
+.deal table td{
+	padding: 18px 0;
+	font-size: 14px;
+}

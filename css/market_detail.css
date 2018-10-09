@@ -8,14 +8,14 @@
 	float: left;
 }
 .name .logo{
-	width: 60px;
-	height: 60px;
+	width: 30px;
+	height: 30px;
 	border-radius: 50%;
-	margin: 30px auto 28px;
+	margin: 50px auto 18px;
 }
 .name .logo img{
-	width: 60px;
-	height: 60px;
+	width: 30px;
+	height: 30px;
 }
 .name h5{
 	font-size: 26px;

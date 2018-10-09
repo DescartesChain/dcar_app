@@ -272,7 +272,8 @@
 				"resources": [],
 				"refer": [
 					"public/trade.html",
-					"public/echarts.html"
+					"public/echarts.html",
+					"public/market_detail.html"
 				],
 				"priority": 0
 			},
@@ -344,6 +345,13 @@
 				"resources": [],
 				"refer": [
 					"users/barcodeAddress.html"
+				],
+				"priority": 0
+			},
+			"public/market_detail.html": {
+				"resources": [],
+				"refer": [
+					"public/echarts.html"
 				],
 				"priority": 0
 			}

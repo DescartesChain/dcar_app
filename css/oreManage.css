@@ -349,3 +349,27 @@ body, .mui-content{
 	padding:8px 20px;
 	margin-bottom:30px;
 }
+.data_state{
+	overflow: hidden;
+	width:85%;
+	margin:20px auto 30px;
+}
+.data_state>li{
+	text-align: center;
+	width:46%;
+	padding:20px 0;
+	border-radius: 50%;
+	background: #E8EDED;
+}
+.data_state>li>img{
+	width:60px;
+}
+.data_state>li>p{
+	color:#4384C5;
+}
+.data_state>li:nth-child(1){
+	float: left;
+}
+.data_state>li:nth-child(2){
+	float: right;
+}

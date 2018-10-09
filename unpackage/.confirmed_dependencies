@@ -98,6 +98,12 @@
 	},
 	"pages/market.html": {
 		"refer": [
+			"public/echarts.html",
+			"public/market_detail.html"
+		]
+	},
+	"public/market_detail.html": {
+		"refer": [
 			"public/echarts.html"
 		]
 	}

@@ -96,7 +96,20 @@
 		<div class="mui-popover alert_box">
 			<p class="alert_title">提示</p>
 			<div class="alert_body" id="close">确定要关机吗？确定之后矿机将停止挖矿</div>
-			<div class="alert_body" id="delete">确定要删除吗？</div>
+			<div class="alert_body" id="delete">
+				<div style="margin:0 25px;">确定要删除矿机吗？</div>
+				<div style="margin:8px 25px 0;">你可以选择数据是否清零</div>
+				<ul class="data_state">
+					<li class="zero">
+						<img src="../img/dataIcon.png" alt="" />
+						<p>数据清零</p>
+					</li>
+					<li class="noZero">
+						<img src="../img/dataIcon.png" alt="" />
+						<p>数据不清零</p>
+					</li>
+				</ul>
+			</div>
 			<div class="alert_body" id="open">确定要开机吗？确定之后矿机将开始挖矿</div>
 			<div class="alert_body" id="deleteWallet">确定要解绑钱包吗？</div>
 			<ul class="alert_operate">
@@ -227,6 +240,17 @@
 //			   loadStateList(); // 获取矿机状态列表
 			},60000)
 			mui.plusReady(function() {
+				$('.zero').css('border','3px solid #E57143');
+				// 点击清零
+				$('.zero').on("click",function(){
+					$('.zero').css('border','3px solid #E57143');
+					$('.noZero').css('border','none');
+				});
+				// 点击不清零
+				$('.noZero').on("click",function(){
+					$('.noZero').css('border','3px solid #E57143');
+					$('.zero').css('border','none');
+				});
 				$('.loading').html('加载中...');
 				// 点击加载更多
 				$('.loading_box').on("click",function(){

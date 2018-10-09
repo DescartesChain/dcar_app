@@ -58,7 +58,7 @@
 						交易记录
 					</a>
 				</li>
-				<li class="mui-table-view-cell" onclick="showHide()">
+				<li class="mui-table-view-cell" id="deletePurce" onclick="showHide()">
 					<a class="mui-navigate-right">
 						删除钱包
 					</a>
@@ -143,19 +143,24 @@
 					$('#showAll').show();
 					$('#showHalf').hide();
 					$("#keystore").hide();
+					$("#deletePurce").show();
 				} else if(targetId == '2') {
 					var purseInfo = store.get('ethPurse');
 					//					$('.account_title').html('ETH-Wallet');
 					$("#headPort").attr("src", "../img/property/btn-ethereum.png");
 					$(".unit").html("ETH");
 					$('#showAll').hide();
+					$("#export").hide();
+					$("#tradeDetail").hide();
 					$('#showHalf').show();
 					$("#keystore").show();
+					$("#deletePurce").hide();
 				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
 					$('#showAll').hide();
 					$('#showHalf').show();
 					$("#keystore").show();
+					$("#deletePurce").hide();
 				}
 				$('.wallet_address').html(purseInfo[purseIndex].address);
 				$('.account_title').html(purseInfo[purseIndex].name);
@@ -323,80 +328,140 @@
 						mui.toast('密码不能为空');
 						return false;
 					}
-					$("input").blur();
-					var timer = null;
-					clearTimeout(timer);
-					timer = setTimeout(function() {
-						mui.showLoading("加载中...", "div");
-						var tiner = null;
-						clearTimeout(tiner);
-						tiner = setTimeout(function() {
-							mui.hideLoading();
-							if(purseInfo[purseIndex].password == $("#pass").val()) {
-								mui.openWindow({
-									id: "/property/export-private-key.html",
-									url: "/property/export-private-key.html",
-									extras: {
-										purseIndex: purseIndex,
-									},
-									waiting: {
-										autoShow: false,
-									}
-								})
-							} else {
-								mui.toast('密码输入错误');
-							}
-							//						var web3 = new Web3();
-							//						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-							//						var keystoreJsonV3 = JSON.parse(keystoreString)
-							//						var password = $("#pass").val();
-							//						try {
-							//							// 读取 钱包地址
-							//							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-							//							mui.openWindow({
-							//								id: "/property/export-private-key.html",
-							//								url: "/property/export-private-key.html",
-							//								extras: {
-							//									purseIndex: purseIndex,
-							//								},
-							//								waiting: {
-							//									autoShow: false,
-							//								}
-							//							})
-							//							console.log(wallet.address)
-							//							console.log(wallet.privateKey)
-							//						} catch(err) {
-							//							mui.toast('密码输入错误');
-							//						}
-						}, 100)
-					}, 1000)
-					//				mui.showLoading("加载中...", "div");
-					//				var web3 = new Web3();
-					//				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
-					//				var keystoreJsonV3 = JSON.parse(keystoreString)
-					//				var password = $("#pass").val();
-					//				try {
-					//					// 读取 钱包地址
-					//					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-					//					mui.openWindow({
-					//						id: "/property/export-private-key.html",
-					//						url: "/property/export-private-key.html",
-					//						extras: {
-					//							purseIndex: purseIndex,
-					//						},
-					//						waiting: {
-					//							autoShow: false,
-					//						}
-					//					})
-					//					console.log(wallet.address)
-					//					console.log(wallet.privateKey)
-					//				} catch(err) {
-					//					mui.toast('密码输入错误');
-					//				}
+					if(targetId == '1') {
+						$("input").blur();
+						var timer = null;
+						clearTimeout(timer);
+						timer = setTimeout(function() {
+							mui.showLoading("加载中...", "div");
+							var tiner = null;
+							clearTimeout(tiner);
+							tiner = setTimeout(function() {
+								mui.hideLoading();
+								if(purseInfo[purseIndex].password == $("#pass").val()) {
+									mui.openWindow({
+										id: "/property/export-private-key.html",
+										url: "/property/export-private-key.html",
+										extras: {
+											purseIndex: purseIndex,
+										},
+										waiting: {
+											autoShow: false,
+										}
+									})
+								} else {
+									mui.toast('密码输入错误');
+								}
+								//						var web3 = new Web3();
+								//						var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+								//						var keystoreJsonV3 = JSON.parse(keystoreString)
+								//						var password = $("#pass").val();
+								//						try {
+								//							// 读取 钱包地址
+								//							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+								//							mui.openWindow({
+								//								id: "/property/export-private-key.html",
+								//								url: "/property/export-private-key.html",
+								//								extras: {
+								//									purseIndex: purseIndex,
+								//								},
+								//								waiting: {
+								//									autoShow: false,
+								//								}
+								//							})
+								//							console.log(wallet.address)
+								//							console.log(wallet.privateKey)
+								//						} catch(err) {
+								//							mui.toast('密码输入错误');
+								//						}
+							}, 100)
+						}, 1000)
+						//				mui.showLoading("加载中...", "div");
+						//				var web3 = new Web3();
+						//				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+						//				var keystoreJsonV3 = JSON.parse(keystoreString)
+						//				var password = $("#pass").val();
+						//				try {
+						//					// 读取 钱包地址
+						//					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+						//					mui.openWindow({
+						//						id: "/property/export-private-key.html",
+						//						url: "/property/export-private-key.html",
+						//						extras: {
+						//							purseIndex: purseIndex,
+						//						},
+						//						waiting: {
+						//							autoShow: false,
+						//						}
+						//					})
+						//					console.log(wallet.address)
+						//					console.log(wallet.privateKey)
+						//				} catch(err) {
+						//					mui.toast('密码输入错误');
+						//				}
+					} else if(targetId == '2') {
+						$("input").blur();
+						var timer = null;
+						clearTimeout(timer);
+						timer = setTimeout(function() {
+							mui.showLoading("加载中...", "div");
+							var tiner = null;
+							clearTimeout(tiner);
+							tiner = setTimeout(function() {
+								mui.hideLoading();
+								var web3 = new Web3();
+								var keystoreString = store.get('ethPurse')[purseIndex].keystore;
+								var keystoreJsonV3 = JSON.parse(keystoreString)
+								var password = $("#pass").val();
+								try {
+									// 读取 钱包地址
+									var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+									mui.openWindow({
+										id: "/property/export-private-key.html",
+										url: "/property/export-private-key.html",
+										extras: {
+											purseIndex: purseIndex,
+										},
+										waiting: {
+											autoShow: false,
+										}
+									})
+									console.log(wallet.address)
+									console.log(wallet.privateKey)
+								} catch(err) {
+									mui.toast('密码输入错误');
+								}
+							}, 100)
+						}, 1000)
+						//				mui.showLoading("加载中...", "div");
+						//				var web3 = new Web3();
+						//				var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+						//				var keystoreJsonV3 = JSON.parse(keystoreString)
+						//				var password = $("#pass").val();
+						//				try {
+						//					// 读取 钱包地址
+						//					var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+						//					mui.openWindow({
+						//						id: "/property/export-private-key.html",
+						//						url: "/property/export-private-key.html",
+						//						extras: {
+						//							purseIndex: purseIndex,
+						//						},
+						//						waiting: {
+						//							autoShow: false,
+						//						}
+						//					})
+						//					console.log(wallet.address)
+						//					console.log(wallet.privateKey)
+						//				} catch(err) {
+						//					mui.toast('密码输入错误');
+						//				}
+					}
 				});
 
 				// 导出keystore
 				$("#sureKeystore").on("click", function() {
+					alert(store.get('ethPurse')[purseIndex].keystore);
 					$("input").blur();
 					var timer = null;
 					clearTimeout(timer);
@@ -407,7 +472,7 @@
 						tiner = setTimeout(function() {
 							mui.hideLoading();
 							var web3 = new Web3();
-							var keystoreString = store.get('dcarPurse')[purseIndex].keystore;
+							var keystoreString = store.get('ethPurse')[purseIndex].keystore;
 							var keystoreJsonV3 = JSON.parse(keystoreString)
 							var password = $("#pass").val();
 							try {

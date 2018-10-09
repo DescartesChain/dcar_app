@@ -94,6 +94,7 @@
 						try {
 							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
 							wallet.name = 'ETH钱包';
+							wallet.keystore = keystoreString;
 							var eth_data = store.get("ethPurse");
 							eth_data.push(wallet);
 							store.set('ethPurse', eth_data);

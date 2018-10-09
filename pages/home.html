@@ -88,6 +88,9 @@
 			var cart_list = '';
 			// 获取公告列表
 			function loadPostList() {
+				cart_list = '';
+				$('#cart_list').empty();
+				goods = [];
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",

@@ -81,6 +81,17 @@
 					self.append(sub)
 				}
 				plus.webview.show(subPages[0]);
+				// 首页
+				$("#defaultTab").on("tap", function(){
+					mui.openWindow({
+						url: 'pages/home.html',
+						id: 'pages/home.html',
+						waiting: {
+							autoShow: false,
+						}
+					});
+					plus.webview.getWebviewById("pages/home.html").evalJS("loadPostList()");
+				});
 				// 行情
 				$("#market").on("tap", function(){
 					mui.openWindow({

@@ -18,7 +18,7 @@
 		</header>
 		<div class="mui-content between">
 			<div class="logo">
-				<i class="iconfont icon-shezhigengxin"></i>
+				<i class="iconfont icon-shezhigengxin" id="apiClick"></i>
 				<p>版本 : <span id="version">加载中...</span></p>
 			</div>
 			<!--描述-->
@@ -42,6 +42,17 @@
 			</p>
 			<!--<button type="button"  class="mui-btn mui-btn-primary">下载并安装</button>-->
 		</div>
+		<!--修改api-->
+		<div class="mui-popover alter_box">
+			<p class="alert_title">修改api地址</p>
+			<div class="alter_main">
+				<input type="text" placeholder="请填写api地址" id="apiName"/>
+			</div>
+			<ul class="alert_operate">
+				<li onclick="sureAlter()">确定</li>
+				<li class="alter_button">取消</li>
+			</ul>
+		</div>
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/markdown.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
@@ -51,7 +62,36 @@
 		<script src="../js/clipboard/clipboard.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var key;
+			var count = 0; // 点击版本号
+			var apiAddress; // api地址
 			mui.showLoading("加载中...", "div");
+			mui.plusReady(function(){
+				// 打开修改api框
+				$('#apiClick').on("click",function(){
+					count++;
+					console.log(count);
+					if(count >= 7){
+						mui('.alter_box').popover('toggle');
+					}
+				});
+				// 关闭修改api框
+				$(".alter_button").on("click", function() {
+					count = 0;
+					mui('.alter_box').popover('toggle');
+				});
+			});
+			// 确定修改api地址
+			function sureAlter(){
+				apiAddress = $('#apiName').val();
+				if (apiAddress == '' || apiAddress == undefined) {
+					mui.toast('请填写api地址');
+					return false;
+				}
+				count = 0;
+				mui.toast('api地址修改成功');
+				store.set('api', apiAddress);
+				mui('.alter_box').popover('toggle');
+			};
 			$.ajax({
 				type: "get",
 				url: api + "dcarapp/latest",

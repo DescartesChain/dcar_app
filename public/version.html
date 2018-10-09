@@ -67,7 +67,7 @@
 			mui.showLoading("加载中...", "div");
 			mui.plusReady(function(){
 				// 打开修改api框
-				$('#apiClick').on("click",function(){
+				$('#apiClick').on("tap",function(){
 					count++;
 					console.log(count);
 					if(count >= 7){
@@ -75,7 +75,7 @@
 					}
 				});
 				// 关闭修改api框
-				$(".alter_button").on("click", function() {
+				$(".alter_button").on("tap", function() {
 					count = 0;
 					mui('.alter_box').popover('toggle');
 				});

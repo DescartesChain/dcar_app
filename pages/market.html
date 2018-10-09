@@ -62,6 +62,8 @@
 			var coinContentList = ''; // 币种行情
 			var retInfo = {};
 			var coinArray = [];//币种行情（数组）
+			var rate = 6.88; // 美元汇率
+			getrate(); // 获取汇率
 			mui.plusReady(function(){
 				$("#coin_content").on("click", ".market_body", function() {
 					mui.openWindow({
@@ -73,11 +75,26 @@
 					})
 				});
 			});
+			// 获取美元汇率
+			function getrate () {
+		      $.ajax({
+		        type: 'get',
+		        url: 'http://apilayer.net/api/live?access_key=8473882844f0d9323edec2f4b403432c',
+		        data: {},
+		        async: true,
+		        success: function (ret) {
+		          if (ret.success) {
+		            rate = ret.quotes.USDCNY
+		          } else {
+		            rate = 6.88
+		          }
+		        }
+		      })
+		    }
 			// 获取dcar_usdt币种行情
 			function getAllCoin(){
 //				console.log('获取');
 				retInfo = {};
-				coinContentList = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
@@ -88,6 +105,7 @@
 						mui.hideLoading();
 						retInfo = JSON.parse(ret);
 						if(retInfo.error == "0") {
+							coinContentList = '';
 							$("#no_data").hide();
 							mui.toast('加载成功');
 							$("#no_data").hide();
@@ -99,7 +117,7 @@
 											'<div class="public_text">'+ i + '</div>'+
 										'</li>'+
 										'<li>'+
-											'<div class="grey_text">' + '&yen;50' + '</div>'+
+											'<div class="grey_text">' + '&yen;'+(retInfo.data[i].last*rate).toFixed(2)+'' + '</div>'+
 											'<div class="public_text">' + retInfo.data[i].last + '</div>'+
 										'</li>'+
 										'<li>';

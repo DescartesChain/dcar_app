@@ -57,9 +57,9 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
-			getAllCoin(); // 获取所有币种行情
+//			getAllCoin(); // 获取所有币种行情
 			var coinContentList = ''; // 币种行情
-			var retInfo;
+			var retInfo = {};
 			var coinArray = [];//币种行情（数组）
 			mui.plusReady(function(){
 				$("#coin_content").on("click", ".market_body", function() {
@@ -74,6 +74,8 @@
 			});
 			// 获取dcar_usdt币种行情
 			function getAllCoin(){
+//				console.log('获取');
+				retInfo = {};
 				coinContentList = '';
 				mui.showLoading("加载中...", "div");
 				$.ajax({

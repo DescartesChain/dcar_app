@@ -19,7 +19,7 @@
 			<div class="currency">
 				<div class="name">
 					<div class="logo" id="logo">
-						<img src="../img/property/btn-ethereum.png"/>
+						<img src="../img/property/loading.gif"/>
 					</div>
 					<h5 class="red">
 						<span id="riseFall">0%</span>
@@ -60,33 +60,53 @@
 				</div>
 			</div>
 			<ul class="tab">
-				<li>
+				<li num="0">
 					<span class="active">最新成交</span>
 				</li>
-				<li>
+				<li num="1">
 					<span>卖出</span>
 				</li>
-				<li>
+				<li num="2">
 					<span>买入</span>
 				</li>
 			</ul>
-			<div class="deal">
+			<div class="deal" id="deal">
 				<table>
-					<tr>
-						<th>价格</th>
-						<th>数量</th>
-						<th>时间</th>
-					</tr>
-					<tr>
-						<td>13333</td>
-						<td>233333</td>
-						<td>3333</td>
-					</tr>
-					<tr>
-						<td>43333</td>
-						<td>53333</td>
-						<td>6333</td>
-					</tr>
+					<thead>
+						<tr>
+							<th>价格</th>
+							<th>数量</th>
+							<th>时间</th>
+						</tr>
+					</thead>
+					<tbody id="dealBox">
+					</tbody>
+				</table>
+			</div>
+			<div class="deal" id="dellOut">
+				<table>
+					<thead>
+						<tr>
+							<th>价格</th>
+							<th>数量</th>
+							<th>总额</th>
+						</tr>
+					</thead>
+					<tbody id="dellOutBox">
+					</tbody>
+				</table>
+			</div>
+			<div class="deal" id="purchase">
+				<table>
+					<thead>
+						<tr>
+							<th>价格</th>
+							<th>数量</th>
+							<th>总额</th>
+						</tr>
+					</thead>
+					<tbody id="purchaseBox">
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -97,13 +117,39 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			var retInfo;
+			var tradeData; // 交易记录
+			var buyArray = []; // 买入
+			var sellArray = []; // 卖出
+			var buyList = '';
+			var sellList = '';
+			var tradeList = '';
 			$(".tab li").on("click", function(){
 				$(".tab li span").removeClass("active");
 				$(this).find("span").addClass("active");
+				if ($(this).attr("num") == 0) {
+					$("#deal").show();
+					$("#dellOut").hide();
+					$("#purchase").hide();
+					return false;
+				}
+				if ($(this).attr("num") == 1) {
+					$("#deal").hide();
+					$("#dellOut").show();
+					$("#purchase").hide();
+					return false;
+				}
+				if ($(this).attr("num") == 2) {
+					$("#deal").hide();
+					$("#dellOut").hide();
+					$("#purchase").show();
+					return false;
+				}
 			})
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				title = self.title;
+				$(".mui-title").html(title);
+				// 获取币种详细信息
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
@@ -118,7 +164,7 @@
 							$("#riseFall").html('+' + retInfo.data[title].change + '%');
 						} else {
 							$("#riseFall").parent().attr("class", "red");
-							$("#riseFall").html('-' + retInfo.data[title].change + '%');
+							$("#riseFall").html(retInfo.data[title].change + '%');
 						}
 						$("#logo").find("img").attr("src", retInfo.data[title].img);
 						$("#newest").html(retInfo.data[title].last);
@@ -131,6 +177,66 @@
 					error: function(error) {
 						mui.hideLoading();
 						// mui.toast(error.responseJSON.msg);
+					}
+				});
+				// 获取币种交易记录
+				$.ajax({
+					type: "get",
+					url: bourseApi + "ticker/getTrades?market=" + title,
+					data: {},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						tradeData = JSON.parse(ret).data[title];
+						for (var i=0;i<tradeData.length;i++){
+							if (tradeData[i].type == 'buy') {
+								buyArray.push(tradeData[i]);
+							} else {
+								sellArray.push(tradeData[i]);
+							}
+						}
+						if (tradeData.length > 0) {
+							$.each(tradeData, function(i, t) {
+								tradeList +=
+								    '<tr>' +
+										'<td>'+ t.price +'</td>' +
+										'<td>'+ t.num +'</td>' +
+										'<td>'+ t.addtime +'</td>' +
+									'</tr>';
+							})
+							$('#dealBox').html(tradeList);
+						} else {
+							$("#deal").html("暂无记录");
+						}
+						if (buyArray.length > 0) {
+							$.each(buyArray, function(i, t) {
+								buyList +=
+								    '<tr>' +
+										'<td>'+ t.price +'</td>' +
+										'<td>'+ t.num +'</td>' +
+										'<td>'+ t.mun +'</td>' +
+									'</tr>';
+							})
+							$('#purchaseBox').html(buyList);
+						} else {
+							$("#purchase").html("暂无记录");
+						}
+						if (sellArray.length > 0) {
+							$.each(sellArray, function(i, t) {
+								sellList +=
+								    '<tr>' +
+										'<td>'+ t.price +'</td>' +
+										'<td>'+ t.num +'</td>' +
+										'<td>'+ t.mun +'</td>' +
+									'</tr>';
+							})
+							$('#dellOutBox').html(sellList);
+						} else {
+							$("#dellOut").html("暂无记录");
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
 					}
 				});
 			})

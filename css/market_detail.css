@@ -81,7 +81,11 @@
 }
 .deal{
 	width: 100%;
+	display: none;
 	/*padding: 0 15px;*/
+}
+#deal{
+	display: block;
 }
 .deal table{
 	width: 100%;
@@ -89,7 +93,7 @@
 .deal table tr{
 	width: 100%;
 }
-.deal table tr:first-child{
+.deal table thead tr{
 	background: #EDF0F0;
 	/*border-bottom: 1px solid #ccc;*/
 }

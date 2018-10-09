@@ -1,4 +1,5 @@
-﻿//var api = "http://192.168.1.232:3000/api/";
+﻿// document.write("<script type='text/javascript' src='store/dist/store.legacy.min.js'></script>");
+//var api = "http://192.168.1.232:3000/api/";
 //var DCARapi = "http://192.168.1.232:8545";
 //var api = "https://www.dcar.xyz/api/";
 var DCARapi = "https://apiserchain.dcar.xyz";

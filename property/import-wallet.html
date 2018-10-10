@@ -20,7 +20,7 @@
 		<div class="mui-content">
 			<ul class="import_nav">
 				<li class="active_state choose">keyStore导入</li>
-				<li class="grey_state choose">助记词</li>
+				<li class="grey_state choose">私钥导入</li>
 			</ul>
 			<div class="import_main">
 				<textarea id="keystoreString" rows="3" placeholder="请输入keyStore" class="import_input"></textarea>
@@ -45,73 +45,132 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			var importMode = 0; // 0 keystore 1 私钥
 			mui.init()
 			$('.choose').click(function() {
 				$(this).addClass('active_state').removeClass("grey_state").siblings().addClass('grey_state').removeClass('active_state');
-				if($(this).html() == '助记词') {
-					$('.import_alert').html('使用助记词导入的同时可以修改密码');
-					$('.import_input').attr('placeholder', '输入助记词，用空格分隔');
+				if($(this).html() == '私钥导入') {
+					importMode = 1;
+					$('.import_alert').html('请输入私钥内容至输入框。或通过扫描 Private Key内容生成二维码录入');
+					$('.import_input').attr('placeholder', '请输入私钥');
 				};
 				if($(this).html() == 'keyStore导入') {
+					importMode = 0;
 					$('.import_alert').html('请输入keyStore 文件内容至输入框。或通过扫描 Private Key内容生成二维码录入');
 					$('.import_input').attr('placeholder', '请输入keyStore');
 				}
 			})
 			$("#leadIn").on("click", function() {
-				if($("#keystoreString").val() == "") {
-					mui.toast('keyStore不能为空')
-					return false;
+					if (importMode == 0) {
+						if($("#keystoreString").val() == "") {
+						mui.toast('keyStore不能为空')
+						return false;
+					}
+					if($("#pass").val() == "") {
+						mui.toast('密码不能为空')
+						return false;
+					}
+					if($("#ensurePass").val() == "") {
+						mui.toast('请再次输入密码')
+						return false;
+					}
+					if($("#pass").val() != $("#ensurePass").val()) {
+						mui.toast('两次密码不一致')
+						return false;
+					}
+					$("input").blur();
+					var tiner = null;
+					clearTimeout(tiner);
+					tiner = setTimeout(function() {
+						mui.showLoading("加载中...", "div");
+						var time = null;
+						clearTimeout(time);
+						time = setTimeout(function() {
+							// 创建 Web3 实例
+							var web3 = new Web3();
+							// 用户导入 keystore 文件
+							var keystoreString = $("#keystoreString").val();
+							// 转换为 JSON 文件
+							var keystoreJsonV3 = JSON.parse(keystoreString);
+							// 用户输入争取的密码
+							var password = $("#pass").val();
+							// 获取钱包信息
+							try {
+								var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+								wallet.name = 'ETH钱包';
+								wallet.keystore = keystoreString;
+								var eth_data = store.get("ethPurse");
+								eth_data.push(wallet);
+								store.set('ethPurse', eth_data);
+								mui.toast('钱包导入成功');
+								var timer = null;
+								clearTimeout(timer);
+								timer = setTimeout(function() {
+									plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
+									plus.webview.currentWebview().close();
+								}, 1000);
+							} catch(err) {
+								console.log(err);
+								mui.toast('密码或keyStore错误');
+							}
+							mui.hideLoading();
+						}, 10)
+					}, 1000)
+				} else {
+					if($("#keystoreString").val() == "") {
+						mui.toast('私钥不能为空')
+						return false;
+					}
+					if($("#pass").val() == "") {
+						mui.toast('密码不能为空')
+						return false;
+					}
+					if($("#ensurePass").val() == "") {
+						mui.toast('请再次输入密码')
+						return false;
+					}
+					if($("#pass").val() != $("#ensurePass").val()) {
+						mui.toast('两次密码不一致')
+						return false;
+					}
+					$("input").blur();
+					var tiner = null;
+					clearTimeout(tiner);
+					tiner = setTimeout(function() {
+						mui.showLoading("加载中...", "div");
+						var time = null;
+						clearTimeout(time);
+						time = setTimeout(function() {
+							// 创建 Web3 实例
+							var web3 = new Web3();
+							// 用户导入私钥文件
+							var privateKey = $("#keystoreString").val();
+							// 用户输入争取的密码
+							var password = $("#pass").val();
+							var keystore = web3.eth.accounts.encrypt(privateKey, password)
+							// 获取钱包信息
+							try {
+								var wallet = web3.eth.accounts.decrypt(keystore, password);
+								wallet.name = 'ETH钱包';
+								wallet.keystore = JSON.stringify(keystore);
+								var eth_data = store.get("ethPurse");
+								eth_data.push(wallet);
+								store.set('ethPurse', eth_data);
+								mui.toast('钱包导入成功');
+								var timer = null;
+								clearTimeout(timer);
+								timer = setTimeout(function() {
+									plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
+									plus.webview.currentWebview().close();
+								}, 1000);
+							} catch(err) {
+								console.log(err);
+								mui.toast('密码或keyStore错误');
+							}
+							mui.hideLoading();
+						}, 10)
+					}, 1000)
 				}
-				if($("#pass").val() == "") {
-					mui.toast('密码不能为空')
-					return false;
-				}
-				if($("#ensurePass").val() == "") {
-					mui.toast('请再次输入密码')
-					return false;
-				}
-				if($("#pass").val() != $("#ensurePass").val()) {
-					mui.toast('两次密码不一致')
-					return false;
-				}
-				$("input").blur();
-				var tiner = null;
-				clearTimeout(tiner);
-				tiner = setTimeout(function() {
-					mui.showLoading("加载中...", "div");
-					var time = null;
-					clearTimeout(time);
-					time = setTimeout(function() {
-						// 创建 Web3 实例
-						var web3 = new Web3();
-						// 用户导入 keystore 文件
-						var keystoreString = $("#keystoreString").val();
-						// 转换为 JSON 文件
-						var keystoreJsonV3 = JSON.parse(keystoreString);
-						// 用户输入争取的密码
-						var password = $("#pass").val();
-						// 获取钱包信息
-						try {
-							var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
-							wallet.name = 'ETH钱包';
-							wallet.keystore = keystoreString;
-							var eth_data = store.get("ethPurse");
-							eth_data.push(wallet);
-							store.set('ethPurse', eth_data);
-							mui.toast('钱包导入成功');
-							var timer = null;
-							clearTimeout(timer);
-							timer = setTimeout(function() {
-								plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
-								plus.webview.currentWebview().close();
-							}, 1000);
-						} catch(err) {
-							console.log(err);
-							mui.toast('密码或keyStore错误');
-						}
-						mui.hideLoading();
-					}, 10)
-				}, 1000)
 			})
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();

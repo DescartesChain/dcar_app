@@ -8,6 +8,16 @@
 		<link href="../css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../css/tradeRecord.css"/>
+		<style>
+			.hash_num{
+				line-height: 24px;
+				/*color:#000;*/
+				font-weight: bold;
+			}
+			/*.left_trade>span{
+				color:#000;
+			}*/
+		</style>
 	</head>
 
 	<body>
@@ -18,18 +28,17 @@
 		<div class="mui-content">
 			<div class="no_data" id="no_data">暂无矿收记录</div>
 			<div class="trade_body" id="tadeMain">
-				<div class="each_trade">
+				<!--<div class="each_trade">
 					<div class="left_trade">
 						<span>1</span>
 					</div>
 					<div class="middle_trade">
 						<div class="hash_num">
-							<span>收益:</span>
-							123131321
+							<span>收益: </span>
 						</div>
 						<div class="trade_date">2018-03-03 13:00</div>
 					</div>
-				</div>
+				</div>-->
 			</div>
 		</div>
 		<div class="loading_box" id="loading_box">
@@ -41,6 +50,16 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			function formatDate(now){     
+                var date = new Date(now);
+				Y = date.getFullYear() + '-';
+				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+				D = date.getDate()<10?'0'+date.getDate()+ ' ':date.getDate() + ' ';
+				h = date.getHours()<10?'0'+date.getHours()+ ':':date.getHours()+ ':';
+				m = date.getMinutes()<10?'0'+date.getMinutes()+ ':':date.getMinutes() + ':';
+				s = date.getSeconds()<10?'0'+date.getSeconds()+ ':':date.getSeconds(); 
+				return Y+M+D+h+m+s;
+           }  
 			var page = 1; //第几页
 			var pageSize = 20; // 每页显示条数   -1：不分页
 			var address;
@@ -69,6 +88,7 @@
 				$.ajax({
 					type: "get",
 					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
+//					url: tradeApi + "profits/" + address + "?page=" + page + '&pageSize=' + pageSize,
 					data: {},
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
@@ -93,7 +113,7 @@
 												'<span>收益:</span>' +
 												t.value.toFixed(2) +
 											'</div>' +
-											'<div class="trade_date">'+ t.timestamp +'</div>' +
+											'<div class="trade_date">'+ formatDate(t.timestamp) +'</div>' +
 										'</div>' +    
 									'</div>';
 								})
@@ -130,6 +150,7 @@
 				$.ajax({
 					type: "get",
 					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
+//					url: tradeApi + "profits/" + address + "?page=" + page + '&pageSize=' + pageSize,
 					data: {},
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
@@ -152,7 +173,7 @@
 												'<span>收益:</span>' +
 												t.value.toFixed(2) +
 											'</div>' +
-											'<div class="trade_date">'+ t.timestamp +'</div>' +
+											'<div class="trade_date">'+ formatDate(t.timestamp) +'</div>' +
 										'</div>' +    
 									'</div>';
 								})

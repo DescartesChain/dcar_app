@@ -85,6 +85,17 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			function formatDate(now){     
+                var date = new Date(now);
+				Y = date.getFullYear() + '-';
+				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+				D = date.getDate()<10?'0'+date.getDate()+ ' ':date.getDate() + ' ';
+				h = date.getHours()<10?'0'+date.getHours()+ ':':date.getHours()+ ':';
+				m = date.getMinutes()<10?'0'+date.getMinutes()+ ':':date.getMinutes() + ':';
+				s = date.getSeconds()<10?'0'+date.getSeconds()+ ':':date.getSeconds(); 
+				return Y+M+D+h+m+s;
+            } 
+			var timeData;
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				if(self.address == self.from) {
@@ -95,7 +106,11 @@
 				$("#tradeHash").html(self.thash);
 				$("#outAccount").html(self.tfrom);
 				$("#enterAccount").html(self.tto);
-				$("#time").html(self.timestamp);
+				timeData = self.timestamp;
+				console.log(timeData);
+				timeData = formatDate(timeData);
+				console.log(timeData);
+				$("#time").html(timeData);
 			})
 		</script>
 	</body>

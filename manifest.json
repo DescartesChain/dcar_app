@@ -199,7 +199,8 @@
 					"property/backup-wallet.html",
 					"property/export-private-key.html",
 					"users/tradeRecord.html",
-					"property/export-keystore.html"
+					"property/export-keystore.html",
+					"users/minerCollect.html"
 				],
 				"priority": 0
 			},

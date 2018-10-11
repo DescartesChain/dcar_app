@@ -106,8 +106,8 @@
 					urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
 				} else{
 					address = self.address; // all/each
-					urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
-//					urlApi = tradeApi + "transactions/account/" + 'dce188fb32aa429d09c6cc514d2180c4bc81cb36ca' + "?page="+ page + '&pageSize=' + pageSize;
+//					urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
+					urlApi = tradeApi + "transactions/account/" + 'Dce188fb32aa429d09c6cc514d2180c4bc81cb36ca' + "?page="+ page + '&pageSize=' + pageSize;
 				}
 				loadTradeLisy();
 				// 跳转到详情
@@ -144,9 +144,9 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							tradeData = ret.data.list; // 交易列表
-							for(var i = 0;i<ret.data.list.length;i++){
-								ret.data.list[i].value = Math.round(ret.data.list[i].value/1000000000000000000 * 100)/100;
-							}
+//							for(var i = 0;i<ret.data.list.length;i++){
+//								ret.data.list[i].value = Math.round(ret.data.list[i].value/1000000000000000000 * 100)/100;
+//							}
 							if(ret.data.list.length > 0) {
 								$("#no_data").hide();
 								$("#loading_box").show();
@@ -226,9 +226,9 @@
 						if(ret.success) {
 							mui.toast('加载成功');
 							tradeData = ret.data.list; // 交易列表
-							for(var i = 0;i<ret.data.list.length;i++){
-								ret.data.list[i].value = Math.round(ret.data.list[i].value/1000000000000000000 * 100)/100;
-							}
+//							for(var i = 0;i<ret.data.list.length;i++){
+//								ret.data.list[i].value = Math.round(ret.data.list[i].value/1000000000000000000 * 100)/100;
+//							}
 							if(ret.data.list.length > 0) {
 								$.each(ret.data.list, function(i, t) {
 								tradeList += 

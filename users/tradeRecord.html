@@ -106,8 +106,8 @@
 					urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
 				} else{
 					address = self.address; // all/each
-//					urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
-					urlApi = tradeApi + "transactions/account/" + 'Dce188fb32aa429d09c6cc514d2180c4bc81cb36ca' + "?page="+ page + '&pageSize=' + pageSize;
+					urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
+//					urlApi = tradeApi + "transactions/account/" + 'Dce188fb32aa429d09c6cc514d2180c4bc81cb36ca' + "?page="+ page + '&pageSize=' + pageSize;
 				}
 				loadTradeLisy();
 				// 跳转到详情
@@ -120,12 +120,22 @@
 							tvalue: $(this).attr("tvalue"),
 							tto: $(this).attr("tto"),
 							thash: $(this).attr("thash"),
-							timestamp:$(this).attr("timestamp"),
+							ttimestamp:$(this).attr("ttimestamp"),
 							address: address
 						}
 					})
 				});
 			});
+			function formatDate(now){     
+                var date = new Date(now);
+				Y = date.getFullYear() + '-';
+				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+				D = date.getDate()<10?'0'+date.getDate()+ ' ':date.getDate() + ' ';
+				h = date.getHours()<10?'0'+date.getHours()+ ':':date.getHours()+ ':';
+				m = date.getMinutes()<10?'0'+date.getMinutes()+ ':':date.getMinutes() + ':';
+				s = date.getSeconds()<10?'0'+date.getSeconds()+ ':':date.getSeconds();
+				return Y+M+D+h+m+s;
+            }
 			// 根据用户信息查看交易列表
 			function loadTradeLisy() {
 				tradeData = [];
@@ -152,7 +162,7 @@
 								$("#loading_box").show();
 								$.each(ret.data.list, function(i, t) {
 								tradeList += 
-									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" timestamp="'+t.timestamp+'">' + 
+									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" ttimestamp="'+t.timestamp+'">' + 
 										'<div class="left_trade">' +
 											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
 										'</div>'+
@@ -168,7 +178,7 @@
 												}
 												tradeList +=
 											'</div>'+
-//											'<div class="trade_date">' + '2018-03-03 13:00' +'</div>' + 
+											'<div class="trade_date">' + formatDate(t.timestamp) +'</div>' + 
 										'</div>'+
 										'<div class="right_trade">';
 									if(address == t.from){
@@ -248,7 +258,7 @@
 												}
 												tradeList +=
 											'</div>'+
-//											'<div class="trade_date">' + '2018-03-03 13:00' +'</div>' + 
+											'<div class="trade_date">' + formatDate(t.timestamp) +'</div>' + 
 										'</div>'+
 										'<div class="right_trade">';
 									if(address == t.from){

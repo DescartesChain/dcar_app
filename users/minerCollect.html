@@ -50,8 +50,8 @@
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			function formatDate(now){     
-                var date = new Date(now);
+			function formatDate(now){
+				var date = new Date(now);
 				Y = date.getFullYear() + '-';
 				M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
 				D = date.getDate()<10?'0'+date.getDate()+ ' ':date.getDate() + ' ';
@@ -87,8 +87,8 @@
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
-					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
-//					url: tradeApi + "profits/" + address + "?page=" + page + '&pageSize=' + pageSize,
+//					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
+					url: tradeApi + "profits/" + address + "?page=" + page + '&pageSize=' + pageSize,
 					data: {},
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
@@ -149,8 +149,8 @@
 				mui.showLoading("加载中...", "div");
 				$.ajax({
 					type: "get",
-					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
-//					url: tradeApi + "profits/" + address + "?page=" + page + '&pageSize=' + pageSize,
+//					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
+					url: tradeApi + "profits/" + address + "?page=" + page + '&pageSize=' + pageSize,
 					data: {},
 					beforeSend: function(xhr) {
 						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);

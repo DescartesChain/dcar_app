@@ -4,14 +4,15 @@
 //var api = "https://www.dcar.xyz/api/";
 var DCARapi = "https://apiserchain.dcar.xyz";
 var api = "";
-var VERSION = "1.2.2";
+var VERSION = "1.2.3";
 var bourseApi = 'http://api.bzx.com/api/';
 //var ethProvider = 'HTTP://127.0.0.1:7545';
-//var tradeApi = 'https://scan.dcar.xyz/api/';  // 交易记录api
-var tradeApi = 'http://192.168.1.232:4000/api/';  // 交易记录api
+var tradeApi = 'https://scan.dcar.xyz/api/';  // 交易记录api
+//var tradeApi = 'http://192.168.1.232:4000/api/';  // 交易记录api
 (function(){
 	if (store.get("api") == undefined) {
-		api = "https://www.dcardev.com/api/";
+		// api = "https://www.dcardev.com/api/";
+		api = "https://www.dcar.xyz/api/";
 	} else {
 		api = store.get("api");
 	}

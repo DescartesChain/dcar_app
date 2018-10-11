@@ -26,12 +26,12 @@
 				<p class="trade_num"><span id="price">加载中...</span> DCAR</p>
 				<!--交易状态-->
 				<p class="trade_state">交易成功</p>
-				<!--<div class="each_detail">
+				<div class="each_detail">
 					<div class="left_detail">交易时间</div>
-					<div class="right_detail">
-						2018-02-22 15:00
+					<div class="right_detail" id="time">
+						<!--2018-02-22 15:00-->
 					</div>
-				</div>-->
+				</div>
 				<div class="each_detail">
 					<div class="left_detail">交易Hash</div>
 					<div class="right_detail" id="tradeHash">
@@ -95,6 +95,7 @@
 				$("#tradeHash").html(self.thash);
 				$("#outAccount").html(self.tfrom);
 				$("#enterAccount").html(self.tto);
+				$("#time").html(self.timestamp);
 			})
 		</script>
 	</body>

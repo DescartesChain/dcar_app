@@ -106,8 +106,8 @@
 					urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
 				} else{
 					address = self.address; // all/each
-					urlApi = api + "txs/" + 'address' + "?page="+ page + '&pageSize=' + pageSize;
-//					urlApi = api + "txs/" + 'Dc79c49ae89848caed5bc545a1aeccd21df63ca5e4' + "?page="+ page + '&pageSize=' + pageSize;
+					urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
+//					urlApi = tradeApi + "transactions/account/" + 'dce188fb32aa429d09c6cc514d2180c4bc81cb36ca' + "?page="+ page + '&pageSize=' + pageSize;
 				}
 				loadTradeLisy();
 				// 跳转到详情
@@ -120,6 +120,7 @@
 							tvalue: $(this).attr("tvalue"),
 							tto: $(this).attr("tto"),
 							thash: $(this).attr("thash"),
+							timestamp:$(this).attr("timestamp"),
 							address: address
 						}
 					})
@@ -151,7 +152,7 @@
 								$("#loading_box").show();
 								$.each(ret.data.list, function(i, t) {
 								tradeList += 
-									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'">' + 
+									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" timestamp="'+t.timestamp+'">' + 
 										'<div class="left_trade">' +
 											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
 										'</div>'+
@@ -231,7 +232,7 @@
 							if(ret.data.list.length > 0) {
 								$.each(ret.data.list, function(i, t) {
 								tradeList += 
-									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'">' + 
+									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" timestamp="'+t.timestamp+'">' + 
 										'<div class="left_trade">' +
 											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
 										'</div>'+

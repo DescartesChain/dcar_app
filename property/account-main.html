@@ -53,9 +53,14 @@
 						导出Keystore
 					</a>
 				</li>
-				<li class="mui-table-view-cell" url="/users/tradeRecord.html" id="tradeDetail">
+				<li class="mui-table-view-cell" id="tradeDetail">
 					<a class="mui-navigate-right">
 						交易记录
+					</a>
+				</li>
+				<li class="mui-table-view-cell" id="minerCollect">
+					<a class="mui-navigate-right">
+						矿收记录
 					</a>
 				</li>
 				<li class="mui-table-view-cell" id="deletePurce" onclick="showHide()">
@@ -136,6 +141,21 @@
 						}
 					})
 				});
+				// 跳转到矿收记录
+				$('#minerCollect').on("click",function(){
+					if (store.get("userInfo") == undefined) {
+						mui.toast('您还未登录，请先登录');
+						return false;
+					}
+					var purseInfo = store.get('dcarPurse');
+					mui.openWindow({
+						id: "../users/minerCollect.html",
+						url: "../users/minerCollect.html",
+						extras: {
+							address:purseInfo[purseIndex].address
+						}
+					})
+				});
 				// 判断钱包类型  1 dcar   2  ETH  3 BTC
 				if(targetId == '1') {
 					var purseInfo = store.get('dcarPurse');
@@ -144,6 +164,7 @@
 					$('#showHalf').hide();
 					$("#keystore").hide();
 					$("#deletePurce").show();
+					$("#minerCollect").show();
 				} else if(targetId == '2') {
 					var purseInfo = store.get('ethPurse');
 					//					$('.account_title').html('ETH-Wallet');
@@ -155,12 +176,14 @@
 					$('#showHalf').show();
 					$("#keystore").show();
 					$("#deletePurce").hide();
+					$("#minerCollect").hide();
 				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
 					$('#showAll').hide();
 					$('#showHalf').show();
 					$("#keystore").show();
 					$("#deletePurce").hide();
+					$("#minerCollect").hide();
 				}
 				$('.wallet_address').html(purseInfo[purseIndex].address);
 				$('.account_title').html(purseInfo[purseIndex].name);

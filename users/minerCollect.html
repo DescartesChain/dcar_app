@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>交易记录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/tradeRecord.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">矿收记录</h1>
+		</header>
+		<div class="mui-content">
+			<div class="no_data" id="no_data">暂无矿收记录</div>
+			<div class="trade_body" id="tadeMain">
+				<div class="each_trade">
+					<div class="left_trade">
+						<span>1</span>
+					</div>
+					<div class="middle_trade">
+						<div class="hash_num">
+							<span>收益:</span>
+							123131321
+						</div>
+						<div class="trade_date">2018-03-03 13:00</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="loading_box" id="loading_box">
+			<button class="loading"></button>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery-2.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var page = 1; //第几页
+			var pageSize = 20; // 每页显示条数   -1：不分页
+			var address;
+			var tradeData = []; 
+			var tradeList = '';
+			loadTradeLisy();
+			mui.plusReady(function() {
+				// 点击加载更多
+				$('.loading_box').on("click",function(){
+					if($('.loading').html() == '已加载全部'){
+						mui.toast('已加载全部内容');
+						return false;
+					}
+					page ++;
+					loadingMore();
+					$('.loading').html('加载中...');
+				});
+				var self = plus.webview.currentWebview();
+				address = self.address;
+			})
+			// 根据用户信息查看交易列表
+			function loadTradeLisy() {
+				tradeData = [];
+				tradeList = '';
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							tradeData = ret.data.list; // 交易列表
+							if(ret.data.list.length > 0) {
+								$("#no_data").hide();
+								$("#loading_box").show();
+								$.each(ret.data.list, function(i, t) {
+								tradeList += 
+									'<div class="each_trade">' +
+										'<div class="left_trade">' +
+											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
+										'</div>' +
+										'<div class="middle_trade">' +
+											'<div class="hash_num">' +
+												'<span>收益:</span>' +
+												t.value.toFixed(2) +
+											'</div>' +
+											'<div class="trade_date">'+ t.timestamp +'</div>' +
+										'</div>' +    
+									'</div>';
+								})
+								$('#tadeMain').html(tradeList);
+							}else{
+								$("#loading_box").hide();
+								$("#no_data").show();
+							}
+							if ($(".each_trade").length >= ret.data.count){
+								$('.loading').html('已加载全部');
+							} else {
+								$('.loading').html('加载更多');
+							}
+						} else{
+							$("#loading_box").hide();
+							$("#no_data").show();
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						$("#no_data").show();
+						$("#loading_box").hide();
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			}
+			
+			// 加载更多
+			function loadingMore() {
+				tradeData = [];
+				tradeList = '';
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: tradeApi + "profits/dce188fb32aa429d09c6cc514d2180c4bc81cb36ca?page=" + page + '&pageSize=' + pageSize,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							tradeData = ret.data.list; // 交易列表
+							if(ret.data.list.length > 0) {
+								$.each(ret.data.list, function(i, t) {
+								tradeList += 
+									'<div class="each_trade">' +
+										'<div class="left_trade">' +
+											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
+										'</div>' +
+										'<div class="middle_trade">' +
+											'<div class="hash_num">' +
+												'<span>收益:</span>' +
+												t.value.toFixed(2) +
+											'</div>' +
+											'<div class="trade_date">'+ t.timestamp +'</div>' +
+										'</div>' +    
+									'</div>';
+								})
+							}
+							var minerList = document.body.querySelector('#tadeMain');
+							var Div = document.createElement('div');
+							Div.innerHTML = tradeList;
+							minerList.appendChild(Div);
+							if ($(".each_trade").length >= ret.data.count){
+								$('.loading').html('已加载全部');
+							} else {
+								$('.loading').html('加载更多');
+							}
+						} else{
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

@@ -99,12 +99,14 @@
 				var self = plus.webview.currentWebview();
 				if(self.address == self.from) {
 					$("#price").html("-" + self.tvalue);
+					$("#outAccount").html(self.tto);
+					$("#enterAccount").html(self.tfrom);
 				} else {
 					$("#price").html("+" + self.tvalue);
+					$("#outAccount").html(self.tfrom);
+					$("#enterAccount").html(self.tto);
 				}
 				$("#tradeHash").html(self.thash);
-				$("#outAccount").html(self.tfrom);
-				$("#enterAccount").html(self.tto);
 				$("#time").html(formatDate(parseInt(self.ttimestamp)));
 			})
 		</script>

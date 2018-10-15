@@ -237,21 +237,53 @@
 						var dcar = 2;
 						var item='';
 						$.each(eth, function(i, t) {
-							item+='<div class="black_bg card_one mui-row" onclick="go_detail(' + i + "," + dcar+')">'
-										+'<div class="mui-col-sm-3 mui-col-xs-3">'
+							item+='<div class="black_bg card_one mui-row">'
+										+'<div class="mui-col-sm-3 mui-col-xs-3" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<img src="../img/property/btn-ethereum.png" alt="" />'
 										+'</div>'
-										+'<div class="mui-col-sm-9 mui-col-xs-9">'
+										+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<div>'+ t.name +'</div>'
 											+'<div class="eth_money">0ETH</div>'
-											+'<div class="eth_money">&yen;0</div>'
+											+'<div class="eth_money">0ETH</div>'
 											+'<div>'+ t.address +'</div>'
+										+'</div>'
+										+'<div class="mui-col-sm-3 mui-col-xs-3">'
+											+'<p>'
+												+'<span onclick="ethfreshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
+											+'</p >'
+											+'<p></p>'
 										+'</div>'
 						});
 						$("#eth_purse").html(item)
 						$("#eth_purse").show();
 					}
 				}
+			}
+			function ethfreshen(index, event){
+				var arr = store.get('ethPurse');
+				var address = arr[index].address;
+				address = address.replace(address.substr(0, 2), '0x');
+				// address = '0xc94770007dda54cF92009BFF0dE90c06F603a09f';
+				$.ajax({
+					type: "get",
+					url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
+					data: {},
+					async: true,
+					success: function(ret) {
+						if(ret.result) {
+							mui.toast('加载成功');
+							var process = new BigNumber(ret.result);
+							$(event.target).parent().parent().parent().find(".eth_money").html(process.c[0] + 'ETH');
+							return false;
+						}
+						if(ret.error){
+							mui.toast(ret.error.message);
+						}
+					},
+					error: function(error) {
+						mui.toast(error.statusText);
+					}
+				});
 			}
 			function ethBalance (address, cas) {
 				var web3 = new Web3(DCARapi);

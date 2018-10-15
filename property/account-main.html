@@ -175,7 +175,7 @@
 					$("#tradeDetail").hide();
 					$('#showHalf').show();
 					$("#keystore").show();
-					$("#deletePurce").hide();
+					$("#deletePurce").show();
 					$("#minerCollect").hide();
 				} else if(targetId == '3') {
 					$('.account_title').html('BTC-Wallet');
@@ -226,7 +226,31 @@
 //						},
 //					});
 					// 方法一end
-				};
+				}else if(targetId == '2'){
+					// 获取钱包地址
+					address = purseInfo[purseIndex].address;
+					address = address.replace(address.substr(0, 2), '0x');
+					$.ajax({
+						type: "get",
+						url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
+						data: {},
+						async: true,
+						success: function(ret) {
+							if(ret.result) {
+								mui.toast('加载成功');
+								var process = new BigNumber(ret.result);
+								$(".orange_text").html(process.c[0]);
+								return false;
+							}
+							if(ret.error){
+								mui.toast(ret.error.message);
+							}
+						},
+						error: function(error) {
+							mui.toast(error.statusText);
+						}
+					});
+				}
 				// 判断密码是否为空
 				$("#pass").keyup(function() {
 					if($("#pass").val() == '') {
@@ -520,17 +544,28 @@
 				});
 				// 删除钱包
 				$("#sureConfirm").on("tap", function() {
-					var arr = store.get('dcarPurse');
-					mui('.alert_box').popover('toggle');
-					arr.splice(purseIndex, 1);
-					store.set('dcarPurse', arr);
-					mui.toast('删除成功');
-					var tiner = null;
-					clearTimeout(tiner);
-					tiner = setTimeout(function() {
-						plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
-						plus.webview.currentWebview().close();
-					},500)
+					if (targetId == '1') {
+						var arr = store.get('dcarPurse');
+						mui('.alert_box').popover('toggle');
+						arr.splice(purseIndex, 1);
+						store.set('dcarPurse', arr);
+						mui.toast('删除成功');
+						var tiner = null;
+						clearTimeout(tiner);
+						tiner = setTimeout(function() {
+							plus.webview.getWebviewById("pages/property.html").evalJS("showDcarPurse()");
+							plus.webview.currentWebview().close();
+						},500)
+					}else if (targetId == '2') {
+						store.remove('ethPurse');
+						mui.toast('删除成功');
+						var tiner = null;
+						clearTimeout(tiner);
+						tiner = setTimeout(function() {
+							plus.webview.getWebviewById("pages/property.html").evalJS("showEthPurse()");
+							plus.webview.currentWebview().close();
+						},500)
+					}
 				})
 			})
 

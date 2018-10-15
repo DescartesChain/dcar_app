@@ -90,13 +90,11 @@
 							var web3 = new Web3();
 							// 用户导入 keystore 文件
 							var keystoreString = $("#keystoreString").val();
-							// 转换为 JSON 文件
-							var keystoreJsonV3 = JSON.parse(keystoreString);
 							// 用户输入争取的密码
 							var password = $("#pass").val();
 							// 获取钱包信息
 							try {
-								var wallet = web3.eth.accounts.decrypt(keystoreJsonV3, password);
+								var wallet = web3.eth.accounts.decrypt(keystoreString.toLowerCase(), password);
 								wallet.name = 'ETH钱包';
 								wallet.keystore = keystoreString;
 								var eth_data = store.get("ethPurse");

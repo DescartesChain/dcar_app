@@ -25,12 +25,11 @@
 			<p class="introduce" id="versionInfo">加载中...</p>
 			<!--复制地址去更新新版本---有新版本时-->
 			<div class="copy_box" style="display: none;">
-				<div class="address_box">
+				<!--<div class="address_box">
 					<div class="addressBox">https://www.dcar.xyz/downloads/index.html</div>
 					<input readonly="readonly" id="addressBox" value="https://www.dcar.xyz/downloads/index.html"/>
-					<!--<textarea readonly="readonly" id="addressBox" value="https://www.dcar.xyz/downloads/index.html"></textarea>-->
-				</div>
-				<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击复制地址</div>
+				</div>-->
+				<div class="copy_btn" id="copyAddress" data-clipboard-action="copy" data-clipboard-target="#addressBox">点击跳转至下载页面</div>
 			</div>
 
 			<!--版本状态-->
@@ -106,8 +105,8 @@
 						var current = (ret.data.version).split('.').join('');
 						if (current > before) {
 //							$("#download").html("请前往官网下载最新版本");
-							$("#download").html("请复制地址并到浏览器下载最新版本");
-							$('#addressBox').val("https://www.dcar.xyz/downloads/index.html");
+							$("#download").html("请点击按钮到浏览器下载最新版本");
+							// $('#addressBox').val("https://www.dcar.xyz/downloads/index.html");
 							$('.copy_box').show();
 						} else {
 							$("#download").html("您当前已是最新版本");
@@ -122,50 +121,10 @@
 					mui.toast(error.responseJSON.msg);
 				}
 			});
-			//复制官网链接
+			// 跳转至下载链接
 			$('#copyAddress').click(function() {
-				key = $("#addressBox").val();
-				const el = document.createElement('input');
-				const btn = document.getElementById('copyAddress');
-				el.value = key;
-				el.style.opacity = '0';
-				document.body.appendChild(el);
-				const editable = el.contentEditable;
-				const readOnly = el.readOnly;
-				el.contentEditable = true;
-				el.readOnly = false;
-				const range = document.createRange();
-				range.selectNodeContents(el);
-				const sel = window.getSelection();
-				sel.removeAllRanges();
-				sel.addRange(range);
-				el.setSelectionRange(0, 999999);
-				el.contentEditable = editable;
-				el.readOnly = readOnly;
-				const ret = document.execCommand('copy');
-				el.blur();
-				btn.text = ret;
-				if(btn.text) {
-					mui.toast('复制成功');
-				} else {
-					mui.toast('复制失败');
-				}
+				plus.runtime.openURL('https://www.dcar.xyz/downloads/index.html');
 			})
-//			$("#download").on("click", function(){
-//				final Intent intent = new Intent();
-//				intent.setAction(Intent.ACTION_VIEW);、intent.setData(Uri.parse("http://www.baidu.com"));
-//				// 注意此处的判断intent.resolveActivity()可以返回显示该Intent的Activity对应的组件名
-//				// 官方解释 : Name of the component implementing an activity that can display the intent
-//				if (intent.resolveActivity(getPackageManager()) != null) {    
-//				  final ComponentName componentName = intent.resolveActivity(getPackageManager()); 
-//				  // 打印Log   ComponentName到底是什么
-//				  Log.e(TAG, "componentName = " + componentName.getClassName());
-//				  startActivity(Intent.createChooser(intent, "请选择浏览器"));
-//				} else {    
-//				  Toast.makeText(getApplicationContext(), "没有匹配的程序", Toast.LENGTH_SHORT).show();
-//				}
-//			})
-			// $('#versionInfo').html(markdown.toHTML(ret.data.content));
 		</script>
 	</body>
 

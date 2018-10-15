@@ -49,7 +49,7 @@
 			</div>
 			<ul class="alert_operate">
 				<li onclick="sureAlter()">确定</li>
-				<li class="alter_button">取消</li>
+				<li class="alter_button" onclick="reduction()">还原</li>
 			</ul>
 		</div>
 		<script src="../js/mui.min.js"></script>
@@ -79,6 +79,11 @@
 					mui('.alter_box').popover('toggle');
 				});
 			});
+			// 还原地址
+			function reduction() {
+				store.remove('api');
+				mui.toast('还原成功');
+			}
 			// 确定修改api地址
 			function sureAlter(){
 				apiAddress = $('#apiName').val();

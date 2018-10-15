@@ -350,6 +350,7 @@
 			var timer = null;
 			clearInterval(timer);
 			timer = setInterval(function(){
+			   clearInterval(empty);
 			   page = 1;
 			   loadmillList(); // 获取矿机列表
 //			   loadStateList(); // 获取矿机状态列表
@@ -1101,9 +1102,9 @@
 				}
 			};
 			//倒计时
+			var empty = null;
 			function countTime(){
 				var time = 90;
-				var empty = null;
 				clearInterval(empty);
 				empty = setInterval(function() {
 					if(time > 1) {

@@ -10,7 +10,7 @@ body, .mui-content{
 	padding-bottom:15px;
 }
 .miner_box{
-	height: 211px;
+	/*height: 211px;*/
 	overflow: hidden;
 	position: relative;
 	padding: 0 15px;
@@ -73,6 +73,16 @@ body, .mui-content{
 .miner_content{
 	padding-top: 8px;
 	padding-bottom: 8px;
+	border-bottom: 1px solid #EFEFEF;
+}
+.miner_content_two{
+	padding-top: 2px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #EFEFEF;
+}
+.miner_content_alert{
+	padding-top: 24px;
+	padding-bottom: 24px;
 	border-bottom: 1px solid #EFEFEF;
 }
 .miner_income{

@@ -16,7 +16,7 @@
 		    <h1 class="mui-title">交易记录</h1>
 		</header>
 		<div class="mui-content">
-			<div class="no_data" id="no_data">暂无交易记录</div>
+			<div class="no_data" id="no_data" style="display: none;">暂无交易记录</div>
 			<div class="trade_body" id="tadeMain">
 				<!--<div class="each_trade newact" url="/users/tradeDetail.html"/>
 					<div class="left_trade">
@@ -134,7 +134,7 @@
 				D = date.getDate()<10?'0'+date.getDate()+ ' ':date.getDate() + ' ';
 				h = date.getHours()<10?'0'+date.getHours()+ ':':date.getHours()+ ':';
 				m = date.getMinutes()<10?'0'+date.getMinutes()+ ':':date.getMinutes() + ':';
-				s = date.getSeconds()<10?'0'+date.getSeconds()+ ':':date.getSeconds();
+				s = date.getSeconds()<10?'0'+date.getSeconds() :date.getSeconds();
 				return Y+M+D+h+m+s;
             }
 			// 根据用户信息查看交易列表

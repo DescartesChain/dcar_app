@@ -98,7 +98,7 @@
 			}
 
 			// 导入钱包
-			function import_wallet(state) {
+			function import_wallet(state, event) {
 				mui.openWindow({
 					id: "../property/import-wallet.html",
 					url: "../property/import-wallet.html",
@@ -152,7 +152,7 @@
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'
 											+'<p>'
-												+'<span onclick="freshen(' + i + ')" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
+												+'<span onclick="freshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
 											+'</p >'
 											+'<p>'
 												+'<span onclick="send(' + i + ')" index = "'+i+'" address = "'+ t.address +'" class="send">转账</span>'
@@ -180,14 +180,13 @@
 					}
 				})
 			}
-			function freshen(index){
+			function freshen(index, event){
 				var arr = store.get('dcarPurse');
 				var address = arr[index].address;
-				var Dom = $(this);
 				address = address.replace(address.substr(0, 2), '0x');
 				var web3 = new Web3(DCARapi);
 				web3.eth.getBalance(address).then(function (result) {
-					Dom.parent().parent().parent().find(".newMoney").html(Math.floor(web3.utils.fromWei(result, 'ether')));
+					$(event.target).parent().parent().parent().find(".newMoney").html(Math.floor(web3.utils.fromWei(result, 'ether')));
 					mui.toast('刷新成功');
 				}).catch(function () {
 					mui.toast('链接不到笛卡尔融云链网络');

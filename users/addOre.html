@@ -102,6 +102,7 @@
 				var self = plus.webview.currentWebview();
 				minerName = self.minerName;
 				uuid = self.uuid;
+				bindIndex = self.bindIndex;
 				$("#miner_name").html("矿机名称：" + minerName);
 				$("#ensure").on("tap", function(){
 					if ($("#showUserPicker").val() == ''){
@@ -128,7 +129,7 @@
 								var timer = null;
 								clearTimeout(timer);
 								timer = setTimeout(function() {
-									plus.webview.getWebviewById("oreManage.html").evalJS("loadmillList()");
+									plus.webview.getWebviewById("oreManage.html").evalJS("loadMinerList()");
 									plus.webview.currentWebview().close();
 								}, 1000);
 							} else {

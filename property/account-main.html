@@ -21,7 +21,7 @@
 			</div>
 			<div class="wallet_title account_title"></div>
 			<div class="wallet_address"></div>
-			<div class="mui-row dcar_money" id="showAll">
+			<div class="mui-row dcar_money" id="showAll" style="display: none;">
 				<div class="mui-col-sm-12 mui-col-xs-12">
 					当前余额：<span class="orange_text" id="dcarBalance">0</span> <span class="unit">DCAR</span>
 				</div>
@@ -29,10 +29,10 @@
 					矿收：<span class="green_text" id="mineBalance">0</span> <span class="unit">DCAR</span>
 				</div>-->
 			</div>
-			<div class="dcar_money" id="showHalf">
+			<div class="dcar_money" id="showHalf" style="display: none;">
 				当前余额：<span class="orange_text">0</span> <span class="unit">DCAR</span>
 			</div>
-			<ul class="mui-table-view">
+			<ul class="mui-table-view" style="display: none;">
 				<li class="mui-table-view-cell" onclick="wallet_address()">
 					<a class="mui-navigate-right">
 						钱包地址
@@ -109,6 +109,12 @@
 			var purseIndex;
 			var address; // 钱包地址
 			var balance; // 账户余额
+			mui.showLoading("加载中...", "div");
+//			$('#showAll').css('display','none');
+//			$('#showHalf').css('display','none');
+//			$("#keystore").css('display','none');
+//			$("#deletePurce").css('display','none');
+//			$("#minerCollect").css('display','none');
 
 			function init() {
 				var self = plus.webview.currentWebview();
@@ -185,6 +191,8 @@
 					$("#deletePurce").hide();
 					$("#minerCollect").hide();
 				}
+				$('.mui-table-view').css("display","block");
+				mui.hideLoading();
 				$('.wallet_address').html(purseInfo[purseIndex].address);
 				$('.account_title').html(purseInfo[purseIndex].name);
 				// 获取账户余额

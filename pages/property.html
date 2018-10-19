@@ -272,8 +272,8 @@
 					success: function(ret) {
 						if(ret.result) {
 							mui.toast('加载成功');
-							var process = new BigNumber(ret.result);
-							$(event.target).parent().parent().parent().find(".eth_money").html(process.c[0] + 'ETH');
+							var process = parseInt(ret.result) / 1000000000000000000;
+							$(event.target).parent().parent().parent().find(".eth_money").html(process.toFixed(2) + 'ETH');
 							return false;
 						}
 						if(ret.error){

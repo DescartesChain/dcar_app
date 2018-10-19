@@ -238,6 +238,7 @@
 					// 获取钱包地址
 					address = purseInfo[purseIndex].address;
 					address = address.replace(address.substr(0, 2), '0x');
+					console.log('https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]')
 					$.ajax({
 						type: "get",
 						url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
@@ -246,8 +247,7 @@
 						success: function(ret) {
 							if(ret.result) {
 								mui.toast('加载成功');
-								var process = new BigNumber(ret.result);
-								$(".orange_text").html(process.c[0]);
+								$(".orange_text").html(parseInt(ret.result) / 1000000000000000000);
 								return false;
 							}
 							if(ret.error){

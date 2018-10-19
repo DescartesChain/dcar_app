@@ -232,10 +232,53 @@
 						$("#eth_purse").hide();
 						$("#import_eth").show();
 					} else {
-						this.ethBalance(eth[0].address, '.eth_money');
 						$("#import_eth").hide();
 						var dcar = 2;
 						var item='';
+						eth[0].money = 0;
+						$.ajax({
+							type: "get",
+							url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ eth[0].address.replace(eth[0].address.substr(0, 2), '0x') +'","latest"]',
+							data: {},
+							async: true,
+							success: function(ret) {
+								if(ret.result) {
+									mui.toast('加载成功');
+									var process = parseInt(ret.result) / 1000000000000000000;
+									eth[0].money = process.toFixed(2);
+									item = '';
+									$("#eth_purse").empty();
+									$.each(eth, function(i, t) {
+										item+='<div class="black_bg card_one mui-row">'
+													+'<div class="mui-col-sm-3 mui-col-xs-3" onclick="go_detail(' + i + "," + dcar+')">'
+														+'<img src="../img/property/btn-ethereum.png" alt="" />'
+													+'</div>'
+													+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
+														+'<div>'+ t.name +'</div>'
+														+'<div class="eth_money">'+ t.money +'ETH</div>'
+														+'<div class="eth_money">'+ t.money +'ETH</div>'
+														+'<div>'+ t.address +'</div>'
+													+'</div>'
+													+'<div class="mui-col-sm-3 mui-col-xs-3">'
+														+'<p>'
+															+'<span onclick="ethfreshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
+														+'</p >'
+														+'<p></p>'
+													+'</div>'
+									});
+									$("#eth_purse").html(item)
+									$("#eth_purse").show();
+								}
+								if(ret.error){
+									mui.toast(ret.error.message);
+								}
+							},
+							error: function(error) {
+								mui.toast(error.statusText);
+							}
+						});
+						item = '';
+						$("#eth_purse").empty();
 						$.each(eth, function(i, t) {
 							item+='<div class="black_bg card_one mui-row">'
 										+'<div class="mui-col-sm-3 mui-col-xs-3" onclick="go_detail(' + i + "," + dcar+')">'
@@ -243,8 +286,8 @@
 										+'</div>'
 										+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
 											+'<div>'+ t.name +'</div>'
-											+'<div class="eth_money">0ETH</div>'
-											+'<div class="eth_money">0ETH</div>'
+											+'<div class="eth_money">'+ t.money +'ETH</div>'
+											+'<div class="eth_money">'+ t.money +'ETH</div>'
 											+'<div>'+ t.address +'</div>'
 										+'</div>'
 										+'<div class="mui-col-sm-3 mui-col-xs-3">'

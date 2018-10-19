@@ -68,3 +68,5 @@ manifest.json
 unpackage/.confirmed_dependencies
 unpackage/release/dcar-app1011.ipa
 manifest.json
+unpackage/release/dcar-app1018.ipa
+js/common.js

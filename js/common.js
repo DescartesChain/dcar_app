@@ -11,8 +11,8 @@ var tradeApi = 'https://scan.dcar.xyz/api/';  // 交易记录api
 //var tradeApi = 'http://192.168.1.232:4000/api/';  // 交易记录api
 (function(){
 	if (store.get("api") == undefined) {
-//		api = "https://www.dcardev.com/api/";
-		api = "https://www.dcar.xyz/api/";
+		api = "https://www.dcardev.com/api/";
+//		api = "https://www.dcar.xyz/api/";
 //		api = "http://192.168.1.232:3000/api/";                                     
 	} else {
 		api = store.get("api");

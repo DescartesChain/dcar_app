@@ -2,7 +2,13 @@
 	padding:20px 30px;
 }
 .info{
-	overflow: hidden;
+	/*overflow: hidden;*/
+	_zoom:1;
+}
+.info:after{
+	clear: both;
+	content: "";
+	display: block;
 }
 .info:first-child h5{
 	padding: 12px 0;
@@ -57,4 +63,31 @@
     margin-top: 30px;
 	background: #4384c5;
 	border: 0;
+}
+.account_box{
+	position:relative;
+}
+#history_list{
+	position:absolute;
+	left:76px;
+	top:55px;
+	z-index: 500;
+	box-shadow: 0 0 2px 2px rgb(196,214,229);
+	padding:0 10px;
+	background: #fff;
+	border-radius: 3px;
+}
+#list_main>li{
+	word-break: break-all;
+	padding:5px 0;
+	color:#8f8f94;
+	border-bottom: 1px solid #DBDEDE;
+	line-height: 20px;
+}
+.clear_history{
+	text-align: center;
+	padding:8px 0;
+}
+.mui-input-row .mui-input-clear~.mui-icon-clear{
+	top:2px !important;
 }

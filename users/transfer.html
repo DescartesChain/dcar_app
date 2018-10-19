@@ -25,13 +25,22 @@
 						<p id="userAddress"></p>
 					</div>
 				</div>
-				<div class="info">
+				<div class="info account_box">
 					<h5>收款账户</h5>
 					<div class="detail">
 						<div class="addressMain" style="position: relative;border: 1px solid rgba(0,0,0,.2);border-radius: 3px;margin-bottom: 15px;">
-							<input style="width: 80%;border: 0;margin-bottom:0;" type="text" id="toaddress" class="mui-input-clear" placeholder="请输入钱包地址" style="padding-right: 34px;">
+							<input style="width: 80%;border: 0;margin-bottom:0;" type="text" id="toaddress" class="mui-input-clear" 
+								placeholder="请输入钱包地址" style="padding-right: 34px;" onkeyup="changeAddress()">
 							<i class="iconfont icon-saoma" id="saoma"></i>
-						</div>
+
+					</div>
+					<!--历史转账账户-->
+					<div id="history_list" style="display: none;">
+						<ul id="list_main">
+							<!--<li>dsahdkc258768767cdewenjahsdhkqwukdhiwhdccdwddsddsdssssddd</li>
+							<li>dsahdkc258768767cdewenjahsdhkqwukdhiwhdccdwddsddsdssssddd</li>-->
+						</ul>
+						<p class="clear_history">清除历史记录</p>
 					</div>
 				</div>
 				<div class="info">
@@ -72,6 +81,10 @@
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/bignumber.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			
+			var arr; // 历史收款账户
+			var writeArr = []; 
+			var historyList;
 			var web3 = new Web3(DCARapi);
 			var purseInfo = store.get('dcarPurse');
 			// 获取转账手续费
@@ -85,6 +98,66 @@
 //			}
 //		    whetherSuccess();
 			getUserInfo();
+			// 点击空白处隐藏
+			$(document).click(function(){
+				$('#history_list').hide();
+			});
+			// 转账账户input值改变
+			function changeAddress(){
+				arr = store.get('walletAddress');
+				var writeAddress = $("#toaddress").val();
+				if(arr == undefined) {
+					$('#history_list').hide();
+				} else {
+					writeArr = [];
+					console.log(writeAddress);
+					for(var i=0;i<arr.length;i++){
+						if(arr[i].indexOf(writeAddress) >= 0){
+							writeArr.push(arr[i]);
+						}
+					}
+					console.log(writeArr);
+ 					historyList = '';
+					$.each(writeArr, function(i, t) {
+						historyList += 
+						'<li class="history" address="'+ t +'">' + t + '</li>';
+					})
+					$("#list_main").html(historyList);
+					$('#history_list').show();
+					if(writeArr.length == 0){
+						$('#history_list').hide();
+					}
+				}
+			};
+			// 点击输入框弹出历史地址
+			$("#toaddress").on("click",function(event){
+				event.stopPropagation();
+				historyList ='';
+				arr = store.get('walletAddress');
+				if (arr == undefined){
+					$('#history_list').hide();
+				}else{
+					$.each(arr, function(i, t) {
+						historyList += 
+						'<li class="history" address="'+ t +'">' + t + '</li>';
+					})
+					$("#list_main").html(historyList);
+					$('#history_list').show();
+				}
+			});
+			// 选择历史收款账户
+			$("#list_main").on("click", ".history", function() {
+//				alert('1');
+				address = $(this).attr("address");
+				$('#history_list').hide();
+				$("#toaddress").val(address);
+			});
+			// 清除历史记录
+			$('.clear_history').on("click",function(){
+				store.remove('walletAddress');
+				mui.toast('历史记录清除成功');
+				$('#history_list').hide();
+			});
 			// 根据用户id获取用户信息
 			function getUserInfo() {
 				mui.showLoading("加载中...", "div");
@@ -142,6 +215,21 @@
 					if ($("#pass").val() != purseInfo[purseIndex].password) {
 						mui.toast('密码输入错误');
 						return false;
+					}
+					// 将地址添加到历史记录
+					arr = store.get('walletAddress');
+					console.log(arr);
+					if (arr == undefined){
+						arr = [];
+						arr.push($("#toaddress").val());
+						store.set('walletAddress',arr);
+					} else {
+						for(var i = 0;i<arr.length;i++){
+							if(arr[i] != $("#toaddress").val()){
+								arr.push($("#toaddress").val());
+								store.set('walletAddress',arr);
+							}
+						}
 					}
 					mui.showLoading("加载中...", "div");
 					var count = parseInt($("#cash").val());
@@ -311,6 +399,7 @@
 			})
 			function getResult() {
 				if(store.get("toAddress") != undefined || store.get("toAddress") != null) {
+					$('#history_list').hide();
 					$("#toaddress").val(store.get("toAddress"));
 					store.remove("toAddress");
 				}

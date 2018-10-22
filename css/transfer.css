@@ -77,6 +77,10 @@
 	background: #fff;
 	border-radius: 3px;
 }
+#list_main{
+	max-height: 200px;
+	overflow-y: scroll;
+}
 #list_main>li{
 	word-break: break-all;
 	padding:5px 0;

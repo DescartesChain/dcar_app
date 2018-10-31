@@ -2,6 +2,8 @@
 //var api = "http://192.168.1.232:3000/api/";
 //var DCARapi = "http://192.168.1.232:8545";
 //var api = "https://www.dcar.xyz/api/";
+var imgApi = 'https://www.dcardev.com/'; // 测试地址首页banner
+// var imgApi = 'https://www.dcar.xyz/'; // 正式地址首页banner
 var DCARapi = "https://apiserchain.dcar.xyz";
 var api = "";
 var VERSION = "1.2.5";

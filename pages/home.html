@@ -16,37 +16,37 @@
 				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
 					<a href="#">
-						<img src="../img/home/banner.png" />
+						<img src="" class="imgfour"/>
 					</a>
 				</div>
 				<!-- 第一张 -->
 				<div class="mui-slider-item">
 					<a href="#">
-						<img src="https://www.dcar.xyz/static/img/banner.12633b8.png" />
+						<img src="" class="imgone"/>
 					</a>
 				</div>
 				<!-- 第二张 -->
 				<div class="mui-slider-item">
 					<a href="#">
-						<img src="../img/home/banner.png" />
+						<img src="" class="imgtwo"/>
 					</a>
 				</div>
 				<!-- 第三张 -->
 				<div class="mui-slider-item">
 					<a href="#">
-						<img src="../img/home/banner.png" />
+						<img src="" class="imgthree"/>
 					</a>
 				</div>
 				<!-- 第四张 -->
 				<div class="mui-slider-item">
 					<a href="#">
-						<img src="../img/home/banner.png" />
+						<img src="" class="imgfour"/>
 					</a>
 				</div>
 				<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 				<div class="mui-slider-item mui-slider-item-duplicate">
 					<a href="#">
-						<img src="../img/home/banner.png" />
+						<img src="" class="imgone"/>
 					</a>
 				</div>
 			</div>
@@ -86,6 +86,14 @@
 			loadPostList();
 			var goods;
 			var cart_list = '';
+			var bannerOne = imgApi + 'static/img/banner01.png'; // banner1
+			var bannerTwo = imgApi + 'static/img/banner02.png'; // banner2
+			var bannerThree = imgApi + 'static/img/banner03.png'; // banner3
+			var bannerFour = imgApi + 'static/img/banner04.png'; // banner4
+			$('.imgone').attr('src', bannerOne);
+			$('.imgtwo').attr('src', bannerTwo);
+			$('.imgthree').attr('src', bannerThree);
+			$('.imgfour').attr('src', bannerFour);
 			// 获取公告列表
 			function loadPostList() {
 				mui.showLoading("加载中...", "div");

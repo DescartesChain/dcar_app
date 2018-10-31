@@ -317,7 +317,8 @@
 				"resources": [],
 				"refer": [
 					"users/barcode.html",
-					"users/addOre.html"
+					"users/addOre.html",
+					"users/saoyisao2.html"
 				],
 				"priority": 0
 			},
@@ -354,6 +355,13 @@
 				"refer": [
 					"public/echarts.html"
 				],
+				"priority": 0
+			},
+			"users/saoyisao2.html": {
+				"resources": [
+					"users/saoyisao_sub.html"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},

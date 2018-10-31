@@ -61,7 +61,6 @@
 					const WORDS_ARRAY = new Set(MEMOR_WORD);
 					var word_array = ($("#keystoreString").val()).split(" ");
 					for (var i=0;i<word_array.length;i++){
-//						alert(WORDS_ARRAY.has(word_array[i]));
 						if (WORDS_ARRAY.has(word_array[i]) == false){
 							mui.toast('助记词输入错误');
 						    return false;

@@ -576,7 +576,7 @@
 			var cart_list = '';
 			// 获取矿机列表
 			function loadmillList(size) {
-				console.log(api + "miners?page=" + page + '&pageSize=' + size);
+				// console.log(api + "miners?page=" + page + '&pageSize=' + size);
 				$('#cart_list').empty();
 				cart_list = '';
 				mui.showLoading("加载中...", "div");
@@ -1201,7 +1201,7 @@
 						$(".time").html('60s');
 						clearInterval(empty);
 						webTiming();
-						console.log(addressState);
+						// console.log(addressState);
 						// 绑定钱包
 						if (addressState == 1){ 
 							count = 1;

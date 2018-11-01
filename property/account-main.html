@@ -238,26 +238,33 @@
 					// 获取钱包地址
 					address = purseInfo[purseIndex].address;
 					address = address.replace(address.substr(0, 2), '0x');
-					console.log('https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]')
-					$.ajax({
-						type: "get",
-						url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
-						data: {},
-						async: true,
-						success: function(ret) {
-							if(ret.result) {
-								mui.toast('加载成功');
-								$(".orange_text").html(parseInt(ret.result) / 1000000000000000000);
-								return false;
-							}
-							if(ret.error){
-								mui.toast(ret.error.message);
-							}
-						},
-						error: function(error) {
-							mui.toast(error.statusText);
-						}
+					var web3 = new Web3(ETHapi);
+					web3.eth.getBalance(address)
+					.then(function (result) {
+						var balanceM = web3.utils.fromWei(result, 'ether');
+						$('.orange_text').html(balanceM);
+					}).catch(function () {
+						mui.toast('链接不到以太坊网络');
 					});
+//					$.ajax({
+//						type: "get",
+//						url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
+//						data: {},
+//						async: true,
+//						success: function(ret) {
+//							if(ret.result) {
+//								mui.toast('加载成功');
+//								$(".orange_text").html(parseInt(ret.result) / 1000000000000000000);
+//								return false;
+//							}
+//							if(ret.error){
+//								mui.toast(ret.error.message);
+//							}
+//						},
+//						error: function(error) {
+//							mui.toast(error.statusText);
+//						}
+//					});
 				}
 				// 判断密码是否为空
 				$("#pass").keyup(function() {

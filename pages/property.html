@@ -236,48 +236,39 @@
 						var dcar = 2;
 						var item='';
 						eth[0].money = 0;
-						$.ajax({
-							type: "get",
-							url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ eth[0].address.replace(eth[0].address.substr(0, 2), '0x') +'","latest"]',
-							data: {},
-							async: true,
-							success: function(ret) {
-								if(ret.result) {
-									mui.toast('加载成功');
-									var process = parseInt(ret.result) / 1000000000000000000;
-									eth[0].money = process.toFixed(2);
-									item = '';
-									$("#eth_purse").empty();
-									$.each(eth, function(i, t) {
-										item+='<div class="black_bg card_one mui-row">'
-													+'<div class="mui-col-sm-3 mui-col-xs-3" onclick="go_detail(' + i + "," + dcar+')">'
-														+'<img src="../img/property/btn-ethereum.png" alt="" />'
-													+'</div>'
-													+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
-														+'<div>'+ t.name +'</div>'
-														+'<div class="eth_money">'+ t.money +'ETH</div>'
-														+'<div class="eth_money">'+ t.money +'ETH</div>'
-														+'<div>'+ t.address +'</div>'
-													+'</div>'
-													+'<div class="mui-col-sm-3 mui-col-xs-3">'
-														+'<p>'
-															+'<span onclick="ethfreshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
-														+'</p>'
-														+'<p>'
-															+'<span onclick="ethSend(' + i + ')" index = "'+i+'" address = "'+ t.address +'">转账</span>'
-														+'</p>'
-													+'</div>'
-									});
-									$("#eth_purse").html(item)
-									$("#eth_purse").show();
-								}
-								if(ret.error){
-									mui.toast(ret.error.message);
-								}
-							},
-							error: function(error) {
-								mui.toast(error.statusText);
-							}
+						var address = eth[0].address;
+						address = address.replace(address.substr(0, 2), '0x');
+						var web3 = new Web3(ETHapi);
+						web3.eth.getBalance(address)
+						.then(function (result) {
+							var balanceM = web3.utils.fromWei(result, 'ether');
+							eth[0].money = parseFloat(balanceM).toFixed(2);
+							item = '';
+							$("#eth_purse").empty();
+							$.each(eth, function(i, t) {
+								item+='<div class="black_bg card_one mui-row">'
+											+'<div class="mui-col-sm-3 mui-col-xs-3" onclick="go_detail(' + i + "," + dcar+')">'
+												+'<img src="../img/property/btn-ethereum.png" alt="" />'
+											+'</div>'
+											+'<div class="mui-col-sm-6 mui-col-xs-6" onclick="go_detail(' + i + "," + dcar+')">'
+												+'<div>'+ t.name +'</div>'
+												+'<div class="eth_money">'+ t.money +'ETH</div>'
+												+'<div class="eth_money">'+ t.money +'ETH</div>'
+												+'<div>'+ t.address +'</div>'
+											+'</div>'
+											+'<div class="mui-col-sm-3 mui-col-xs-3">'
+												+'<p>'
+													+'<span onclick="ethfreshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
+												+'</p>'
+												+'<p>'
+													+'<span onclick="ethSend(' + i + ')" index = "'+i+'" address = "'+ t.address +'">转账</span>'
+												+'</p>'
+											+'</div>'
+							});
+							$("#eth_purse").html(item)
+							$("#eth_purse").show();
+						}).catch(function () {
+							mui.toast('链接不到以太坊网络');
 						});
 						item = '';
 						$("#eth_purse").empty();
@@ -326,27 +317,34 @@
 				var arr = store.get('ethPurse');
 				var address = arr[index].address;
 				address = address.replace(address.substr(0, 2), '0x');
-				// address = '0xc94770007dda54cF92009BFF0dE90c06F603a09f';
-				$.ajax({
-					type: "get",
-					url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
-					data: {},
-					async: true,
-					success: function(ret) {
-						if(ret.result) {
-							mui.toast('加载成功');
-							var process = parseInt(ret.result) / 1000000000000000000;
-							$(event.target).parent().parent().parent().find(".eth_money").html(process.toFixed(2) + 'ETH');
-							return false;
-						}
-						if(ret.error){
-							mui.toast(ret.error.message);
-						}
-					},
-					error: function(error) {
-						mui.toast(error.statusText);
-					}
+				var web3 = new Web3(ETHapi);
+				web3.eth.getBalance(address)
+				.then(function (result) {
+					var balanceM = web3.utils.fromWei(result, 'ether');
+					$(event.target).parent().parent().parent().find(".eth_money").html(balanceM.toFixed(2) + 'ETH');
+				}).catch(function () {
+					mui.toast('链接不到以太坊网络');
 				});
+//				$.ajax({
+//					type: "get",
+//					url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
+//					data: {},
+//					async: true,
+//					success: function(ret) {
+//						if(ret.result) {
+//							mui.toast('加载成功');
+//							var process = parseInt(ret.result) / 1000000000000000000;
+//							$(event.target).parent().parent().parent().find(".eth_money").html(process.toFixed(2) + 'ETH');
+//							return false;
+//						}
+//						if(ret.error){
+//							mui.toast(ret.error.message);
+//						}
+//					},
+//					error: function(error) {
+//						mui.toast(error.statusText);
+//					}
+//				});
 			}
 			function ethBalance (address, cas) {
 				var web3 = new Web3(DCARapi);

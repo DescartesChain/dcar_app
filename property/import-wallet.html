@@ -97,6 +97,7 @@
 								var wallet = web3.eth.accounts.decrypt(keystoreString.toLowerCase(), password);
 								wallet.name = 'ETH钱包';
 								wallet.keystore = keystoreString;
+								wallet.password = password;
 								var eth_data = store.get("ethPurse");
 								eth_data.push(wallet);
 								store.set('ethPurse', eth_data);
@@ -151,6 +152,7 @@
 								var wallet = web3.eth.accounts.decrypt(keystore, password);
 								wallet.name = 'ETH钱包';
 								wallet.keystore = JSON.stringify(keystore);
+								wallet.password = password;
 								var eth_data = store.get("ethPurse");
 								eth_data.push(wallet);
 								store.set('ethPurse', eth_data);

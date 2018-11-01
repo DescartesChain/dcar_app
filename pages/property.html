@@ -264,7 +264,7 @@
 															+'<span onclick="ethfreshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
 														+'</p>'
 														+'<p>'
-															+'<span>转账</span>'
+															+'<span onclick="ethSend(' + i + ')" index = "'+i+'" address = "'+ t.address +'">转账</span>'
 														+'</p>'
 													+'</div>'
 									});
@@ -297,7 +297,7 @@
 												+'<span onclick="ethfreshen(' + i + ', event)" index = "'+i+'" address = "'+ t.address +'" class="freshen">刷新</span>'
 											+'</p >'
 											+'<p>'
-												+'<span>转账</span>'
+												+'<span onclick="ethSend(' + i + ')" index = "'+i+'" address = "'+ t.address +'">转账</span>'
 											+'</p>'
 										+'</div>'
 						});
@@ -305,6 +305,22 @@
 						$("#eth_purse").show();
 					}
 				}
+			}
+			// eth转账
+			function ethSend (index) {
+				var arr = store.get('ethPurse');
+				if (!store.get("userInfo")) {
+					mui.toast('请先登录');
+					return false;
+				}
+				mui.openWindow({
+					id: "/users/ethTransfer.html",
+					url: "/users/ethTransfer.html",
+					extras: {
+						address: arr[index].address,
+						purseIndex: index
+					}
+				})
 			}
 			function ethfreshen(index, event){
 				var arr = store.get('ethPurse');

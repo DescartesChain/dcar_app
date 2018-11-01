@@ -85,11 +85,10 @@
 			var writeArr = []; 
 			var historyList;
 			var web3 = new Web3(DCARapi);
-			var purseInfo = store.get('dcarPurse');
+			var purseInfo = store.get('ethPurse');
 			// 获取转账手续费
 			function whetherSuccess() {
 				web3.eth.getGasPrice().then(function (result){
-					alert(result)
 					$("#routine").val(result);
 				}).catch(function () {
 					mui.toast('链接不到笛卡尔融云链网络');

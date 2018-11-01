@@ -126,5 +126,10 @@
 		"refer": [
 			"users/richScanSub.html"
 		]
+	},
+	"users/ethTransfer.html": {
+		"refer": [
+			"users/barcodeAddress.html"
+		]
 	}
 }

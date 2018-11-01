@@ -28,6 +28,10 @@
 				wo = null;
 			var scan = null,
 				domready = false;
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				state = self.state; // all/each
+			});
 			// H5 plus事件处理
 			function plusReady() {
 				if(ws || !window.plus || !domready) {
@@ -82,7 +86,11 @@
 				back();
 				mui.toast('扫描二维码成功');
 				store.set("toAddress", result);
-				plus.webview.getWebviewById("/users/transfer.html").evalJS("getResult()");
+				if(state == 'dcar'){
+					plus.webview.getWebviewById("/users/transfer.html").evalJS("getResult()");
+				}else if(state == 'eth'){
+					plus.webview.getWebviewById("/users/ethTransfer.html").evalJS("getResult()");
+				}
 			}
 			// 从相册中选择二维码图片 
 			function scanPicture() {

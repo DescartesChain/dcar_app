@@ -187,7 +187,8 @@
 					"property/import-wallet.html",
 					"property/create-wallet.html",
 					"property/import-dcar.html",
-					"users/transfer.html"
+					"users/transfer.html",
+					"users/ethTransfer.html"
 				],
 				"priority": 0
 			},

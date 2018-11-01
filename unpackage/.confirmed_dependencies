@@ -26,7 +26,8 @@
 			"property/create-wallet.html",
 			"property/import-wallet.html",
 			"property/import-dcar.html",
-			"users/transfer.html"
+			"users/transfer.html",
+			"users/ethTransfer.html"
 		],
 		"resources": [
 			"img/property/wallet.png"

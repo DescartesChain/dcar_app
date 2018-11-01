@@ -88,8 +88,8 @@
 			var address;
 			var tradeData = []; 
 			var tradeList = '';
+			var ethTradeList = [];
 			mui.plusReady(function() {
-				$('.loading').html('加载中...');
 				// 点击加载更多
 				$('.loading_box').on("click",function(){
 					if($('.loading').html() == '已加载全部'){
@@ -104,6 +104,7 @@
 				tradeState = self.tradeState; // all/each
 				targetId = self.targetId; // 1dcar 2eth
 				if (targetId == '1') {
+					$('.loading').html('加载中...');
 					if (tradeState == 'all'){
 						urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
 					} else{
@@ -113,7 +114,15 @@
 					}
 					loadTradeLisy();
 				} else if (targetId == '2') {
+					$('.loading_box').hide();
 					// ethTradeList eth交易列表
+					ethTradeList = store.get("ethTradeList");
+					if (ethTradeList.length > 0){
+						tradeData = ethTradeList;
+						combine();
+					} else {
+						$("#no_data").show();
+					}
 				}
 				// 跳转到详情
 			    $("#tadeMain").on("click", ".each_trade", function() {
@@ -165,40 +174,7 @@
 							if(ret.data.list.length > 0) {
 								$("#no_data").hide();
 								$("#loading_box").show();
-								$.each(ret.data.list, function(i, t) {
-								tradeList += 
-									'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" ttimestamp="'+t.timestamp+'">' + 
-										'<div class="left_trade">' +
-											'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
-										'</div>'+
-										'<div class="middle_trade">'+
-											'<div class="hash_num">'+
-												'<span>'+'交易Hash: ' + '</span>';
-												if (t.hash.length > 6) {
-													tradeList +=
-													t.hash = t.hash.substr(0,6) + '...';
-												} else {
-													tradeList +=
-													t.hash = t.hash;
-												}
-												tradeList +=
-											'</div>'+
-											'<div class="trade_date">' + formatDate(t.timestamp) +'</div>' + 
-										'</div>'+
-										'<div class="right_trade">';
-									if(address == t.from){
-										tradeList += 
-										'<div class="orange_into">' + '-' + (t.value) + ' DCAR' + '</div>';
-									} else {
-										tradeList += 
-										'<div class="success_add">' + '+' + (t.value) + ' DCAR' + '</div>';
-									}
-									tradeList += 
-											'<div class="trade_state">' + '交易成功' + '</div>'+
-										'</div>'+
-									'</div>'
-								})
-								$('#tadeMain').html(tradeList);
+								combine();
 							}else{
 								$("#loading_box").hide();
 								$("#no_data").show();
@@ -221,6 +197,44 @@
 						mui.toast(error.responseJSON.msg);
 					}
 				})
+			}
+			
+			// 组合html
+			function combine(){
+				$.each(tradeData, function(i, t) {
+					tradeList += 
+					'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" ttimestamp="'+t.timestamp+'">' + 
+						'<div class="left_trade">' +
+							'<span>' + (pageSize*(page-1)+i+1) + '</span>' +
+						'</div>'+
+						'<div class="middle_trade">'+
+							'<div class="hash_num">'+
+								'<span>'+'交易Hash: ' + '</span>';
+								if (t.hash.length > 6) {
+									tradeList +=
+									t.hash = t.hash.substr(0,6) + '...';
+								} else {
+									tradeList +=
+									t.hash = t.hash;
+								}
+								tradeList +=
+							'</div>'+
+							'<div class="trade_date">' + formatDate(t.timestamp) +'</div>' + 
+						'</div>'+
+						'<div class="right_trade">';
+					if(address == t.from){
+						tradeList += 
+						'<div class="orange_into">' + '-' + (t.value) + ' DCAR' + '</div>';
+					} else {
+						tradeList += 
+						'<div class="success_add">' + '+' + (t.value) + ' DCAR' + '</div>';
+					}
+					tradeList += 
+							'<div class="trade_state">' + '交易成功' + '</div>'+
+						'</div>'+
+					'</div>'
+				})
+				$('#tadeMain').html(tradeList);
 			}
 			
 			// 加载更多

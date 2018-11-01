@@ -84,8 +84,7 @@
 			var arr; // 历史收款账户
 			var writeArr = []; 
 			var historyList;
-			// var web3 = new Web3(DCARapi);
-			var web3 = new Web3('HTTP://172.16.19.165:7545');
+			var web3 = new Web3(DCARapi);
 			var purseInfo = store.get('dcarPurse');
 			// 获取转账手续费
 			function whetherSuccess() {

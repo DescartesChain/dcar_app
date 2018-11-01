@@ -117,9 +117,13 @@
 					$('.loading_box').hide();
 					// ethTradeList eth交易列表
 					ethTradeList = store.get("ethTradeList");
-					if (ethTradeList.length > 0){
-						tradeData = ethTradeList;
-						combine();
+					if (ethTradeList) {
+						if (ethTradeList.length > 0){
+							tradeData = ethTradeList;
+							combine();
+						} else {
+							$("#no_data").show();
+						}
 					} else {
 						$("#no_data").show();
 					}

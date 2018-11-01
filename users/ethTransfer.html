@@ -1,0 +1,410 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>转账</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/transfer.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">转账</h1>
+		</header>
+		<div class="mui-content">
+			<div class="transfer_main">
+				<div class="info">
+					<h5>当前账户</h5>
+					<div class="detail info_detail">
+						<p id="userName"></p>
+						<p id="userAddress"></p>
+					</div>
+				</div>
+				<div class="info account_box">
+					<h5>收款账户</h5>
+					<div class="detail">
+						<div class="addressMain" style="position: relative;border: 1px solid rgba(0,0,0,.2);border-radius: 3px;margin-bottom: 15px;">
+							<input style="width: 80%;border: 0;margin-bottom:0;" type="text" id="toaddress" class="mui-input-clear" 
+								placeholder="请输入钱包地址" style="padding-right: 34px;" onkeyup="changeAddress()">
+							<i class="iconfont icon-saoma" id="saoma"></i>
+
+					</div>
+					<!--历史转账账户-->
+					<div id="history_list" style="display: none;">
+						<ul id="list_main">
+							<!--<li>dsahdkc258768767cdewenjahsdhkqwukdhiwhdccdwddsddsdssssddd</li>
+							<li>dsahdkc258768767cdewenjahsdhkqwukdhiwhdccdwddsddsdssssddd</li>-->
+						</ul>
+						<p class="clear_history">清除历史记录</p>
+					</div>
+				</div>
+				<div class="info">
+					<h5>转账金额</h5>
+					<div class="detail">
+						<div style="position: relative;">
+							<input style="padding-right: 50px;" id="cash" value="" type="number" class="mui-input-clear" placeholder="请输入转入金额">
+							<span>DCAR</span>
+						</div>
+					</div>
+				</div>
+				<div class="info">
+					<h5>手续费</h5>
+					<div class="detail">
+						<div style="position: relative;">
+							<input style="padding-right: 50px;" id="routine" value="25000" type="number" class="mui-input-clear" value="0">
+							<span>聪</span>
+						</div>
+					</div>
+				</div>
+				<div class="info">
+					<h5>钱包密码</h5>
+					<div class="detail">
+						<div class="mui-input-row">
+							<input id="pass" type="password" placeholder="请输入钱包密码" class="mui-input-clear" value="">
+						</div>
+					</div>
+				</div>
+				<button id="submit">确认</button>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/markdown.js"></script>
+		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/benben.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery-2.1.1.min.js"></script>
+		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/bignumber.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			
+			var arr; // 历史收款账户
+			var writeArr = []; 
+			var historyList;
+			var web3 = new Web3(DCARapi);
+			var purseInfo = store.get('dcarPurse');
+			// 获取转账手续费
+//			function whetherSuccess() {
+//				web3.eth.getHashrate().then(function (result){
+//					// var process = new Big
+//					$("#routine").val(result);
+//				}).catch(function () {
+//					mui.toast('链接不到笛卡尔融云链网络');
+//				});
+//			}
+//		    whetherSuccess();
+			getUserInfo();
+			// 点击空白处隐藏
+			$(document).click(function(){
+				$('#history_list').hide();
+			});
+			// 转账账户input值改变
+			function changeAddress(){
+				arr = store.get('walletAddress');
+				var writeAddress = $("#toaddress").val();
+				if(arr == undefined) {
+					$('#history_list').hide();
+				} else {
+					writeArr = [];
+					console.log(writeAddress);
+					for(var i=0;i<arr.length;i++){
+						if(arr[i].indexOf(writeAddress) >= 0){
+							writeArr.push(arr[i]);
+						}
+					}
+					console.log(writeArr);
+ 					historyList = '';
+					$.each(writeArr, function(i, t) {
+						historyList += 
+						'<li class="history" address="'+ t +'">' + t + '</li>';
+					})
+					$("#list_main").html(historyList);
+					$('#history_list').show();
+					if(writeArr.length == 0){
+						$('#history_list').hide();
+					}
+				}
+			};
+			// 点击输入框弹出历史地址
+			$("#toaddress").on("click",function(event){
+				event.stopPropagation();
+				historyList ='';
+				arr = store.get('walletAddress');
+				if (arr == undefined){
+					$('#history_list').hide();
+				}else{
+					$.each(arr, function(i, t) {
+						historyList += 
+						'<li class="history" address="'+ t +'">' + t + '</li>';
+					})
+					$("#list_main").html(historyList);
+					$('#history_list').show();
+				}
+			});
+			// 选择历史收款账户
+			$("#list_main").on("click", ".history", function() {
+//				alert('1');
+				address = $(this).attr("address");
+				$('#history_list').hide();
+				$("#toaddress").val(address);
+			});
+			// 清除历史记录
+			$('.clear_history').on("click",function(){
+				store.remove('walletAddress');
+				mui.toast('历史记录清除成功');
+				$('#history_list').hide();
+			});
+			// 根据用户id获取用户信息
+			function getUserInfo() {
+				mui.showLoading("加载中...", "div");
+				$.ajax({
+					type: "get",
+					url: api + "user/" + store.get("userInfo").id,
+					data: {},
+					beforeSend: function(xhr) {
+						xhr.setRequestHeader('x-requested-with', store.get("userInfo").token);
+					},
+					async: true,
+					success: function(ret) {
+						mui.hideLoading();
+						if(ret.success) {
+							mui.toast('加载成功');
+							$("#userName").html(ret.data.name);
+						} else{
+							mui.toast(ret.msg);
+						}
+					},
+					error: function(error) {
+						mui.hideLoading();
+						mui.toast(error.responseJSON.msg);
+					}
+				})
+			}
+			mui.plusReady(function(){
+				var self = plus.webview.currentWebview();
+				address = self.address;
+				purseIndex = self.purseIndex;
+				// console.log(purseInfo[purseIndex].privateKey);
+				$("#userAddress").html(address);
+				$("#saoma").on("tap", function(){
+					mui.openWindow({
+						url: '/users/barcodeAddress.html',
+						id: '/users/barcodeAddress.html',
+						waiting: {
+							autoShow: false,
+						}
+					});
+				})
+				$("#submit").on("tap", function(){
+					if ($("#toaddress").val() == "") {
+						mui.toast('收款账户不能为空');
+						return false;
+					}
+					if ($("#cash").val() == "") {
+						mui.toast('转账金额不能为空');
+						return false;
+					}
+					if ($("#pass").val() == "") {
+						mui.toast('密码不能为空');
+						return false;
+					}
+					if ($("#pass").val() != purseInfo[purseIndex].password) {
+						mui.toast('密码输入错误');
+						return false;
+					}
+					// 将地址添加到历史记录
+					arr = store.get('walletAddress');
+					console.log(arr);
+					if (arr == undefined){
+						arr = [];
+						arr.push($("#toaddress").val());
+						store.set('walletAddress',arr);
+					} else {
+						for(var i = 0;i<arr.length;i++){
+							if(arr[i] != $("#toaddress").val()){
+								arr.push($("#toaddress").val());
+								store.set('walletAddress',arr);
+							}
+						}
+					}
+					mui.showLoading("加载中...", "div");
+					var count = parseInt($("#cash").val());
+					var toSize = $("#toaddress").val();
+					var currentKey = purseInfo[purseIndex].privateKey;
+					web3.eth.accounts.signTransaction({
+					    to: toSize.replace(toSize.substr(0, 2), '0x'),
+					    gas: $("#routine").val(),
+					    value: web3.utils.toWei($("#cash").val(), 'ether')
+					}, currentKey.replace(currentKey.substr(0, 2), '0x')).then(function(result){
+						mui.hideLoading();
+						beginWhether(result.rawTransaction);
+					}).catch(function (error) {
+						mui.hideLoading();
+						mui.toast(error);
+					});
+				})
+//				getRoutine();
+//				$("#submit").on("tap", function(){
+//					var count = parseInt($("#cash").val());
+//					var toSize = $("#toaddress").val();
+//					var data = {
+//						"jsonrpc":"2.0",
+//						"method":"eth_sendTransaction",
+//						"params":[{
+//							"from": address.replace(address.substr(0, 2), '0x'),
+//							"to":  toSize.replace(toSize.substr(0, 2), '0x'),
+//							"value": "0x" + count.toString(16)
+//						}],
+//						"id":1
+//					};
+//					mui.showLoading("加载中...", "div");
+//					$.ajax({
+//						type: "post",
+//						url: DCARapi,
+//						beforeSend: function(xhr) {
+//							xhr.setRequestHeader('Content-Type', "application/json");
+//						},
+//						data: JSON.stringify(data),
+//						async: true,
+//						success: function(ret) {
+//							mui.hideLoading();
+//							if(ret.result) {
+//								mui.toast('加载成功');
+//								whetherSuccess(ret.result);
+//								return false;
+//							}
+//							if(ret.error) {
+//								mui.toast(ret.error.message);
+//							}
+//						},
+//						error: function(error) {
+//							mui.hideLoading();
+//							mui.toast(error.responseJSON.msg);
+//						}
+//					})
+//				});
+				// 开始转账
+				function beginWhether(RawTransaction) {
+					var data = {
+						"jsonrpc":"2.0",
+						"method":"eth_sendRawTransaction",
+						"params":[RawTransaction],
+						"id":1
+					};
+					mui.showLoading("交易中...", "div");
+					$.ajax({
+						type: "post",
+						url: DCARapi,
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('Content-Type', "application/json");
+						},
+						data: JSON.stringify(data),
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.result) {
+								mui.toast('交易请求已发送');
+								var tiner = null;
+								clearTimeout(tiner);
+								tiner = setTimeout(function() {
+									plus.webview.currentWebview().close();
+								}, 500)
+								// whetherSuccess(ret.result);
+								return false;
+							}
+							if(ret.error) {
+								console.log(ret.error.message);
+								mui.toast(ret.error.message);
+							}
+						},
+						error: function(error) {
+							alert('false');
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					})
+				}
+				// 验证是否转账成功
+//				function whetherSuccess(result) {
+//					var data = {
+//						"jsonrpc":"2.0",
+//						"method":"eth_getTransactionReceipt",
+//						"params":[result],
+//						"id":1
+//					};
+//					mui.showLoading("转账中...", "div");
+//					$.ajax({
+//						type: "post",
+//						url: DCARapi,
+//						beforeSend: function(xhr) {
+//							xhr.setRequestHeader('Content-Type', "application/json");
+//						},
+//						data: JSON.stringify(data),
+//						async: true,
+//						success: function(ret) {
+//							mui.hideLoading();
+//							if(ret.result) {
+//								mui.toast('转账成功');
+//								return false;
+//							}
+//							if(ret.error){
+//								mui.toast(ret.error.message);
+//							}
+//						},
+//						error: function(error) {
+//							mui.hideLoading();
+//							mui.toast(error.responseJSON.msg);
+//						}
+//					})
+//				}
+				// 获取转账手续费
+				function getRoutine() {
+					var data = {
+						"jsonrpc":"2.0",
+						"method":"eth_gasPrice",
+						"params":[],
+						"id":73
+					}
+					// mui.showLoading("加载中...", "div");
+					$.ajax({
+						type: "post",
+						url: DCARapi,
+						beforeSend: function(xhr) {
+							xhr.setRequestHeader('Content-Type', "application/json");
+						},
+						data: JSON.stringify(data),
+						async: true,
+						success: function(ret) {
+							mui.hideLoading();
+							if(ret.result) {
+								// mui.toast('手续费加载成功');
+								var process = new BigNumber(ret.result);
+								$("#routine").val(process.c[0]);
+								return false;
+							}
+							if(ret.error){
+								mui.toast(ret.error.message);
+							}
+						},
+						error: function(error) {
+							mui.hideLoading();
+							mui.toast(error.responseJSON.msg);
+						}
+					})
+				}
+			})
+			function getResult() {
+				if(store.get("toAddress") != undefined || store.get("toAddress") != null) {
+					$('#history_list').hide();
+					$("#toaddress").val(store.get("toAddress"));
+					store.remove("toAddress");
+				}
+			}
+		</script>
+	</body>
+
+</html>

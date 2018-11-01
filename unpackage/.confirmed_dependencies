@@ -72,7 +72,8 @@
 		"refer": [
 			"users/barcode.html",
 			"users/addOre.html",
-			"users/saoyisao2.html"
+			"users/saoyisao2.html",
+			"users/richScan.html"
 		]
 	},
 	"users/addOre.html": {
@@ -115,6 +116,14 @@
 		],
 		"refer": [
 			"users/saoyisao_sub.html"
+		]
+	},
+	"users/richScan.html": {
+		"resources": [
+			"users/richScanSub.html"
+		],
+		"refer": [
+			"users/richScanSub.html"
 		]
 	}
 }

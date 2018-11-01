@@ -318,7 +318,8 @@
 				"refer": [
 					"users/barcode.html",
 					"users/addOre.html",
-					"users/saoyisao2.html"
+					"users/saoyisao2.html",
+					"users/richScan.html"
 				],
 				"priority": 0
 			},
@@ -360,6 +361,13 @@
 			"users/saoyisao2.html": {
 				"resources": [
 					"users/saoyisao_sub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"users/richScan.html": {
+				"resources": [
+					"users/richScanSub.html"
 				],
 				"refer": [],
 				"priority": 0

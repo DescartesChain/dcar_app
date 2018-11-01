@@ -236,16 +236,14 @@
 					var count = parseInt($("#cash").val());
 					var toSize = $("#toaddress").val();
 					var currentKey = purseInfo[purseIndex].privateKey;
-					console.log(address)
-					console.log(toSize.replace(toSize.substr(0, 2), '0x'))
-					console.log($("#routine").val())
-					console.log(web3.utils.toWei($("#cash").val(), 'ether'))
 					web3.eth.sendTransaction({
 						from: address,
 					    to: toSize.replace(toSize.substr(0, 2), '0x'),
 					    gas: $("#routine").val(),
 					    value: web3.utils.toWei($("#cash").val(), 'ether')
 					}).then(function(result){
+						console.log(result.transactionHash);
+						whetherSuccess(result.transactionHash);
 						mui.hideLoading();
 						mui.toast('交易请求已发送');
 						var tiner = null;
@@ -259,120 +257,23 @@
 						mui.toast(error);
 					});
 				})
-//				getRoutine();
-//				$("#submit").on("tap", function(){
-//					var count = parseInt($("#cash").val());
-//					var toSize = $("#toaddress").val();
-//					var data = {
-//						"jsonrpc":"2.0",
-//						"method":"eth_sendTransaction",
-//						"params":[{
-//							"from": address.replace(address.substr(0, 2), '0x'),
-//							"to":  toSize.replace(toSize.substr(0, 2), '0x'),
-//							"value": "0x" + count.toString(16)
-//						}],
-//						"id":1
-//					};
-//					mui.showLoading("加载中...", "div");
-//					$.ajax({
-//						type: "post",
-//						url: DCARapi,
-//						beforeSend: function(xhr) {
-//							xhr.setRequestHeader('Content-Type', "application/json");
-//						},
-//						data: JSON.stringify(data),
-//						async: true,
-//						success: function(ret) {
-//							mui.hideLoading();
-//							if(ret.result) {
-//								mui.toast('加载成功');
-//								whetherSuccess(ret.result);
-//								return false;
-//							}
-//							if(ret.error) {
-//								mui.toast(ret.error.message);
-//							}
-//						},
-//						error: function(error) {
-//							mui.hideLoading();
-//							mui.toast(error.responseJSON.msg);
-//						}
-//					})
-//				});
-				// 开始转账
-				function beginWhether(RawTransaction) {
-					var data = {
-						"jsonrpc":"2.0",
-						"method":"eth_sendRawTransaction",
-						"params":[RawTransaction],
-						"id":1
-					};
-					mui.showLoading("交易中...", "div");
-					$.ajax({
-						type: "post",
-						url: DCARapi,
-						beforeSend: function(xhr) {
-							xhr.setRequestHeader('Content-Type', "application/json");
-						},
-						data: JSON.stringify(data),
-						async: true,
-						success: function(ret) {
-							mui.hideLoading();
-							if(ret.result) {
-								mui.toast('交易请求已发送');
-								var tiner = null;
-								clearTimeout(tiner);
-								tiner = setTimeout(function() {
-									plus.webview.currentWebview().close();
-								}, 500)
-								// whetherSuccess(ret.result);
-								return false;
-							}
-							if(ret.error) {
-								console.log(ret.error.message);
-								mui.toast(ret.error.message);
-							}
-						},
-						error: function(error) {
-							alert('false');
-							mui.hideLoading();
-							mui.toast(error.responseJSON.msg);
-						}
-					})
-				}
 				// 验证是否转账成功
-//				function whetherSuccess(result) {
-//					var data = {
-//						"jsonrpc":"2.0",
-//						"method":"eth_getTransactionReceipt",
-//						"params":[result],
-//						"id":1
-//					};
-//					mui.showLoading("转账中...", "div");
-//					$.ajax({
-//						type: "post",
-//						url: DCARapi,
-//						beforeSend: function(xhr) {
-//							xhr.setRequestHeader('Content-Type', "application/json");
-//						},
-//						data: JSON.stringify(data),
-//						async: true,
-//						success: function(ret) {
-//							mui.hideLoading();
-//							if(ret.result) {
-//								mui.toast('转账成功');
-//								return false;
-//							}
-//							if(ret.error){
-//								mui.toast(ret.error.message);
-//							}
-//						},
-//						error: function(error) {
-//							mui.hideLoading();
-//							mui.toast(error.responseJSON.msg);
-//						}
-//					})
-//				}
+				function whetherSuccess(result) {
+					var ethTradeList = store.get('ethTradeList')
+					web3.eth.getTransaction(result).then(function(result){
+						if (ethTradeList == undefined || ethTradeList == null || ethTradeList == "") {
+							var ethTradeList = [];
+							store.set('ethTradeList', ethTradeList);
+						} else {
+							ethTradeList.push(result);
+							store.set('ethTradeList', ethTradeList);
+						}
+					}).catch(function (error) {
+						console.log(error);
+						mui.hideLoading();
+						mui.toast(error);
+					});
+				}
 				// 获取转账手续费
 				function getRoutine() {
 					var data = {

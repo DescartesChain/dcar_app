@@ -137,7 +137,11 @@
 						mui.toast('您还未登录，请先登录');
 						return false;
 					}
-					var purseInfo = store.get('dcarPurse');
+					if (targetId == '1') {
+						var purseInfo = store.get('dcarPurse');
+					}else if (targetId == '2') {
+						var purseInfo = store.get('ethPurse');
+					}
 					mui.openWindow({
 						id: "../users/tradeRecord.html",
 						url: "../users/tradeRecord.html",

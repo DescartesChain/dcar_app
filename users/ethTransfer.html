@@ -84,7 +84,7 @@
 			var arr; // 历史收款账户
 			var writeArr = []; 
 			var historyList;
-			var web3 = new Web3(DCARapi);
+			var web3 = new Web3(ETHapi);
 			var purseInfo = store.get('ethPurse');
 			// 获取转账手续费
 			function whetherSuccess() {
@@ -236,6 +236,10 @@
 					var count = parseInt($("#cash").val());
 					var toSize = $("#toaddress").val();
 					var currentKey = purseInfo[purseIndex].privateKey;
+					console.log(address)
+					console.log(toSize.replace(toSize.substr(0, 2), '0x'))
+					console.log($("#routine").val())
+					console.log(web3.utils.toWei($("#cash").val(), 'ether'))
 					web3.eth.sendTransaction({
 						from: address,
 					    to: toSize.replace(toSize.substr(0, 2), '0x'),
@@ -250,6 +254,7 @@
 							plus.webview.currentWebview().close();
 						}, 500)
 					}).catch(function (error) {
+						console.log(error);
 						mui.hideLoading();
 						mui.toast(error);
 					});

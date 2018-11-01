@@ -102,16 +102,19 @@
 				});
 				var self = plus.webview.currentWebview();
 				tradeState = self.tradeState; // all/each
-				if (tradeState == 'all'){
-					urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
-				} else{
-					address = self.address; // all/each
-					address = address.toLowerCase();
-//					address = 'Dce188fb32aa429d09c6cc514d2180c4bc81cb36ca';
-					urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
-//					urlApi = tradeApi + "transactions/account/" + 'Dce188fb32aa429d09c6cc514d2180c4bc81cb36ca' + "?page="+ page + '&pageSize=' + pageSize;
+				targetId = self.targetId; // 1dcar 2eth
+				if (targetId == '1') {
+					if (tradeState == 'all'){
+						urlApi = api + "txs?page=" + page + '&pageSize=' + pageSize;
+					} else{
+						address = self.address; // all/each
+						address = address.toLowerCase();
+						urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
+					}
+					loadTradeLisy();
+				} else if (targetId == '2') {
+					
 				}
-				loadTradeLisy();
 				// 跳转到详情
 			    $("#tadeMain").on("click", ".each_trade", function() {
 					mui.openWindow({

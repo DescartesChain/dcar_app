@@ -143,7 +143,8 @@
 						url: "../users/tradeRecord.html",
 						extras: {
 							tradeState: 'each',
-							address:purseInfo[purseIndex].address
+							address:purseInfo[purseIndex].address,
+							targetId: targetId
 						}
 					})
 				});
@@ -178,7 +179,7 @@
 					$(".unit").html("ETH");
 					$('#showAll').hide();
 					$("#export").hide();
-					$("#tradeDetail").hide();
+					$("#tradeDetail").show();
 					$('#showHalf').show();
 					$("#keystore").show();
 					$("#deletePurce").show();

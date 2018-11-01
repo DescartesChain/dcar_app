@@ -4,8 +4,8 @@
 var imgApi = 'https://www.dcardev.com/'; // 测试地址首页banner
 // var imgApi = 'https://www.dcar.xyz/'; // 正式地址首页banner
 var DCARapi = "https://apiserchain.dcar.xyz";
-var ETHapi = 'https://mainnet.infura.io/v3/284e860167094667bf3463b2063cdb64';
-// var ETHapi = 'HTTP://192.168.1.129:7545';
+// var ETHapi = 'https://mainnet.infura.io/v3/284e860167094667bf3463b2063cdb64';
+var ETHapi = 'HTTP://192.168.1.129:7545';
 var api = "";
 var VERSION = "1.2.5";
 var bourseApi = 'http://api.bzx.com/api/';

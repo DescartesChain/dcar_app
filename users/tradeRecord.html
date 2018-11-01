@@ -112,7 +112,7 @@
 						address = address.toLowerCase();
 						urlApi = tradeApi + "transactions/account/" + address + "?page="+ page + '&pageSize=' + pageSize;
 					}
-					loadTradeLisy();
+					loadTradeLisy('DCAR');
 				} else if (targetId == '2') {
 					$('.loading_box').hide();
 					// ethTradeList eth交易列表
@@ -120,7 +120,7 @@
 					if (ethTradeList) {
 						if (ethTradeList.length > 0){
 							tradeData = ethTradeList;
-							combine();
+							combine('ETH');
 						} else {
 							$("#no_data").show();
 						}
@@ -130,6 +130,12 @@
 				}
 				// 跳转到详情
 			    $("#tadeMain").on("click", ".each_trade", function() {
+			    	var unit;
+			    	if (targetId == '1') {
+			    		unit = 'DCAR';
+			    	}else if(targetId == '2') {
+			    		unit = 'ETH';
+			    	}
 					mui.openWindow({
 						id: "../users/tradeDetail.html",
 						url: "../users/tradeDetail.html",
@@ -139,7 +145,8 @@
 							tto: $(this).attr("tto"),
 							thash: $(this).attr("thash"),
 							ttimestamp:$(this).attr("ttimestamp"),
-							address: address
+							address: address,
+							unit: unit
 						}
 					})
 				});
@@ -155,7 +162,7 @@
 				return Y+M+D+h+m+s;
             }
 			// 根据用户信息查看交易列表
-			function loadTradeLisy() {
+			function loadTradeLisy(name) {
 				tradeData = [];
 				tradeList = '';
 				mui.showLoading("加载中...", "div");
@@ -178,7 +185,7 @@
 							if(ret.data.list.length > 0) {
 								$("#no_data").hide();
 								$("#loading_box").show();
-								combine();
+								combine(name);
 							}else{
 								$("#loading_box").hide();
 								$("#no_data").show();
@@ -204,7 +211,7 @@
 			}
 			
 			// 组合html
-			function combine(){
+			function combine(name){
 				$.each(tradeData, function(i, t) {
 					tradeList += 
 					'<div class="each_trade" tfrom="'+t.from+'" thash="'+t.hash+'" tvalue="'+t.value+'" tto="'+t.to+'" ttimestamp="'+t.timestamp+'">' + 
@@ -228,10 +235,10 @@
 						'<div class="right_trade">';
 					if(address == t.from){
 						tradeList += 
-						'<div class="orange_into">' + '-' + (t.value) + ' DCAR' + '</div>';
+						'<div class="orange_into">' + '-' + (t.value) + ''+name+'' + '</div>';
 					} else {
 						tradeList += 
-						'<div class="success_add">' + '+' + (t.value) + ' DCAR' + '</div>';
+						'<div class="success_add">' + '+' + (t.value) + ''+name+'' + '</div>';
 					}
 					tradeList += 
 							'<div class="trade_state">' + '交易成功' + '</div>'+

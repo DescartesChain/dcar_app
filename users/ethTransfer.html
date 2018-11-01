@@ -259,15 +259,16 @@
 				})
 				// 验证是否转账成功
 				function whetherSuccess(result) {
-					var ethTradeList = store.get('ethTradeList')
+					var ethTradeList = store.get('ethTradeList');
+					if (ethTradeList == undefined || ethTradeList == null || ethTradeList == "") {
+						var ethTradeList = [];
+						store.set('ethTradeList', ethTradeList);
+					}
 					web3.eth.getTransaction(result).then(function(result){
-						if (ethTradeList == undefined || ethTradeList == null || ethTradeList == "") {
-							var ethTradeList = [];
-							store.set('ethTradeList', ethTradeList);
-						} else {
-							ethTradeList.push(result);
-							store.set('ethTradeList', ethTradeList);
-						}
+						result.value =  web3.utils.fromWei(result.value, 'ether');
+						result.timestamp = new Date().getTime();
+						ethTradeList.unshift(result);
+						store.set('ethTradeList', ethTradeList);
 					}).catch(function (error) {
 						console.log(error);
 						mui.hideLoading();

@@ -23,7 +23,7 @@
 					<img src="../img/right_man.png" alt="" class="right_img" />
 				</div>
 				<!--数字-->
-				<p class="trade_num"><span id="price">加载中...</span> DCAR</p>
+				<p class="trade_num"><span id="price">加载中...</span> <span id="unit"></span></p>
 				<!--交易状态-->
 				<p class="trade_state">交易成功</p>
 				<div class="each_detail">
@@ -103,8 +103,9 @@
 					$("#price").html("+" + self.tvalue);
 				}
 				$("#outAccount").html(self.tfrom);
-					$("#enterAccount").html(self.tto);
+				$("#enterAccount").html(self.tto);
 				$("#tradeHash").html(self.thash);
+				$("#unit").html(self.unit);
 				$("#time").html(formatDate(parseInt(self.ttimestamp)));
 			})
 		</script>

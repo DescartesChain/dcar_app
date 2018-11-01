@@ -82,7 +82,7 @@
 						break;
 				}
 				result = result.replace(/\r\n/g, '');
-				wo.evalJS("scaned('" + type + "','" + result + "','" + file + "');");
+				// wo.evalJS("scaned('" + type + "','" + result + "','" + file + "');");
 				back();
 				mui.toast('扫描二维码成功');
 				store.set("toAddress", result);

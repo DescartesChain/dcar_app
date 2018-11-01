@@ -48,7 +48,7 @@
 					<div class="detail">
 						<div style="position: relative;">
 							<input style="padding-right: 50px;" id="cash" value="" type="number" class="mui-input-clear" placeholder="请输入转入金额">
-							<span>DCAR</span>
+							<span>ETH</span>
 						</div>
 					</div>
 				</div>
@@ -81,22 +81,21 @@
 		<script src="../js/web3.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/bignumber.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			
 			var arr; // 历史收款账户
 			var writeArr = []; 
 			var historyList;
-			var web3 = new Web3(DCARapi);
+			// var web3 = new Web3(DCARapi);
+			var web3 = new Web3('HTTP://172.16.19.165:7545');
 			var purseInfo = store.get('dcarPurse');
 			// 获取转账手续费
-//			function whetherSuccess() {
-//				web3.eth.getHashrate().then(function (result){
-//					// var process = new Big
-//					$("#routine").val(result);
-//				}).catch(function () {
-//					mui.toast('链接不到笛卡尔融云链网络');
-//				});
-//			}
-//		    whetherSuccess();
+			function whetherSuccess() {
+				web3.eth.getGasPrice().then(function (result){
+					$("#routine").val(result);
+				}).catch(function () {
+					mui.toast('链接不到笛卡尔融云链网络');
+				});
+			}
+		    whetherSuccess();
 			getUserInfo();
 			// 点击空白处隐藏
 			$(document).click(function(){
@@ -221,7 +220,6 @@
 					}
 					// 将地址添加到历史记录
 					arr = store.get('walletAddress');
-					console.log(arr);
 					if (arr == undefined){
 						arr = [];
 						arr.push($("#toaddress").val());
@@ -235,16 +233,23 @@
 						}
 					}
 					mui.showLoading("加载中...", "div");
+					// 开始转账
 					var count = parseInt($("#cash").val());
 					var toSize = $("#toaddress").val();
 					var currentKey = purseInfo[purseIndex].privateKey;
-					web3.eth.accounts.signTransaction({
+					web3.eth.sendTransaction({
+						from: address,
 					    to: toSize.replace(toSize.substr(0, 2), '0x'),
 					    gas: $("#routine").val(),
 					    value: web3.utils.toWei($("#cash").val(), 'ether')
-					}, currentKey.replace(currentKey.substr(0, 2), '0x')).then(function(result){
+					}).then(function(result){
 						mui.hideLoading();
-						beginWhether(result.rawTransaction);
+						mui.toast('交易请求已发送');
+						var tiner = null;
+						clearTimeout(tiner);
+						tiner = setTimeout(function() {
+							plus.webview.currentWebview().close();
+						}, 500)
 					}).catch(function (error) {
 						mui.hideLoading();
 						mui.toast(error);

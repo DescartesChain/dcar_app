@@ -321,7 +321,8 @@
 				web3.eth.getBalance(address)
 				.then(function (result) {
 					var balanceM = web3.utils.fromWei(result, 'ether');
-					$(event.target).parent().parent().parent().find(".eth_money").html(balanceM.toFixed(2) + 'ETH');
+					balanceM = parseFloat(balanceM).toFixed(2);
+					$(event.target).parent().parent().parent().find(".eth_money").html(balanceM + 'ETH');
 				}).catch(function () {
 					mui.toast('链接不到以太坊网络');
 				});

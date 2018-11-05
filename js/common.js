@@ -1,13 +1,13 @@
 ﻿// document.write("<script type='text/javascript' src='store/dist/store.legacy.min.js'></script>");
 //var api = "http://192.168.1.232:3000/api/";
 //var api = "https://www.dcar.xyz/api/";
-var imgApi = 'https://www.dcardev.com/'; // 测试地址首页banner
-// var imgApi = 'https://www.dcar.xyz/'; // 正式地址首页banner
+// var imgApi = 'https://www.dcardev.com/'; // 测试地址首页banner
+var imgApi = 'https://www.dcar.xyz/'; // 正式地址首页banner
 var DCARapi = "https://apiserchain.dcar.xyz";
-// var ETHapi = 'https://mainnet.infura.io/v3/284e860167094667bf3463b2063cdb64';
-var ETHapi = 'HTTP://192.168.1.129:7545';
+var ETHapi = 'https://mainnet.infura.io/v3/284e860167094667bf3463b2063cdb64';
+// var ETHapi = 'HTTP://192.168.1.129:7545';
 var api = "";
-var VERSION = "1.2.5";
+var VERSION = "1.2.6";
 var bourseApi = 'http://api.bzx.com/api/';
 var tradeApi = 'https://scan.dcar.xyz/api/';  // 交易记录api
 (function(){

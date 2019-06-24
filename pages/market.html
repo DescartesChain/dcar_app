@@ -78,13 +78,13 @@
 			// 获取美元汇率
 			function getrate () {
 		      $.ajax({
-		        type: 'get',
-		        url: 'http://apilayer.net/api/live?access_key=8473882844f0d9323edec2f4b403432c',
-		        data: {},
-		        async: true,
+		        type: 'get', 
+		        url: 'http://apilayer.net/api/live?access_key=8473882844f0d9323edec2f4b403432c', 
+		        data: {}, 
+		        async: true, 
 		        success: function (ret) {
 		          if (ret.success) {
-		            rate = ret.quotes.USDCNY
+		            rate = ret.quotes.USDCNY 
 		          } else {
 		            rate = 6.88
 		          }
@@ -141,7 +141,7 @@
 					error: function(error) {
 						$("#no_data").show();
 						mui.hideLoading();
-						mui.toast(error.responseJSON.msg);
+						mui.toast(error.responseJSON.msg); 
 					}
 				})
 			};

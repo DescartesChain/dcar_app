@@ -9,15 +9,15 @@
 		<link rel="stylesheet" type="text/css" href="../css/style.css" />
 		<link rel="stylesheet" type="text/css" href="../css/account.css" />
 	</head>
-
+ 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title account_title"></h1>
+			<h1 class="mui-title account_title"></h1> 
 		</header>
 		<div class="mui-content">
 			<div class="img_box" onclick="account_info()">
-				<img src="../img/property/wallet.png" alt="" id="headPort" />
+				<img src="../img/property/wallet.png" alt="" id="headPort" /> 
 			</div>
 			<div class="wallet_title account_title"></div>
 			<div class="wallet_address"></div>
@@ -33,13 +33,13 @@
 				当前余额：<span class="orange_text">0</span> <span class="unit">DCAR</span>
 			</div>
 			<ul class="mui-table-view" style="display: none;">
-				<li class="mui-table-view-cell" onclick="wallet_address()">
+				<li class="mui-table-view-cell" onclick="wallet_address()"> 
 					<a class="mui-navigate-right">
 						钱包地址
 					</a>
 				</li>
 				<li class="mui-table-view-cell" id="export">
-					<a class="mui-navigate-right">
+					<a class="mui-navigate-right"> 
 						导出助记词
 					</a>
 				</li>
@@ -53,7 +53,7 @@
 						导出Keystore
 					</a>
 				</li>
-				<li class="mui-table-view-cell" id="tradeDetail">
+				<li class="mui-table-view-cell" id="tradeDetail"> 
 					<a class="mui-navigate-right">
 						交易记录
 					</a>
@@ -73,7 +73,7 @@
 		<div class="mui-popover email_code_box">
 			<div class="popover_header">
 				<p>安全验证</p>
-				<span id="cancel">取消</span>
+				<span id="cancel">取消</span> 
 			</div>
 			<div class="popover_content">
 				<p>请输入钱包密码</p>
@@ -95,7 +95,7 @@
 				<li class="alert_button" id="sureConfirm">确定</li>
 				<li class="alert_button" onclick="showHide()">取消</li>
 			</ul>
-		</div>
+		</div> 
 		<script src="../js/mui.min.js"></script>
 		<script src="../js/store/dist/store.legacy.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
@@ -117,7 +117,7 @@
 //			$("#minerCollect").css('display','none');
 
 			function init() {
-				var self = plus.webview.currentWebview();
+				var self = plus.webview.currentWebview(); 
 				purseIndex = self.purseIndex;
 				var purseInfo = store.get('dcarPurse');
 				$('.account_title').html(purseInfo[purseIndex].name);
@@ -130,11 +130,11 @@
 			mui.plusReady(function() {
 				var self = plus.webview.currentWebview();
 				targetId = self.targetId;
-				purseIndex = self.purseIndex;
+				purseIndex = self.purseIndex; 
 				// 跳转到交易记录
 				$('#tradeDetail').on("click",function(){
-					if (store.get("userInfo") == undefined) {
-						mui.toast('您还未登录，请先登录');
+					if (store.get("userInfo") == undefined) { 
+						mui.toast('您还未登录，请先登录'); 
 						return false;
 					}
 					if (targetId == '1') {
@@ -154,8 +154,8 @@
 				});
 				// 跳转到矿收记录
 				$('#minerCollect').on("click",function(){
-					if (store.get("userInfo") == undefined) {
-						mui.toast('您还未登录，请先登录');
+					if (store.get("userInfo") == undefined) { 
+						mui.toast('您还未登录，请先登录'); 
 						return false;
 					}
 					var purseInfo = store.get('dcarPurse');
@@ -183,7 +183,7 @@
 					$(".unit").html("ETH");
 					$('#showAll').hide();
 					$("#export").hide();
-					$("#tradeDetail").show();
+					$("#tradeDetail").show(); 
 					$('#showHalf').show();
 					$("#keystore").show();
 					$("#deletePurce").show();
@@ -205,7 +205,7 @@
 					address = purseInfo[purseIndex].address;
 					// 方法二web3.js
 					address = address.replace(address.substr(0, 2), '0x');
-					var web3 = new Web3(DCARapi);
+					var web3 = new Web3(DCARapi); 
 					web3.eth.getBalance(address)
 					.then(function (result) {
 						var balanceM = web3.utils.fromWei(result, 'ether');
@@ -227,7 +227,7 @@
 //						contentType: "application/json;charset=utf-8;",
 //						dataType: 'json',
 //						data: JSON.stringify(data),
-//						async: true,
+//						async: true, 
 //						success: function(ret) {
 //							mui.hideLoading();
 //							if(ret.error) {
@@ -254,7 +254,7 @@
 //					$.ajax({
 //						type: "get",
 //						url: 'https://api.infura.io/v1/jsonrpc/mainnet/eth_getBalance?params=["'+ address +'","latest"]',
-//						data: {},
+//						data: {}, 
 //						async: true,
 //						success: function(ret) {
 //							if(ret.result) {
@@ -282,7 +282,7 @@
 						$("#sureKeystore").addClass("cannot");
 					} else {
 						$("#ensure").removeClass("cannot");
-						$("#ensure").addClass("can");
+						$("#ensure").addClass("can"); 
 						$("#ensureImport").removeClass("cannot");
 						$("#ensureImport").addClass("can");
 						$("#sureKeystore").removeClass("can");
